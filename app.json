@@ -1,0 +1,135 @@
+{
+  "debug": false,
+  "pages": [
+    "pages/goodTeacher/goodTeacher",
+    "pages/chooseRole/chooseRole",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/userRegistered/userRegistered",
+    "pages/aboutus/aboutus",
+    "pages/institutionsDetails/institutionsDetails",
+    "pages/trainingInstitutions/trainingInstitutions",
+    "pages/teacherDetails/teacherDetails",
+    "pages/teacherList/teacherList",
+    "pages/institutionsList/institutionsList",
+    "pages/teacherProductList/teacherProductList",
+    "pages/institutionsProductList/institutionsProductList",
+    "pages/teacherProductCenter/teacherProductCenter",
+    "pages/institutionsProductCenter/institutionsProductCenter",
+    "pages/yyAbstract/yyAbstract",
+    "pages/serviceDeal/serviceDeal",
+    "pages/privacyPolicy/privacyPolicy",
+    "pages/map/map",
+    "pages/bulletinBoard/bulletinBoard",
+    "pages/helpCenter/helpCenter",
+    "pages/ysAbstract/ysAbstract",
+    "pages/nearTeacherMap/nearTeacherMap"
+  ],
+
+  "subpackages":[
+    {
+      "root":"parentsVersion",
+      "pages":[
+        "parentshome/parentshome",
+        "parentsRegistered/parentsRegistered",
+        "parentsFocus/parentsFocus",
+        "parentsHelp/parentsHelp",
+        "parentsLeave/parentsLeave",
+        "parentsFound/parentsFound",
+        "parentsinstPreferential/parentsinstPreferential",
+        "parentsinstCollection/parentsinstCollection",
+        "parentsinstPerfectInfo/parentsinstPerfectInfo",
+        "parentsTeacherDetails/parentsTeacherDetails",
+        "parentsInstitutionDetails/parentsInstitutionDetails",
+        "parentsNearTeacher/parentsNearTeacher",
+        "parentsNearTeacherMap/parentsNearTeacherMap",
+        "parentsNearInstitutionMap/parentsNearInstitutionMap",
+        "parentsReview/parentsReview",
+        "parentsTeacherProductList/parentsTeacherProductList",
+        "parentsTeacherProductCenter/parentsTeacherProductCenter",
+        "parentsTeacherList/parentsTeacherList",
+        "parentsDiaryCenter/parentsDiaryCenter",
+        "parentsinstAdvice/parentsinstAdvice"
+      ]
+    },
+    {
+      "root":"teacherVersion",
+      "pages":[
+        "teacherhome/teacherhome",
+        "teacherPeleaseProduct/teacherPeleaseProduct",
+        "teacherRegistered/teacherRegistered",
+        "teacherPerfectInfo/teacherPerfectInfo",
+        "teacherProduct/teacherProduct",
+        "teacherFocus/teacherFocus",
+        "teacherHelp/teacherHelp",
+        "teacherImpower/teacherImpower",
+        "teacherManagement/teacherManagement",
+        "teacherAdvice/teacherAdvice",
+        "teacherFound/teacherFound",
+        "teacherBusinessCard/teacherBusinessCard",
+        "teacherResume/teacherResume",
+        "teacherDynamic/teacherDynamic",
+        "teacherPersonal/teacherPersonal"
+      ]
+    },
+    {
+      "root":"institutionVersion",
+      "pages":[
+        "institutionshome/institutionshome"
+      ]
+    }
+  ],
+
+  "permission":{
+    "scope.userLocation":{
+      "desc":"使用地图功能前请确保您手机的定位功能正常开启"
+    }
+  },
+
+  "window": {
+    "navigationBarBackgroundColor": "#007bd0",
+    "navigationBarTitleText": "悦优·教育",
+    "navigationBarTextStyle": "white"
+  },
+  
+
+  "tabBar": {
+    "color": "#707070",
+    "selectedColor": "#007bd0",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/image/home.png",
+        "selectedIconPath": "/image/homeother.png"
+      },
+      {
+        "pagePath": "pages/goodTeacher/goodTeacher",
+        "text": "优质教师",
+        "iconPath": "/image/teacher.png",
+        "selectedIconPath": "/image/teacherother.png"
+      },
+      {
+        "pagePath": "pages/trainingInstitutions/trainingInstitutions",
+        "text": "培训机构",
+        "iconPath": "/image/jg.png",
+        "selectedIconPath": "/image/jgother.png"
+      },
+      {
+        "pagePath": "pages/chooseRole/chooseRole",
+        "text": "角色选取",
+        "iconPath": "/image/xz.png",
+        "selectedIconPath": "/image/xzother.png"
+      },
+      {
+        "pagePath": "pages/aboutus/aboutus",
+        "text": "悦优中心",
+        "iconPath": "/image/zx.png",
+        "selectedIconPath": "/image/zxother.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

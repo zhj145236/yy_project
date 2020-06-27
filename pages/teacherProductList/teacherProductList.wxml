@@ -1,0 +1,47 @@
+<!--pages/teacherProductList/teacherProductList.wxml-->
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+<!-- 教师产品 -->
+<view class="near-teacher"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">他/她的课程</view>
+            <view class="teacher">列表</view>
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <view class="institution-view">
+        <block  wx:for="{{productCenterData}}" wx:key="uni-product">
+          <view class="institution">
+            <view class="institution-img">
+              <image mode="widthFix" src="{{item.courseImg}}" />
+            </view>
+            <view class="institution-con">
+              <view class="institution-con-style change-style">{{item.title}}</view>
+              <view class="institution-con-style">周期：{{item.cycle}}节</view>
+              <view class="institution-con-style price">￥{{item.price}}RMB</view>
+              <view class="institution-more">...</view>
+              <!-- <view class="institution-details">详情</view> -->
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

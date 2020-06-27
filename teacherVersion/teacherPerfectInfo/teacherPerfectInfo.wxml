@@ -1,0 +1,41 @@
+<!--parentsVersion/parentsinstPerfectInfo/parentsinstPerfectInfo.wxml-->
+<view class="registered">
+  <view class="registered-txt">欢迎来到信息完善页，祝您使用愉快。</view>
+</view>
+
+<form bindsubmit="formSubmit">
+  <block wx:for="{{perfectInfoData}}" wx:key="uni-perfect">
+    <view class="perfect-info">
+      <view class="perfect-info-box-title-box">
+        <view class="perfect-info-box-title">{{item.title}}</view>
+      </view>
+      <block wx:for="{{item.setCon}}" wx:key="uni-con" wx:for-item="itemCon">
+        <view class="perfect-info-box {{itemCon.bom?'change-bom':''}}">
+          <view class="perfect-info-box-con">
+            <view class="perfect-info-box-con-left">
+              <view class="perfect-info-box-con-left-img"><image src="{{itemCon.img}}" /></view>
+              <view wx:if="{{itemCon.type === 'czsjh'}}" class="perfect-info-box-con-left-inp">
+                <input placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" name="" value="13000000000" maxlength="11" placeholder="{{itemCon.con}}" />
+              </view>
+              <view wx:else class="perfect-info-box-con-left-inp">
+                <input placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" name="" value="" maxlength="11" placeholder="{{itemCon.con}}" />
+              </view>
+            </view>
+            <view wx:if="{{itemCon.type === 'czsjh'}}" class="perfect-info-box-con-right">{{itemCon.prompt}}</view>
+            <view wx:else class="perfect-info-box-con-right change-inp">{{itemCon.prompt}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+  <button class="submit-registered" form-type='submit'>完成</button>
+</form>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

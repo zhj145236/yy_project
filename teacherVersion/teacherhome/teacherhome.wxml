@@ -1,0 +1,364 @@
+<!--index.wxml-->
+<block wx:if="{{blockid==0}}">
+  <!-- 顶部banner图 -->
+  <view class='banner'>
+    <!-- 搜索框部分 -->
+    <view class='search-set'>
+      <form bindsubmit="formSubmit">
+          <view class="parents-search">
+            <view class='set'>
+              <view class="location-img-view">
+                <view class="img-view"><image class="add-img" src="../../image/teacherDw.png" mode="widthFix" /></view>
+                <view class="text-info">东莞</view>
+              </view>
+              <input name="searchGoods" class='search-inp' placeholder='附近家长' />
+            </view>
+            <button data-btnid="searchId" form-type='submit' class='search-icon search-icon-inp'>
+              <view class="search-icon-inp-img">
+                <image src="../../image/teachSearch.png" />
+              </view>
+            </button>
+          </view>
+      </form>
+    </view>
+    <image class='banner-img' src='../../image/beijingtu3.png' /> 
+    <!-- banner图 -->
+    <view class='banner-swiper'>
+      <swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style='width:90%;height:300rpx;margin:auto;'>
+          <block wx:for="{{imgUrls}}" wx:key="unique">
+            <swiper-item>
+              <image mode='widthFix' src="{{item}}" class="slide-image"/>
+            </swiper-item>
+          </block>
+      </swiper>
+    </view>
+  </view>
+  <!-- 站位高度 -->
+  <view class="position-height"></view>
+  <!-- 附近家长 -->
+  <view class="near-teacher"> 
+    <view class="near-teacher-out">
+      <view class="near-teacher-inner">
+        <!-- title -->
+        <view class="near-teacher-title">
+          <view class="near-teacher-title-left">
+            <view class="near-teacher-title-left-text">
+              <view class="near">附近</view>
+              <view class="teacher">家长</view>
+            </view>
+            <view class="near-teacher-title-left-btn">地图查看家长</view>
+          </view>
+          <view class="near-teacher-title-right">
+            <view class="near-teacher-title-right-more">查看更多</view>
+            <view class="near-teacher-title-right-img">
+            <image src="../../image/jt.png" />
+            </view>
+          </view>
+        </view>
+        <!-- count -->
+        <view class="institution-view">
+          <block  wx:for="{{teacherNearParents}}" wx:key="uni">
+            <view class="institution">
+              <view class="institution-img">
+                <image mode="widthFix" src="{{item.memberImg}}" />
+              </view>
+              <view class="institution-con">
+                <view class="institution-con-style change-style">姓名：{{item.name}}</view>
+                <view class="institution-con-style">座右铭：{{item.motto}}</view>
+                <view class="institution-details">详情</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 占位图 -->
+  <view class="placeholder-place-img">
+    <image mode="widthFix" src="../../image/zwt.png" />
+  </view>
+
+  <!-- 附近机构 -->
+  <view class="near-teacher"> 
+    <view class="near-teacher-out">
+      <view class="near-teacher-inner">
+        <!-- title -->
+        <view class="near-teacher-title">
+          <view class="near-teacher-title-left">
+            <view class="near-teacher-title-left-text">
+              <view class="near">附近</view>
+              <view class="teacher">机构</view>
+            </view>
+            <view class="near-teacher-title-left-btn">地图查看机构</view>
+          </view>
+          <view class="near-teacher-title-right">
+            <view class="near-teacher-title-right-more">查看更多</view>
+            <view class="near-teacher-title-right-img">
+            <image src="../../image/jt.png" />
+            </view>
+          </view>
+        </view>
+        <!-- count -->
+        <view class="institution-view">
+          <block  wx:for="{{institutionDetails}}" wx:key="uni">
+            <view class="institution">
+              <view class="institution-img">
+                <image mode="widthFix" src="{{item.img}}" />
+              </view>
+              <view class="institution-con">
+                <view class="institution-con-style change-style">名称：{{item.name}}</view>
+                <view class="institution-con-style">地址：{{item.address}}</view>
+                <view class="institution-details">详情</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{blockid==1}}">
+  <!-- 顶部数据 -->
+  <view class="recruit">
+    <view class="recruit-box">
+      <view class="recruit-box-img"><image src="/image/xj.png" /></view>
+      <view class="recruit-box-text">发布动态</view>
+    </view>
+  </view>
+
+  <!-- 动态内容 -->
+  <!-- 家长动态 -->
+  <view class="near-teacher">
+    <view class="near-teacher-out">
+      <view class="near-teacher-inner">
+        <!-- title -->
+        <view class="near-teacher-title add-btm">
+          <view class="near-teacher-title-left">
+            <view class="near-teacher-title-left-text">
+              <view class="near">家长</view>
+              <view class="teacher">动态</view>
+            </view>
+          </view>
+          <view class="near-teacher-title-right">
+            <view class="near-teacher-title-right-more">更多</view>
+            <view class="near-teacher-title-right-img">
+            <image src="../../image/jt.png" />
+            </view>
+          </view>
+        </view>
+        <!-- count --> 
+        <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic">
+          <view class="dynamic-con">
+            <view class="dynamic-con-box">
+              <!-- 会员图像 -->
+              <view class="dynamic-con-box-img"><image src="{{item.membersImg}}" /></view>
+              <!-- 会员内容 -->
+              <view class="dynamic-con-box-info">
+                <view class="dynamic-con-box-info-top">
+                  <view class="dynamic-con-box-info-top-left">
+                    <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
+                    <view class="dynamic-con-box-info-top-left-id">ID:{{item.membersId}}</view>
+                  </view>
+                  <view class="dynamic-con-box-info-top-right">
+                    <view class="dynamic-con-box-info-top-right-img"><image src="/image/jh.png" /></view>
+                    <view class="dynamic-con-box-info-top-right-attention">关注</view>
+                  </view>
+                </view>
+                <!-- 动态中间内容 -->
+                <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
+                <!-- 动态图像 -->
+                <view class="dynamic-con-box-info-img">
+                  <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
+                    <view class="dynamic-con-for-img">
+                      <image src="{{dynamicImg.specificImg}}" />
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- 底部 -->
+          <view class="dynamic-bom">
+            <view class="dynamic-bom-box">
+              <block wx:for="{{bottomInfo}}" wx:key="uni-bom">
+                <view class="dynamic-bom-box-con">
+                  <view class="dynamic-bom-box-con-img"><image src="{{item.icon}}" /></view>
+                  <view class="dynamic-bom-box-con-text">{{item.con}}</view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 教师动态 -->
+  <view class="near-teacher">
+    <view class="near-teacher-out">
+      <view class="near-teacher-inner">
+        <!-- title -->
+        <view class="near-teacher-title add-btm">
+          <view class="near-teacher-title-left">
+            <view class="near-teacher-title-left-text">
+              <view class="near">教师</view>
+              <view class="teacher">动态</view>
+            </view>
+          </view>
+          <view class="near-teacher-title-right">
+            <view class="near-teacher-title-right-more">更多</view>
+            <view class="near-teacher-title-right-img">
+            <image src="../../image/jt.png" />
+            </view>
+          </view>
+        </view>
+        <!-- count --> 
+        <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic">
+          <view class="dynamic-con">
+            <view class="dynamic-con-box">
+              <!-- 会员图像 -->
+              <view class="dynamic-con-box-img"><image src="{{item.membersImg}}" /></view>
+              <!-- 会员内容 -->
+              <view class="dynamic-con-box-info">
+                <view class="dynamic-con-box-info-top">
+                  <view class="dynamic-con-box-info-top-left">
+                    <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
+                    <view class="dynamic-con-box-info-top-left-id">ID:{{item.membersId}}</view>
+                  </view>
+                  <view class="dynamic-con-box-info-top-right">
+                    <view class="dynamic-con-box-info-top-right-img"><image src="/image/jh.png" /></view>
+                    <view class="dynamic-con-box-info-top-right-attention">关注</view>
+                  </view>
+                </view>
+                <!-- 动态中间内容 -->
+                <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
+                <!-- 动态图像 -->
+                <view class="dynamic-con-box-info-img">
+                  <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
+                    <view class="dynamic-con-for-img">
+                      <image src="{{dynamicImg.specificImg}}" />
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </view>
+          <!-- 底部 -->
+          <view class="dynamic-bom">
+            <view class="dynamic-bom-box">
+              <block wx:for="{{bottomInfo}}" wx:key="uni-bom">
+                <view class="dynamic-bom-box-con">
+                  <view class="dynamic-bom-box-con-img"><image src="{{item.icon}}" /></view>
+                  <view class="dynamic-bom-box-con-text">{{item.con}}</view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+
+</block>
+<block wx:if="{{blockid==2}}">
+  <!-- 机构招聘 -->
+  <!-- 顶部数据 -->
+  <view class="recruit">
+    <view class="recruit-box">
+      <view class="recruit-box-img"><image src="/image/dz.png" /></view>
+      <view class="recruit-box-text">位置筛选</view>
+    </view>
+  </view>
+
+  <view class="diary-center">
+    <view class="diary-center-box">
+      <view class="diary-center-title">
+        <view class="diary-center-title-left">机构招聘</view>
+        <view class="diary-center-title-rigth">
+          <view class="diary-center-title-more">更多</view>
+          <view class="diary-center-title-img"><image src="/image/downjtother2.png" /></view>
+        </view>
+      </view>
+      <block wx:for="{{recruitInfo}}" wx:key="uni-recruit">
+        <view class="recruit-con">
+          <view class="recruit-con-img"><image mode="widthFix" src="{{item.recruitImg}}" /></view>
+          <view class="recruit-con-des">
+            <view class="recruit-con-des-type">
+              <view class="recruit-con-des-type-title">{{item.mainTitle}}</view>
+              <view class="recruit-con-des-type-msg">
+                <view class="recruit-con-des-type-price">{{item.price}}</view>
+                <block wx:for="{{item.recruitInfo}}" wx:key="uni-con" wx:for-item="itemRecruit">
+                  <view class="recruit-con-des-type-data">
+                    <view class="recruit-con-des-type-data-img"><image src="{{itemRecruit.recruitIcon}}" /></view>
+                    <view class="recruit-con-des-type-data-text">{{itemRecruit.recruitInfo}}</view>
+                  </view>
+                </block>
+              </view>
+            </view>
+            <view class="recruit-con-des-type-center">
+              <view class="recruit-con-des-type-center-title">{{item.recruitCenterTitle}}</view>
+              <view class="recruit-con-des-type-center-con">{{item.recruitCenterCon}}</view>
+            </view>
+            <view class="recruit-con-des-type-bom">
+              <view class="recruit-con-des-type-bom-title">{{item.recruitBomTitle}}</view>
+              <view class="recruit-con-des-type-bom-con">{{item.recruitBomCom}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+</block>
+<block wx:if="{{blockid==3}}">
+  <!-- 教师中心 -->
+  <!-- 顶部 -->
+  <view class="personal-center">
+    <view class="personal-center-box">
+      <view class="personal-center-box-left">
+        <view class="personal-center-box-left-img"><image src="{{userInfo.avatarUrl}}" /></view>
+        <view class="personal-center-box-left-info">
+          <view class="personal-center-box-left-info-nick">昵称：{{userInfo.nickName}}</view>
+          <view class="personal-center-box-left-info-id">头像：修改头像</view>
+          <view class="info-remind">消息提醒<view class="info-remind-num">12</view></view>
+        </view>
+      </view>
+      <view bindtap="backyy" class="personal-center-box-right">
+        <view class="personal-center-box-right-img"><image src="/image/yyhome.png" /></view>
+        <view class="personal-center-box-right-text">进入悦优中心</view>
+      </view>
+    </view>
+  </view>
+  <!-- 发行课时产品 -->
+  <view class="issue-class-product" bindtap="jumpRelease">
+    <view class="issue-class-product-box">
+      <view class="issue-class-product-box-img"><image src="/image/product.png" /></view>
+      <view class="issue-class-product-box-con">发布课程产品</view>
+    </view>
+  </view>
+  <!-- 内容 -->
+  <view class="personal-fun">
+    <view class="personal-fun-box">
+      <block wx:for="{{teacherFun}}" wx:key="uno-fun">
+        <view class="personal-fun-box-out">
+          <view style="background:{{item.backGroundColor}};" data-index="{{index}}" bindtap="funClick" class="personal-fun-box-con">
+            <view class="personal-fun-box-con-img"><image src="{{item.centerImg}}" /></view>
+            <view class="personal-fun-box-con-msg">{{item.centerCon}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</block>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>
+
+<tabbar tabbarData="{{tabbar}}" active="{{0}}" bgcolor="{{bgcolor}}" color="{{color}}" selectedColor="{{selectedColor}}"  showborder="{{showborder}}"  bind:tapChange="tabbarChange" />

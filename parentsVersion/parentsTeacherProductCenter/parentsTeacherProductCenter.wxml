@@ -1,0 +1,161 @@
+<!--pages/teacherProductCenter/teacherProductCenter.wxml-->
+<!-- banner图 -->
+<view class='banner-swiper'>
+  <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style='width:90%;height:292rpx;margin: 30rpx auto 0 auto;'>
+      <block wx:for="{{imgUrls}}" wx:key="unique">
+        <swiper-item>
+          <image mode='widthFix' style="border-radius: 10rpx;" src="{{item}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+  </swiper>
+</view>
+<!-- 平台核查 -->
+<view class="platform-inspect">
+  <view class="condition-screen-top">
+    <view class="teacher-security">平台核查</view>
+    <view class="teacher-security-right">
+      <block wx:for="{{platformInspect}}" wx:key="uni">
+        <view class="teacher-security-box">
+          <view class="teacher-security-box-img">
+            <image src="{{item.img}}" />
+          </view>
+          <view class="teacher-security-box-txt">{{item.con}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 信息简介 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">课程</view>
+      <view class="info-abstract-box-top-abstract">信息</view>
+     </view>
+     <!-- 教师信息 -->
+     <view class="info-abstract-box-info">
+      <block wx:for="{{teacherClassInfo}}" wx:key="uni-info">
+        <view class="info-abstract-box-info-data">
+          <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
+          <view wx:if="{{item.dec==='price'}}" class="{{item.dec==='price'?'active':''}}">￥{{item.con}}元</view>
+          <view wx:else class="info-abstract-box-info-data-con">{{item.con}}</view>
+        </view>
+      </block>
+      <!-- 优惠券 -->
+      <block wx:for="{{couponsInfo}}" wx:key="uni-coupons">
+        <view class="coupons" bindtap="receiveCoupons">
+          <view class="coupons-box">
+            <view class="coupons-left">
+              <!-- <view class="coupons-left-box-price"> -->
+                <!-- <view class="coupons-left-box-price-bj">￥</view> -->
+                <view class="coupons-left-box-price-num">{{item.price}}</view>
+              <!-- </view> -->
+              <view class="coupons-left-box-mes">
+                <view class="coupons-left-box-mes-msg">优惠券</view>
+                <view class="coupons-left-box-mes-type">{{item.type}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="coupons-right">
+            <view class="coupons-right-text">立即领取</view>
+            <view class="coupons-border"></view>
+          </view>
+        </view>
+      </block>
+      <view class="helpful-hints">温馨提示：请点击“课程预约”向教师发出预约申请，教师通过后方可领取优惠券。</view>
+     </view>
+  </view>
+</view>
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 教师产品 -->
+<view class="near-teacher"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title" bindtap="classMore">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">他/她的</view>
+            <view class="teacher">课程</view>
+          </view>
+        </view>
+        <view class="near-teacher-title-right">
+          <view class="near-teacher-title-right-more">更多课程</view>
+          <view class="near-teacher-title-right-img">
+           <image src="../../image/jt.png" />
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <view class="institution-view">
+        <block  wx:for="{{productCenterData}}" wx:key="uni-product">
+          <view class="institution" bindtap="teacherProductClick">
+            <view class="institution-img">
+              <image mode="widthFix" src="{{item.courseImg}}" />
+            </view>
+            <view class="institution-con">
+              <view class="institution-con-style change-style">{{item.title}}</view>
+              <view class="institution-con-style">周期：{{item.cycle}}节</view>
+              <view class="institution-con-style price">￥{{item.price}}RMB</view>
+              <view class="institution-more">...</view>
+              <!-- <view class="institution-details">详情</view> -->
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+<!-- 资质证书 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">课程</view>
+      <view class="info-abstract-box-top-abstract">详情图</view>
+     </view>
+     <!--资质信息 -->
+     <view class="info-abstract-box-info">
+      <block wx:for="{{classDetailsImg}}" wx:key="">
+        <view class="certificate">
+          <image mode="widthFix" src="{{item.img}}" />
+        </view>
+      </block>
+     </view>
+  </view>
+</view>
+
+<!-- 申请学习 -->
+<view class="apply-for-course">
+  <view class="call-tel" bindtap="callTel">
+    <view class="call-tel-img"><image src="/image/dh.png" /></view>
+    <view class="call-tel-text">联系教师</view>
+  </view>
+  <view class="collection-course" bindtap="collectionClick">
+    <view class="collection-course-img"><image src="/image/sc2.png" /></view>
+    <view class="collection-course-img-text">课程收藏</view>
+  </view>
+  <view class="order-course" bindtap="orderClick">课程预约</view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>
+

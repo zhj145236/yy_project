@@ -1,0 +1,88 @@
+<!--pages/aboutus/aboutus.wxml-->
+<!-- 顶部 -->
+<view class="personal-center">
+  <!-- 名称：logo -->
+  <view class="personal-center-logo">
+    <view class="personal-center-logo-box-img">
+      <image src="{{basicInfo.ys_logo}}" />
+    </view>
+    <view class="personal-center-logo-name">东莞市昱升科技有限公司</view>
+  </view>
+  <!-- 悦优简介 -->
+  <view class="yy-abstract">
+    <view class="yy-abstract-box">
+      <!-- 顶部 -->
+      <view class="yy-abstract-box-text">悦优中心</view>
+      <view class="yy-abstract-box-con">
+        <block wx:for="{{personalCenter}}" wx:key="uni"> 
+          <view class="yy-abstract-box-info" data-index="{{index}}" bindtap="funClick">
+            <view class="yy-abstract-box-info-img"><image src="{{item.yyImg}}" /></view>
+            <view class="yy-abstract-box-info-text">{{item.yyTitle}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 中间占位框 -->
+<view class="zw-box"></view>
+<!-- 昱升科技信息 -->
+<view class="ys-info">
+  <!-- 头部 -->
+  <view class="yy-abstract ys-info-box">
+    <view class="yy-abstract-box">
+      <!-- 顶部 -->
+      <view class="yy-abstract-box-text ys-info-top">昱升科技总部信息</view>
+      <view class="ys-info-con">
+        <block wx:for="{{ysInfo}}" wx:key="nui-ys">
+
+          <view wx:if="{{item.id === '0'}}" class="ys-info-con-box" data-index="{{index}}" bindtap="ysInfoClick">
+            <view class="ys-info-con-box-left">
+              <view class="ys-info-con-box-left-icon"><image src="{{item.leftIcon}}" /></view>
+              <view class="ys-info-con-box-text">平台地址：{{basicInfo.ys_dz}}</view>
+            </view>
+            <view class="ys-info-con-box-right-icon"><image src="{{item.rightIcon}}" /></view>
+          </view>
+
+          <view wx:elif="{{item.id === '1'}}" class="ys-info-con-box" data-index="{{index}}" bindtap="ysInfoClick">
+            <view class="ys-info-con-box-left">
+              <view class="ys-info-con-box-left-icon"><image src="{{item.leftIcon}}" /></view>
+              <view class="ys-info-con-box-text">平台联系电话：{{basicInfo.plat_tel}}</view>
+            </view>
+            <view class="ys-info-con-box-right-icon"><image src="{{item.rightIcon}}" /></view>
+          </view>
+
+          <view wx:else class="ys-info-con-box" data-index="{{index}}" bindtap="ysInfoClick">
+            <view class="ys-info-con-box-left">
+              <view class="ys-info-con-box-left-icon"><image src="{{item.leftIcon}}" /></view>
+              <view class="ys-info-con-box-text">{{item.centerText}}</view>
+            </view>
+            <view class="ys-info-con-box-right-icon"><image src="{{item.rightIcon}}" /></view>
+          </view>
+        </block>
+      </view>
+      <!-- 安全说明 -->
+      <view class="security-prompt">
+        <view class="security-prompt-img"><image src="/image/aq.png" /></view>
+        <view class="security-prompt-text">{{promptInfo}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 占位框 -->
+<view class="btm-zwbox"></view>
+
+<!-- 点击进入私有程序 -->
+<view class="private-private">
+  <view class="private-private-box">进入您的私有程序</view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

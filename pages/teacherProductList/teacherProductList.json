@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "教师课程列表",
+  "enablePullDownRefresh": true,
+  "component": true,
+  "backgroundColor":"#007bd0"
+}

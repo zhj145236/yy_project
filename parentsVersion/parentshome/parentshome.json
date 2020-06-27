@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "tabbar": "../../components/parentsTabBar/index"
+  },
+  "navigationBarTitleText": "悦优·家长版",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "navigationBarBackgroundColor": "#f2b04a",
+  "backgroundColor":"#f2b04a"
+}

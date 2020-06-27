@@ -1,0 +1,149 @@
+/* parentsVersion/parentsRegistered/parentsRegistered.wxss */
+page{
+  font-size: 30rpx;
+  background-color: #f2f2f2;
+  font-family:  Microsoft YaHei;
+}
+/* 顶部 */
+.registered{
+  width: 90%;
+  margin: 30rpx auto;
+  padding: 30rpx 0;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+.registered-txt{
+  width: 100%;
+  color: #f2b04a;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 内容 */
+.registered-con{
+  width: 90%;
+  margin: auto;
+  padding: 30rpx 0;
+  background: #fff;
+  border-radius: 10rpx;
+}
+.registered-con-box{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 30rpx 0;
+}
+.registered-con-box-left{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+.registered-con-box-inp > input{
+  font-size: 26rpx;
+  color: #707070;
+}
+.registered-con-box-img{
+  width: 60rpx;
+  height: 60rpx;
+  background: rgba(78, 185, 255, 0.2);
+  border-radius: 100rpx;
+  margin-right: 10rpx;
+  display: flex;
+  align-items: center;
+}
+.registered-con-box-img > image{
+  display: block;
+  width: 76%;
+  height: 76%;
+  margin: auto;
+}
+.registered-con-phone{
+  font-size: 26rpx;
+  color: #f2b04a;
+  height: 40rpx;
+  line-height: 40rpx;
+  padding: 0 0 0 30rpx;
+  border-left: 1px solid #f2b04a;
+  width: 138rpx;
+}
+.closed-img{
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+}
+.closed-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.change-inp{
+  width: 420rpx;
+}
+.remind-txt{
+  font-size: 22rpx;
+  color: #e19e9e;
+  width: 90%;
+  margin: 30rpx auto 0 auto;
+  height:40rpx;
+  line-height: 40rpx;
+}
+.submit-registered{
+  border: none;
+  background: #f2b04a;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin:20rpx auto;
+  width: 90%;
+}
+button::after{
+  border: none;
+  position: static;
+  width: 0;
+  height: 0;
+}
+
+.use-deal{
+  width: 90%;
+  margin: auto;
+}
+.use-deal-box{
+  display: flex;
+  align-items: center;
+  flex-direction:row;
+  justify-content:flex-start;
+  font-size: 26rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.lb{
+  display: flex;
+  align-items: center;
+  flex-direction:row;
+  justify-content:flex-start;
+  color: #c7c7c7;
+}
+.cb{
+  transform: scale(0.8,0.8);
+  display: block;
+}
+.use-deal-con{
+  font-size: 26rpx;
+  color: #f2b04a;
+  margin-left: 20rpx;
+}
+.wx-btn{
+  background-color: #fff;
+  margin: 0;
+  border-radius: 0;
+}

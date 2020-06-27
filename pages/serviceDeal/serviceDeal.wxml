@@ -1,0 +1,6 @@
+<!--pages/ysAbstract/ysAbstract.wxml-->
+<view class="remindcenter-abstract">
+  <view class="remindcenter-view-con">
+    <rich-text nodes="{{nodesa}}" />
+  </view>
+</view>

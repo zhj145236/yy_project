@@ -1,0 +1,200 @@
+<!--pages/teacherDetails/teacherDetails.wxml-->
+<!-- banner图 -->
+<view class='banner-swiper'>
+  <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style='width:90%;height:292rpx;margin: 30rpx auto 0 auto;'>
+      <block wx:for="{{imgUrls}}" wx:key="unique">
+        <swiper-item>
+          <image mode='widthFix' style="border-radius: 10rpx;" src="{{item}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+  </swiper>
+</view>
+<!-- 平台核查 -->
+<view class="platform-inspect">
+  <view class="condition-screen-top">
+    <view class="teacher-security">平台核查</view>
+    <view class="teacher-security-right">
+      <block wx:for="{{platformInspect}}" wx:key="uni">
+        <view class="teacher-security-box">
+          <view class="teacher-security-box-img">
+            <image src="{{item.img}}" />
+          </view>
+          <view class="teacher-security-box-txt">{{item.con}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 信息简介 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">信息</view>
+      <view class="info-abstract-box-top-abstract">简介</view>
+     </view>
+     <!-- 教师信息 -->
+     <view class="info-abstract-box-info">
+      <block wx:for="{{teacherInfo}}" wx:key="uni-info">
+        <view class="info-abstract-box-info-data">
+          <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
+          <view class="info-abstract-box-info-data-con">{{item.con}}</view>
+        </view>
+      </block>
+      <view class="helpful-hints">友情提示：部分信息较为敏感，需注册授权后方可查看。</view>
+     </view>
+  </view>
+</view>
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 教师产品 -->
+<view class="near-teacher"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">课程</view>
+            <view class="teacher">中心</view>
+          </view>
+        </view>
+        <view class="near-teacher-title-right" bindtap="classMore">
+          <view class="near-teacher-title-right-more">更多课程</view>
+          <view class="near-teacher-title-right-img">
+           <image src="../../image/jt.png" />
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <view class="institution-view">
+        <block  wx:for="{{productCenterData}}" wx:key="uni-product">
+          <view class="institution" bindtap="teacherProductClick">
+            <view class="institution-img">
+              <image mode="widthFix" src="{{item.courseImg}}" />
+            </view>
+            <view class="institution-con">
+              <view class="institution-con-style change-style">{{item.title}}</view>
+              <view class="institution-con-style">周期：{{item.cycle}}节</view>
+              <view class="institution-con-style price">￥{{item.price}}RMB</view>
+              <view class="institution-more">...</view>
+              <!-- <view class="institution-details">详情</view> -->
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+<!-- 资质证书 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">资质</view>
+      <view class="info-abstract-box-top-abstract">证书</view>
+     </view>
+     <!--资质信息 -->
+     <view class="info-abstract-box-info">
+      <block wx:for="{{approveInfo}}" wx:key="">
+        <view class="info-abstract-box-info-data">
+          <view class="certification"><image src="{{item.approveIcon}}" /></view>
+          <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
+          <view class="info-abstract-box-info-data-con">{{item.con}}</view>
+        </view>
+        <view class="certificate">
+          <image mode="widthFix" src="{{item.approveImg}}" />
+        </view>
+      </block>
+      <view class="helpful-hints">温馨提示：部分信息较为敏感，需注册授权后方可查看。</view>
+     </view>
+  </view>
+</view>
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+<!-- 人生格言 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">人生</view>
+      <view class="info-abstract-box-top-abstract">格言</view>
+     </view>
+     <!-- 我想对自己说 -->
+     <view class="info-abstract-box-info">
+        <view class="info-abstract-box-info-data other-style">
+          <view class="info-abstract-box-info-data-totle change-style">我想对自己说：</view>
+          <view class="info-abstract-box-info-data-con change-width">{{myInfo}}</view>
+        </view>
+     </view>
+  </view>
+</view>
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 给他/她留言 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+    <!-- 头部 -->
+    <view class="info-abstract-box-top">
+    <view class="info-abstract-box-top-message">给他/她</view>
+    <view class="info-abstract-box-top-abstract">留言</view>
+    </view>
+    <!-- 留言内容 -->
+    <view class="leave-word-box">
+      <form bindsubmit="bindFormSubmit">
+        <textarea maxlength="-1" placeholder="给他/她留言：" value="{{name}}" name="textarea" class="leave-word"></textarea>
+        <view class="leave-word-btn-box">
+          <button form-type="submit" type="button" class="leave-word-btn">发布</button>
+        </view>
+      </form>
+    </view>
+    <!-- 留言内容 -->
+    <view class="leave-word-box pad-btn">
+      <view class="leave-word-box-info">
+        <view class="leave-word-info-name">{{title}}</view>
+        <view class="leave-word-info-con">{{con}}</view>
+      </view>
+    </view>
+    <view class="leave-word-box pad-btn">
+      <view class="leave-word-box-info">
+        <view class="leave-word-info-name">
+          <text class="leave-word-info-name-parents">李老师回复</text>
+          <text class="leave-word-info-name-symbol">@</text>
+          <text>恐低的鸟：</text>
+        </view>
+        <view class="leave-word-info-con">{{teacherCon}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 回复框 -->
+<view class="reply-info">
+    <view class="reply-send-con">
+      <textarea auto-height adjust-position maxlength="-1" placeholder="回复：" value="{{name}}" name="textarea" class="leave-word"></textarea>
+    </view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

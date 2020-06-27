@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "component": true,
+  "usingComponents": {},
+  "backgroundColor":"#007bd0",
+  "navigationBarTitleText":"服务协议"
+}

@@ -1,0 +1,207 @@
+/* pages/aboutus/aboutus.wxss */
+page{
+  font-size: 30rpx;
+  background-color: #f2f2f2;
+  font-family:  Microsoft YaHei;
+  overflow-x: hidden;
+}
+/* 顶部 */
+.personal-center{
+  width: 100%;
+  position: relative;
+  background: #007bd0;
+  height: 410rpx;
+}
+/* logo */
+.personal-center-logo{
+  position: absolute;
+  width: 100%;
+  top: 10rpx;
+  left: 0;
+}
+.personal-center-logo-box-img{
+  width: 140rpx;
+  height: 140rpx;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+.personal-center-logo-box-img>image{
+  display: block;
+  width: 70%;
+  height: 70%;
+  margin: auto;
+}
+.personal-center-logo-name{
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+/* 悦优简介 */
+.yy-abstract{
+  position: absolute;
+  width: 100%;
+  height: 300rpx;
+  top:280rpx;
+  left: 0;
+}
+.yy-abstract-box{
+  background: #fff;
+  width: 90%;
+  margin: auto;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+.yy-abstract-box-text{
+  font-size: 28rpx;
+  color: #323233;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #c7c7c7;
+  font-weight: 600;
+}
+.yy-abstract-box-con{
+  display: flex;
+  justify-content:space-between;
+  margin: 30rpx 0;
+}
+.yy-abstract-box-info{
+  width: 140rpx;
+  background: #f2f2f2;
+  border-radius: 10rpx;
+  padding: 30rpx 0;
+}
+.yy-abstract-box-info-img{
+  width: 64rpx;
+  height: 64rpx;
+  margin: auto;
+}
+.yy-abstract-box-info-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.yy-abstract-box-info-text{
+  font-size: 24rpx;
+  color: #565656;
+  width: 90%;
+  margin: 20rpx auto 0 auto;
+  text-align: center;
+}
+
+/* 中间占位框 */
+.zw-box{
+  width: 100%;
+  height: 260rpx;
+}
+
+/* 昱升信息 */
+.ys-info-top{
+  border-bottom: 4rpx solid #c7c7c7;
+}
+.ys-info-box{
+  position: static;
+}
+.ys-info-con-box{
+  margin:40rpx 0;
+  border-bottom: 1px solid #c7c7c7;
+  padding-bottom: 40rpx;
+}
+.ys-info-con-box,.ys-info-con-box-left{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.ys-info-con-box-left-icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+.ys-info-con-box-left-icon > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ys-info-con-box-right-icon{
+  width: 30rpx;
+  height: 30rpx;
+}
+.ys-info-con-box-text{
+  font-size: 26rpx;
+  color: #565656;
+  width: 560rpx;
+}
+.ys-info-con-box-right-icon > image{
+  width: 100%;
+  height: 100%;
+}
+/* 安全提示 */
+.security-prompt{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+.security-prompt-img{
+  width: 40rpx;
+  height: 40rpx;
+}
+.security-prompt-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.security-prompt-text{
+  width: 610rpx;
+  font-size: 24rpx;
+  color: #c8c8c8;
+}
+
+/* 底部占位框 */
+.btm-zwbox{
+  width: 100%;
+  height: 700rpx;
+}
+
+/* 点击进入私有程序 */
+.private-private{
+  width: 90%;
+  margin: auto;
+}
+.private-private-box{
+  width: 100%;
+  border-radius: 10rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+  background: #51aa38;
+}
+
+/* 底部总部信息 */
+.platform-info{
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #adadad;
+  width:56%;
+  margin: 100rpx auto 0 auto;
+}
+.platform-info > view{
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+/* 底部占位 */
+.position-bottom{
+  width: 100%;
+  height: 100rpx;
+}

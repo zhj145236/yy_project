@@ -1,0 +1,101 @@
+/* pages/chooseRole/chooseRole.wxss */
+page{
+  font-size: 30rpx;
+  background-color: #f2f2f2;
+  font-family:  Microsoft YaHei;
+  overflow-x: hidden;
+}
+/* 占位图 */
+.placeholder-place-img{
+  width: 100%;
+  height: 170rpx;
+  margin: 30rpx 0;
+  overflow: hidden;
+}
+.placeholder-place-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 选择角色内部内容 */
+.choose-role-box{
+  width: 90%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10rpx;
+  padding-bottom: 20rpx;
+}
+
+/* 顶部 */
+.choose-role-top{
+  display: flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:flex-end;
+  height: 120rpx;
+  line-height: 120rpx;
+}
+.choose-role-left{
+  font-weight: 600;
+  color: #cd2a17;
+}
+.choose-role-right{
+  font-size: 24rpx;
+  color: #007bd0;
+  margin-left: 20rpx;
+}
+/* 中间图片 */
+.choose-role-img{
+  width: 100%;
+  height: 400rpx;
+  border-top: 8rpx solid #a9a9a9;
+  margin-bottom: 20rpx;
+}
+.choose-role-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* 内容 */
+.choose-role-con{
+  width: 90%;
+  margin: auto;
+}
+/* 文字 */
+.choose-role-con-text{
+  line-height: 50rpx;
+  font-size: 26rpx;
+  color: #505150;
+}
+.choose-role-con-btn{
+  width: 100%;
+  margin: 20rpx 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #007bd0;
+  border-radius: 10rpx;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* 底部总部信息 */
+.platform-info{
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #adadad;
+  width:56%;
+  margin: 100rpx auto 0 auto;
+}
+.platform-info > view{
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+/* 底部占位 */
+.position-bottom{
+  width: 100%;
+  height: 100rpx;
+}

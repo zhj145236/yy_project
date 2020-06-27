@@ -1,0 +1,102 @@
+<!--parentsVersion/parentsReview/parentsReview.wxml-->
+<view class="registered">
+  <view class="registered-txt">欢迎来到评论中心，祝您使用愉快。</view>
+</view>
+<!-- 动态中心 -->
+<view class="near-teacher">
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- count -->
+      <view class="dynamic-con">
+        <view class="dynamic-con-box">
+          <!-- 会员图像 -->
+          <view class="dynamic-con-box-img"><image src="/image/dtimg.jpg" /></view>
+          <!-- 会员内容 -->
+          <view class="dynamic-con-box-info">
+            <view class="dynamic-con-box-info-top">
+              <view class="dynamic-con-box-info-top-left">
+                <view class="dynamic-con-box-info-top-left-nick">可爱的小奶猫</view>
+                <view class="dynamic-con-box-info-top-left-id">ID:44524</view>
+              </view>
+              <view class="dynamic-con-box-info-top-right">
+                <view class="dynamic-con-box-info-top-right-img"><image src="/image/jh.png" /></view>
+                <view class="dynamic-con-box-info-top-right-attention">关注</view>
+              </view>
+            </view>
+            <!-- 动态中间内容 -->
+            <view class="dynamic-con-box-info-center">今天第一天在使用悦优来发表动态，感觉好爽，这个功能太好了，在也不用被微信朋友圈那些不想让他们看见的人看见了。</view>
+            <!-- 动态图像 -->
+            <view class="dynamic-con-box-info-img">
+              <view class="dynamic-con-for-img">
+                <image src="/image/dtimg.jpg" />
+              </view>
+              <view class="dynamic-con-for-img">
+                <image src="/image/dtimg.jpg" />
+              </view>
+              <view class="dynamic-con-for-img">
+                <image src="/image/dtimg.jpg" />
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 给他/她留言 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+    <!-- 头部 -->
+    <view class="info-abstract-box-top">
+    <view class="info-abstract-box-top-message">给他/她</view>
+    <view class="info-abstract-box-top-abstract">评论</view>
+    </view>
+    <!-- 我来评论 -->
+    <view class="leave-word-box">
+      <form bindsubmit="bindFormSubmit">
+        <textarea maxlength="-1" placeholder="我要评论：" value="{{name}}" name="textarea" class="leave-word"></textarea>
+        <view class="leave-word-btn-box">
+          <button form-type="submit" type="button" class="leave-word-btn">发布</button>
+        </view>
+      </form>
+    </view>
+    <!-- 留言内容 -->
+    <view class="leave-word-box pad-btn">
+      <view class="leave-word-box-info">
+        <view class="leave-word-info-name">{{title}}</view>
+        <view class="leave-word-info-con">{{con}}</view>
+      </view>
+    </view>
+    <view class="leave-word-box pad-btn">
+      <view class="leave-word-box-info">
+        <view class="leave-word-info-name">
+          <text class="leave-word-info-name-parents">李老师回复</text>
+          <text class="leave-word-info-name-symbol">@</text>
+          <text>恐低的鸟：</text>
+        </view>
+        <view class="leave-word-info-con">{{teacherCon}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 回复框 -->
+<view class="reply-info">
+    <view class="reply-send-con">
+      <textarea auto-height adjust-position maxlength="-1" placeholder="回复：" value="{{name}}" name="textarea" class="leave-word"></textarea>
+    </view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "机构产品列表",
+  "enablePullDownRefresh": true,
+  "component": true,
+  "backgroundColor":"#007bd0"
+}

@@ -1,0 +1,135 @@
+<!--pages/index/index.wxml-->
+
+<!-- 顶部banner图 -->
+<view class='banner'>
+  <!-- 定位 -->
+  <view class="location-img">
+    <view class="location-img-view">
+      <view class="img-view"><image class="add-img" src="../../image/add.png" mode="widthFix" /></view>
+      <view class="text-info">东莞</view>
+    </view>
+  </view>
+  <!-- 搜索框部分 -->
+  <view class='search-set'>
+    <form bindsubmit="formSubmit">
+      <view class='search'>
+        <view class='set'>
+          <image class='search-icon change-icon' src='../../image/serch.png' />
+          <input name="searchGoods" class='search-inp' placeholder='附近教师' />
+        </view>
+        <view>
+          <button data-btnid="searchId" form-type='submit' class='search-icon search-icon-inp'>搜索</button>
+        </view>
+      </view>
+    </form>
+  </view>
+  <image class='banner-img' src='../../image/beijingtu.png' /> 
+  <!-- banner图 -->
+  <view class='banner-swiper'>
+    <swiper indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style='width:90%;height:300rpx;margin:auto;'>
+        <block wx:for="{{imgUrls}}" wx:key="unique">
+          <swiper-item>
+            <image mode='widthFix' src="{{item}}" class="slide-image"/>
+          </swiper-item>
+        </block>
+    </swiper>
+  </view>
+</view>
+<!-- 站位高度 -->
+<view class="position-height"></view>
+<!-- 附近教师 -->
+<view class="near-teacher"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">附近</view>
+            <view class="teacher">教师</view>
+          </view>
+          <view class="near-teacher-title-left-btn">地图查看教师</view>
+        </view>
+        <view class="near-teacher-title-right" bindtap="moreTeacher">
+          <view class="near-teacher-title-right-more">查看更多</view>
+          <view class="near-teacher-title-right-img">
+           <image src="../../image/jt.png" />
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <block  wx:for="{{nearTeacherDatas}}" wx:key="">
+        <view bindtap="teacherInfo" class="near-teacher-count">
+          <view class="near-teacher-count-out">
+            <view class="near-teacher-count-left">
+              <view class="near-teacher-count-img"><image src="{{item.img}}" /></view>
+            </view>
+            <view class="near-teacher-count-right">
+              <view class="near-teacher-count-right-change">
+                <text>教师简介：</text>
+                <view class="near-teacher-count-right-dec">
+                  <view>{{item.name}}</view>
+                  <view>{{item.nickname}}</view>
+                  <view>{{item.subjects}}</view>
+                  <view>{{item.motto}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 附近机构 -->
+<view class="near-teacher"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">附近</view>
+            <view class="teacher">机构</view>
+          </view>
+          <view class="near-teacher-title-left-btn">地图查看机构</view>
+        </view>
+        <view class="near-teacher-title-right" bindtap="moreInstitution">
+          <view class="near-teacher-title-right-more">查看更多</view>
+          <view class="near-teacher-title-right-img">
+           <image src="../../image/jt.png" />
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <view class="institution-view">
+        <block  wx:for="{{institutionDetails}}" wx:key="uni">
+          <view class="institution" bindtap="institutionInfo">
+            <view class="institution-img">
+              <image mode="widthFix" src="{{item.img}}" />
+            </view>
+            <view class="institution-con">
+              <view class="institution-con-style change-style">名称：{{item.name}}</view>
+              <view class="institution-con-style">地址：{{item.address}}</view>
+              <view class="institution-details">详情</view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "tabbar": "../../components/teacherTabBar/index"
+  },
+  "navigationBarTitleText": "悦优·教师版",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "navigationBarBackgroundColor": "#74cdce",
+  "backgroundColor":"#74cdce"
+}

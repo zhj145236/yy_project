@@ -1,0 +1,358 @@
+<!--teacherVersion/teacherPeleaseProduct/teacherPeleaseProduct.wxml-->
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="/image/zwt.png" />
+</view>
+
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到课程发布中心，祝您使用愉快。</view>
+</view>
+
+<!-- 内容 -->
+<!-- 课程详情图 -->
+<form bindsubmit="formSubmit">
+  <view class="product-details">
+    <view class="product-details-img-upload">
+      <view class="product-details-img-upload-title">上传课程详情图</view>
+    </view>
+
+    <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+      <view class="product-details-img-upload-list">
+      <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+      <view>上传图片</view>
+      <view class="helpful-hints">友情提示：最多能上传8张图片。</view>
+      </view>
+    </view>
+
+    <view class="product-details-img-upload-box-external">
+      <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
+        <view class="product-details-img-upload-box">
+          <view class="product-details-img-upload-place-img">
+            <image mode="widthFix" src="{{item}}" />
+            <view class="mask-layer">
+              <view class="mask-layer-img">
+                <image src="/image/yl.png" />
+              </view>
+            </view>
+            <view class="deal-img"><image src="/image/deal.png" /></view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 产品封面图 -->
+  <view class="product-details">
+    <view class="product-details-img-upload">
+      <view class="product-details-img-upload-title">上传产品封面图</view>
+    </view>
+
+    <view bindtap="coverImg" class="product-details-img-upload-list-box">
+      <view class="product-details-img-upload-list">
+      <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+      <view>上传图片</view>
+      </view>
+    </view>
+
+    <view class="product-details-img-upload-box-external">
+      <block wx:for="{{productCover}}" wx:key="uni-details">
+        <view class="product-details-img-upload-box">
+          <view class="product-details-img-upload-place-img">
+            <image mode="widthFix" src="{{item}}" />
+            <view class="mask-layer">
+              <view class="mask-layer-img">
+                <image src="/image/yl.png" />
+              </view>
+            </view>
+            <view class="deal-img"><image src="/image/deal.png" /></view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+
+  <!-- 占位图 -->
+  <view class="placeholder-place-img">
+    <image mode="widthFix" src="/image/zwt.png" />
+  </view>
+
+  <!-- 课程信息设置 -->
+  <view class="product-details">
+    <view class="product-details-img-upload">
+      <view class="product-details-img-upload-title">完善课程信息</view>
+    </view>
+
+    <!-- 产品标题 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="" name="title" placeholder="请输入产品标题" /></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 产品标题 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box textarea-box">
+          <view class="course-info-box-img"><image src="/image/desc.png" /></view>
+          <view class="course-info-box-inp textarea-inp">
+            <textarea type="text" name="desc" value="" placeholder="课程简述,请保持在140字以内。" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 授课方式 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/type.png" /></view>
+          <view class="course-info-box-inp">
+            <picker bindchange="bindPickerChange" value="{{typeIndex}}" range="{{array}}">
+              <view class="picker">授课方式：{{array[typeIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 授课地点 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/cd.png" /></view>
+          <view class="course-info-box-inp">
+            <picker bindchange="placeBindPickerChange" value="{{siteIndex}}" range="{{placeArray}}">
+              <view class="picker">授课场地：{{placeArray[siteIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 可报名人数 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" value="" name="title" placeholder="输入课程接收人数" />
+          </view>
+        </view>
+        <view class="course-info-box">
+          <view class="course-info-box-img change-course-info"></view>
+          <view class="course-info-box-inp" style="padding:0;width:410rpx;">
+            <view class="helpful-hints num-helpful-hints">友情提示：可接收人数不能操过3人。</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 授课对象 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/cd.png" /></view>
+          <view class="course-info-box-inp">
+            <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+              <view class="picker">
+                授课级段：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 总价 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/classPrice.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="" name="totalPrice" placeholder="课程总价" /></view>
+        </view>
+      </view>
+    </view>
+
+    
+
+    <!-- 单价 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/classPrice.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="" name="singlePrice" placeholder="课程单价" /></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 授课节数 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="授课节数" /></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 报名时间 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box sign-up-time">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp-view welfare-inp">
+            <view class="course-info-box-inp start-sign-up-time">
+              <picker mode="date" value="{{startDate}}" start="2020-06-01" end="2025-12-12" bindchange="startBindDateChange">
+                <view class="picker">报名开始日期: {{startDate}}</view>
+              </picker>
+            </view>
+            <view class="course-info-box-inp end-sign-up-time">
+              <picker mode="date" value="{{endDate}}" start="2020-06-01" end="2025-12-12" bindchange="endBindDateChange">
+                <view class="picker">报名结束日期: {{endDate}}</view>
+              </picker>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 开课日期 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp">
+            <picker mode="date" value="{{classesDate}}" start="2020-06-01" end="2025-12-12" bindchange="classesDateChange">
+              <view class="picker">开课日期: {{classesDate}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 开课时间 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box sign-up-time">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp-view welfare-inp">
+            <view class="course-info-box-inp start-sign-up-time">
+              <picker mode="time" value="{{startTime}}" start="09:01" end="21:01" bindchange="startBindTimeChange">
+                <view class="picker">上课开始时间: {{startTime}}</view>
+              </picker>
+            </view>
+            <view class="course-info-box-inp end-sign-up-time">
+              <picker mode="time" value="{{endTime}}" start="09:01" end="21:01" bindchange="endBindTimeChange">
+                <view class="picker">上课结束时间: {{endTime}}</view>
+              </picker>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 福利 -->
+    <view class="course-info">
+      <view class="course-info-outside remove-bottom">
+        <view class="course-info-box welfare-box">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp welfare-inp">
+            <view class="welfare" style="display:none">
+              <input type="text" value="" name="sectionNum" placeholder="请输入课程福利" />
+            </view>
+            <view class="welfare-checkbox">
+              <label class="checkbox"><checkbox class="cb" value="cb" />含餐饮</label>
+              <label class="checkbox"><checkbox class="cb" value="cb" />含接送</label>
+              <label class="checkbox"><checkbox class="cb" value="cb" />其他</label>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 占位图 -->
+  <view class="placeholder-place-img">
+    <image mode="widthFix" src="/image/zwt.png" />
+  </view>
+
+  <!-- 优惠券设置 -->
+  <view class="product-details">
+    <view class="product-details-img-upload">
+      <view class="product-details-img-upload-title">设置课程优惠券</view>
+    </view>
+
+    <!-- 优惠券名称 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="优惠券名称" /></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 介绍 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="介绍" /></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 金额 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="金额(元)" /></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 有效期 -->
+    <view class="course-info">
+      <view class="course-info-outside remove-bottom">
+        <view class="course-info-box sign-up-time">
+          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-inp-view welfare-inp">
+            <view class="course-info-box-inp start-sign-up-time">
+              <picker mode="date" value="{{startCouponsDate}}" start="2020-06-01" end="2025-12-12" bindchange="startCouponsBindDateChange">
+                <view class="picker">有效日期：开始 {{startCouponsDate}}</view>
+              </picker>
+            </view>
+            <view class="course-info-box-inp end-sign-up-time">
+              <picker mode="date" value="{{endCouponsDate}}" start="2020-06-01" end="2025-12-12" bindchange="endCouponsBindDateChange">
+                <view class="picker">有效日期：结束 {{endCouponsDate}}</view>
+              </picker>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+
+  </view>
+
+<!-- 提交 -->
+<button class="submit-registered" form-type='submit'>完成</button>
+</form>
+
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>
+
+<tabbar tabbarData="{{tabbar}}" active="{{0}}" bgcolor="{{bgcolor}}" color="{{color}}" selectedColor="{{selectedColor}}"  showborder="{{showborder}}"  bind:tapChange="tabbarChange" />

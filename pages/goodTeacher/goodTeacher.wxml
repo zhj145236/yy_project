@@ -1,0 +1,239 @@
+<!--pages/goodTeacher/goodTeacher.wxml-->
+<!-- 顶部搜索 -->
+<view class="search-positioning">
+  <!-- 定位 -->
+    <view class="search-positioning-box">
+      <view class="location-img">
+        <view class="location-img-view">
+          <view class="img-view"><image class="add-img" src="../../image/add.png" mode="widthFix" /></view>
+          <view class="text-info">东莞</view>
+        </view>
+      </view>
+      <!-- 搜索框部分 -->
+      <view class='search-set'>
+        <form bindsubmit="formSubmit">
+          <view class='search'>
+            <view class='set'>
+              <image class='search-icon change-icon' src='../../image/serch.png' />
+              <input name="searchGoods" class='search-inp' placeholder='附近教师' />
+            </view>
+            <view>
+              <button data-btnid="searchId" form-type='submit' class='search-icon search-icon-inp'>搜索</button>
+            </view>
+          </view>
+        </form>
+      </view>
+    </view>
+</view>
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 条件筛选 -->
+<view class="condition-screen">
+  <view class="condition-screen-box">
+    <!-- 顶部 -->
+    <view class="condition-screen-top">
+      <view class="teacher-security">教师保障</view>
+      <block wx:for="{{teacherSituation}}" wx:key="uni">
+        <view class="teacher-security-box">
+          <view class="teacher-security-box-img">
+            <image src="{{item.img}}" />
+          </view>
+          <view class="teacher-security-box-txt">{{item.con}}</view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 选择类目 -->
+    <view class="choose-category">
+      <block wx:for="{{chooseCategory}}" wx:key="uni-category">
+        <view data-index="{{index}}" class="choose-category-teacher {{useClick == index?'addBck':''}}" bindtap="categoryClick">{{item}}</view>
+      </block>
+    </view>
+
+    <!-- 区间筛选 -->
+    <!-- 授课教师 -->
+    <view class="condition-screen-con" style="{{useClick == 0?'display:block':'display:none'}}">
+      <view class="condition-screen-con-box">
+        <!-- 课类 -->
+        <picker data-type="0" bindtap="teacherPresentClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{teacherMultiArray}}">
+          <view class="condition-screen-con-box-one {{teacherSetType == 0?'active':''}}">
+            <view class="condition-screen-con-box-one-con">课类</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{teacherSetType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+
+        <!-- 区域 -->
+        <picker data-type="1" bindtap="teacherPresentClick" mode="region" value="{{region}}" custom-item="{{customItem}}" bindchange="regionBindchange">
+          <view class="condition-screen-con-box-one {{teacherSetType == 1?'active':''}}">
+            <view class="condition-screen-con-box-one-con">区域</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{teacherSetType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+
+        <!-- 性别 -->
+        <picker data-type="2" bindtap="teacherPresentClick" mode="selector" value="{{index}}" custom-item="{{customItem}}" bindchange="bindSelectorPickerChange" range="{{genderArray}}">
+          <view class="condition-screen-con-box-one {{teacherSetType == 2?'active':''}}">
+            <view class="condition-screen-con-box-one-con">性别</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{teacherSetType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+
+        <!-- 级段 -->
+        <picker data-type="3" bindtap="teacherPresentClick" mode="multiSelector" value="{{courseIndex}}" custom-item="{{customItem}}" bindchange="courseBindChange" bindcolumnchange="bindMultiCourseColumnChange" range="{{courseMultiArray}}">
+          <view class="condition-screen-con-box-one {{teacherSetType == 3?'active':''}}">
+            <view class="condition-screen-con-box-one-con">级段</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{teacherSetType == 3?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 课程产品 -->
+    <view class="condition-screen-con" style="{{useClick == 1?'display:block':'display:none'}}">
+      <view class="condition-screen-con-box">
+        <!-- 课类 -->
+        <picker data-type="0" bindtap="coursePresentClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="condition-screen-con-box-one {{courseSetType == 0?'active':''}}">
+            <view class="condition-screen-con-box-one-con">课类</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseSetType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+        <!-- 区域 -->
+        <picker data-type="1" bindtap="coursePresentClick" mode="region" value="{{region}}" custom-item="{{customItem}}" bindchange="">
+          <view class="condition-screen-con-box-one {{courseSetType == 1?'active':''}}">
+            <view class="condition-screen-con-box-one-con">区域</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseSetType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+        <!-- 价格 -->
+        <picker data-type="2" bindtap="coursePresentClick" mode="" value="{{}}" custom-item="{{customItem}}" bindchange="">
+          <view class="condition-screen-con-box-one {{courseSetType == 2?'active':''}}">
+            <view class="condition-screen-con-box-one-con">价格</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseSetType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+        <!-- 级段 -->
+        <picker data-type="3" bindtap="coursePresentClick" mode="" value="{{}}" custom-item="{{customItem}}" bindchange="">
+          <view class="condition-screen-con-box-one {{courseSetType == 3?'active':''}}">
+            <view class="condition-screen-con-box-one-con">级段</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseSetType == 3?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 附近的教师 -->
+<view class="near-teacher" style="{{useClick == 0?'display:block':'display:none'}}"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">附近</view>
+            <view class="teacher">教师</view>
+          </view>
+          <view bindtap="viewNearTeacher" class="near-teacher-title-left-btn">地图查看教师</view>
+        </view>
+        <view class="near-teacher-title-right" bindtap="moreTeacher">
+          <view class="near-teacher-title-right-more">查看更多</view>
+          <view class="near-teacher-title-right-img">
+          <image src="../../image/jt.png" />
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <block  wx:for="{{nearTeacherDatas}}" wx:key="">
+        <view bindtap="teacherInfo" class="near-teacher-count">
+          <view class="near-teacher-count-out">
+            <view class="near-teacher-count-left">
+              <view class="near-teacher-count-img"><image src="{{item.img}}" /></view>
+            </view>
+            <view class="near-teacher-count-right">
+              <view class="near-teacher-count-right-change">
+                <text>教师简介：</text>
+                <view class="near-teacher-count-right-dec">
+                  <view>{{item.name}}</view>
+                  <view>{{item.nickname}}</view>
+                  <view>{{item.subjects}}</view>
+                  <view>{{item.motto}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 教师产品 -->
+<view class="near-teacher" style="{{useClick == 0?'display:none':'display:block'}}">
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">教师</view>
+            <view class="teacher">产品</view>
+          </view>
+        </view>
+        <view class="near-teacher-title-right">
+          <view class="near-teacher-title-right-more">更多产品</view>
+          <view class="near-teacher-title-right-img">
+          <image src="../../image/jt.png" />
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <view class="institution-view">
+        <block  wx:for="{{productCenterData}}" wx:key="uni-product">
+          <view class="institution">
+            <view class="institution-img">
+              <image mode="widthFix" src="{{item.courseImg}}" />
+            </view>
+            <view class="institution-con">
+              <view class="institution-con-style change-style">{{item.title}}</view>
+              <view class="institution-con-style">周期：{{item.cycle}}节</view>
+              <view class="institution-con-style price">￥{{item.price}}RMB</view>
+              <view class="institution-more">...</view>
+              <!-- <view class="institution-details">详情</view> -->
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>
+

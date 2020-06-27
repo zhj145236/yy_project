@@ -1,0 +1,159 @@
+<!--parentsVersion/parentsDiaryCenter/parentsDiaryCenter.wxml-->
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到日记中心，祝您生活愉快。</view>
+</view>
+<!-- 进入我的日记列表 -->
+<view class="registered">
+  <view class="registered-txt diary-list">进入我的日记列表</view>
+</view>
+<!-- 内容 -->
+<form bindsubmit="formSubmit">
+  <view class="product-details">
+    <!-- 年月日 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" value="" name="time" placeholder="年-月-日" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 星期 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" value="" name="week" placeholder="今天星期几" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 天气 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" value="" name="weather" placeholder="今天的天气" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 日记标题 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" value="" name="title" placeholder="日记标题" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 日记内容 -->
+    <view class="course-info">
+      <view class="course-info-outside remove-bottom">
+        <view class="course-info-box textarea-box">
+          <view class="course-info-box-img"><image src="/image/desc.png" /></view>
+          <view class="course-info-box-inp textarea-inp">
+            <textarea type="text" name="desc" value="" placeholder="日记正文内容" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 占位图 -->
+  <view class="placeholder-place-img">
+    <image mode="widthFix" src="/image/zwt.png" />
+  </view>
+
+  <!-- 上传视频 -->
+  <view class="product-details">
+    <view class="product-details-img-upload">
+      <view class="product-details-img-upload-title">视频上传</view>
+    </view>
+
+    <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+      <view class="product-details-img-upload-list">
+      <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+      <view>上传视频</view>
+      <view class="helpful-hints">友情提示：最多能上传1个视频。</view>
+      </view>
+    </view>
+
+    <view class="product-details-img-upload-box-external">
+      <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
+        <view class="product-details-img-upload-box">
+          <view class="product-details-img-upload-place-img">
+            <image mode="widthFix" src="{{item}}" />
+            <view class="mask-layer">
+              <view class="mask-layer-img">
+                <image src="/image/yl.png" />
+              </view>
+            </view>
+            <view class="deal-img"><image src="/image/deal.png" /></view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 上传图片 -->
+  <view class="product-details">
+    <view class="product-details-img-upload">
+      <view class="product-details-img-upload-title">图片上传</view>
+    </view>
+
+    <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+      <view class="product-details-img-upload-list">
+      <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+      <view>上传图片</view>
+      <view class="helpful-hints">友情提示：最多能上传6张图片。</view>
+      </view>
+    </view>
+
+    <view class="product-details-img-upload-box-external">
+      <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
+        <view class="product-details-img-upload-box">
+          <view class="product-details-img-upload-place-img">
+            <image mode="widthFix" src="{{item}}" />
+            <view class="mask-layer">
+              <view class="mask-layer-img">
+                <image src="/image/yl.png" />
+              </view>
+            </view>
+            <view class="deal-img"><image src="/image/deal.png" /></view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 是否公开 -->
+  <view class="product-details">
+    <view class="whether-public">
+      <text>是否公开：</text>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{publicData}}" wx:key="uni-radio">
+          <radio class="radio" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+        </label>
+      </radio-group>
+    </view>
+    <view class="instructions-con">{{instructions}}</view>
+  </view>
+  <!-- 提交 -->
+  <button class="submit-registered" form-type='submit'>完成</button>
+</form>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

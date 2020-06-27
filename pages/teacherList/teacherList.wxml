@@ -1,0 +1,80 @@
+<!--pages/teacherList/teacherList.wxml-->
+<!-- 条件筛选 -->
+<view class="condition-screen">
+  <view class="condition-screen-box">
+    <!-- 顶部 -->
+    <view class="condition-screen-top">
+      <view class="teacher-security">教师保障</view>
+      <block wx:for="{{teacherSituation}}" wx:key="uni">
+        <view class="teacher-security-box">
+          <view class="teacher-security-box-img">
+            <image src="{{item.img}}" />
+          </view>
+          <view class="teacher-security-box-txt">{{item.con}}</view>
+        </view>
+      </block>
+    </view>
+    <!-- 区间筛选 -->
+    <view class="condition-screen-con">
+      <view class="condition-screen-con-box">
+        <block wx:for="{{userChoose}}" wx:key="uni-box">
+          <view data-index="{{index}}" bindtap="presentClick" class="condition-screen-con-box-one">
+            <view class="condition-screen-con-box-one-con">{{item.con}}</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{item.noChooseImg}}" />
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 附近教师 -->
+<view class="near-teacher"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">附近</view>
+            <view class="teacher">教师</view>
+          </view>
+        </view>
+        <view class="near-teacher-title-right">
+          <view class="near-teacher-title-left-btn">地图查看教师</view>
+        </view>
+      </view>
+      <!-- count -->
+      <block  wx:for="{{nearTeacherDatas}}" wx:key="">
+        <view bindtap="teacherInfo" class="near-teacher-count">
+          <view class="near-teacher-count-out">
+            <view class="near-teacher-count-left">
+              <view class="near-teacher-count-img"><image src="{{item.img}}" /></view>
+            </view>
+            <view class="near-teacher-count-right">
+              <view class="near-teacher-count-right-change">
+                <text>教师简介：</text>
+                <view class="near-teacher-count-right-dec">
+                  <view>{{item.name}}</view>
+                  <view>{{item.nickname}}</view>
+                  <view>{{item.subjects}}</view>
+                  <view>{{item.motto}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>
