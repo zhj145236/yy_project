@@ -1,0 +1,321 @@
+/* teacherVersion/teacherReleaseDynamic/teacherReleaseDynamic.wxss */
+page{
+  font-size: 30rpx;
+  background-color: #f2f2f2;
+  font-family:  Microsoft YaHei;
+}
+/* 占位图 */
+.placeholder-place-img{
+  width: 100%;
+  height: 170rpx;
+  margin: 30rpx 0;
+  overflow: hidden;
+}
+.placeholder-place-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 顶部 */
+.registered{
+  width: 90%;
+  margin: 30rpx auto;
+  padding: 30rpx 0;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+.registered-txt{
+  width: 90%;
+  margin: 0 auto;
+  color: #74cdce;
+  font-weight: 600;
+  text-align: left;
+}
+/* 日记列表 */
+.diary-list{
+  color: #707070;
+}
+/* 课程详情图上传 */
+.product-details{
+  width: 90%;
+  margin: 0 auto 30rpx auto;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx 0;
+}
+.product-details-img-upload-title{
+  width: 90%;
+  margin: auto;
+  color: #707070;
+}
+.product-details-img-upload{
+  width: 100%;
+  border-bottom: 2px solid #e7e7e7;
+  padding: 20rpx 0 30rpx 0;
+  font-size: 28rpx;
+}
+.product-details-img-upload-list-box{
+  width: 100%;
+  background-color: #fbfdff;
+  border-bottom: 2px solid #f6fbff;
+}
+.product-details-img-upload-list{
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 90%;
+  margin: auto;
+  font-size: 26rpx;
+  color: #a4a4a4;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+}
+.product-details-img-upload-box-external{
+  width: 90%;
+  padding: 20rpx 0;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  align-items: center;
+}
+.product-details-img-upload-box{
+ width: 200rpx; 
+ margin-bottom: 16rpx;
+}
+.helpful-hints{
+  font-size: 22rpx;
+  color: #e19e9e;
+  margin-left: 10rpx;
+}
+.product-details-img-upload-place-img{
+  width: 186rpx;
+  height: 280rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+}
+.mask-layer{
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+}
+.mask-layer-img{
+  width: 60rpx;
+  height: 60rpx;
+  margin: auto;
+}
+.mask-layer-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.deal-img{
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  border-radius: 100rpx;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.deal-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.product-details-img-upload-place-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.product-details-img-upload-icon{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}
+.product-details-img-upload-icon > image{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 完善课程信息 */
+/* .course-info{
+  padding: 20rpx 0;
+} */
+.course-info-box{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  align-items: center;
+  justify-content:flex-start;
+  margin: auto;
+  width: 90%;
+}
+.course-info-outside{
+  border-bottom: 1px solid #e7e7e7;
+  padding: 20rpx 0;
+}
+.course-info-box-img{
+  width: 60rpx;
+  height: 60rpx;
+  background-color: rgba(242, 176, 74, 0.3);
+  border-radius: 100rpx;
+  display: flex;
+  align-items: center;
+  margin-right: 10rpx;
+}
+.course-info-box-img > image{
+  display: block;
+  width: 60%;
+  height: 60%;
+  margin: auto;
+}
+.course-info-box-inp{
+  /* border: 1px solid #e7e7e7; */
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  padding: 16rpx 0;
+  width: 400rpx;
+}
+/* 课程描述 */
+.course-info-box-inp > input{
+  width: 360rpx;
+  margin: auto;
+}
+.textarea-box{
+  align-items: flex-start;
+}
+.textarea-inp{
+  background-color: #f4f4f4;
+  border-radius: 10rpx;
+  width: 530rpx;
+}
+.textarea-inp > textarea{
+  width: 90%;
+  margin: auto;
+}
+
+/* 授课方式 */
+.picker{
+  width: 90%;
+  margin: auto;
+  color: #707070;
+  /* color: #; */
+}
+
+.num-helpful-hints{
+  width: 90%;
+  margin: auto;
+}
+.change-course-info{
+  background-color: white;
+}
+
+/* 完成 */
+.submit-registered{
+  border: none;
+  background: #4EB9FF;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin:30rpx auto;
+  width: 90%;
+}
+.sign-up-time,.welfare-box{
+  align-items: flex-start;
+}
+.welfare-checkbox{
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  padding: 16rpx 0;
+}
+.checkbox{
+  margin-right: 10rpx;
+  font-size: 26rpx;
+  color: #707070;
+}
+.start-sign-up-time,.end-sign-up-time,.welfare{
+  border:1px solid #f4f4f4;
+  margin-bottom: 10rpx;
+  width: 460rpx;
+}
+.welfare{
+  border:1px solid #f4f4f4;
+  padding: 16rpx 0;
+  margin-bottom: 10rpx;
+}
+.welfare > input{
+  width: 90%;
+  margin: auto;
+}
+.welfare-inp{
+  width: 480rpx;
+  padding: 0;
+}
+.cb{
+  transform:scale(0.7,0.7);
+  vertical-align:middle;margin-top:-3px;
+}
+.remove-bottom{
+  border-bottom: none;
+}
+.radio{
+  transform:scale(0.7,0.7);
+  vertical-align:middle;
+  color: #a4a4a4;
+  margin-left: 10rpx;
+  margin-top: -3px;
+}
+.whether-public{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:flex-start;
+  align-items: center;
+  color: #707070;
+}
+.instructions-con{
+  width:90%;
+  margin: 0 auto;
+  font-size: 24rpx;
+  padding: 20rpx 0;
+  color: #e19e9e;
+}
+
+/* 底部总部信息 */
+.platform-info{
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #adadad;
+  width:56%;
+  margin: 100rpx auto 0 auto;
+}
+.platform-info > view{
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+/* 底部占位 */
+.position-bottom{
+  width: 100%;
+  height: 100rpx;
+}

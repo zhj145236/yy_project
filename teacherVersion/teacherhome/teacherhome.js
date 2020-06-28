@@ -17,6 +17,7 @@ Page({
     circular: true,
     interval: 3000,
     duration: 1000,
+    useClick:0,
 
     // count
     teacherNearParents: datas.teacherNearParents, // 附近教师
@@ -25,6 +26,7 @@ Page({
     dynamicInfo:datas.dynamicInfo, // 动态信息
     bottomInfo:datas.bottomInfo, // 动态信息底部
     teacherFun:datas.teacherFun, // 个人中心信息
+    chooseCategory:['看家长','看机构'],
 
 
     blockid:0,
@@ -69,6 +71,43 @@ Page({
   /**
    * 
    * @param {*} e
+   * 查看附近家长
+   */
+  viewNearParents:function(){
+    console.log('ceshi');
+    app.FunGetSeting(data=>{
+      console.log(data.authSetting['scope.userLocation'],'授权数据');
+      // 用户授权的时候监听用户曾经是否有授权行为，如果授权则走true，否则走false
+      if(data.authSetting['scope.userLocation']){
+        console.log('111');
+        o.FunGetLocation('gcj02',callback=>{
+          let latitude = callback.latitude,longitude = callback.longitude;
+          wx.navigateTo({
+            url:'../TeacherNearParentsMap/TeacherNearParentsMap?latitude=' + latitude + '&longitude=' + longitude,
+          });
+        });
+      }else{
+        console.log('222');
+        o.FunGetLocation('wgs84',callback=>{
+          let errMsg = callback.errMsg;
+          if(errMsg === "getLocation:ok"){
+            const latitude = callback.latitude,longitude = callback.longitude;
+            wx.navigateTo({
+              url:'../TeacherNearParentsMap/TeacherNearParentsMap?latitude=' + latitude + '&longitude=' + longitude,
+            });
+          }else{
+            wx.navigateTo({
+              url:'../TeacherNearParentsMap/TeacherNearParentsMap?latitude=' + '23.02067' + '&longitude=' + '113.75179',
+            });
+          }
+        });
+      }
+    });
+  },
+
+  /**
+   * 
+   * @param {*} e
    * 教师中心，点击发布课程产品，跳转发布页面 
    */
   jumpRelease:function(){
@@ -80,78 +119,43 @@ Page({
   /**
    * 
    * @param {*} e
-   * 用户点击功能模块 
+   * 用户点击功能事件 
    */
   funClick:function(e){
-    let that = this,nums = e.currentTarget.dataset.index;
-    switch(parseInt(nums)){
-      case 0:
-        wx.navigateTo({
-          url:'../teacherRegistered/teacherRegistered',
-        });
-        break;
-      case 1:
-        wx.navigateTo({
-          url:'../teacherPerfectInfo/teacherPerfectInfo',
-        });
-        break;
-      case 2:
-        wx.navigateTo({
-          url:'../teacherProduct/teacherProduct',
-        });
-        break;
-      case 3:
-        wx.navigateTo({
-          url:'../teacherFocus/teacherFocus',
-        });
-        break;
-      case 4:
-        wx.navigateTo({
-          url:'../teacherHelp/teacherHelp',
-        });
-        break;
-      case 5:
-        wx.navigateTo({
-          url:'../teacherImpower/teacherImpower',
-        });
-        break;
-      case 6:
-        wx.navigateTo({
-          url:'../teacherManagement/teacherManagement',
-        });
-        break;
-      case 7:
-        wx.navigateTo({
-          url:'../teacherAdvice/teacherAdvice',
-        });
-        break;
-      case 8:
-        wx.navigateTo({
-          url:'../teacherFound/teacherFound',
-        });
-        break;
-      case 9:
-        wx.navigateTo({
-          url:'../teacherBusinessCard/teacherBusinessCard',
-        });
-        break;
-      case 10:
-        wx.navigateTo({
-          url:'../teacherResume/teacherResume',
-        });
-        break;
-      case 11:
-        wx.navigateTo({
-          url:'../teacherDynamic/teacherDynamic',
-        });
-        break;
-      case 12:
-        wx.navigateTo({
-          url:'../teacherPersonal/teacherPersonal',
-        });
-        break;
+    let that = this,num = e.currentTarget.dataset.index,teacherFuns = that.data.teacherFun,needId = e.currentTarget.dataset.id;
+    if(needId !== 9){
+      wx.navigateTo({
+        url:'/teacherVersion' + teacherFuns[num].url,
+      });
+    }else{
+      wx.openSetting({
+        success (res) {
+          console.log(res.authSetting);
+        }
+      })
     }
   },
+
+  /**
+   * 
+   * @param {*} e
+   * 完善资料 
+   */
+  perfectData:function(){
+    wx.navigateTo({
+      url:'/teacherVersion/teacherPerfectInfo/teacherPerfectInfo',
+    });
+  },
+  
+  /**
+  * 用户选择类目
+  */
+ categoryClick:function(e){
+   let that = this,useClick = e.currentTarget.dataset.index;
+   that.setData({
+     useClick:useClick,
+   });
+ },
 
   // event.detail 的值为当前选中项的索引
   tabbarChange(e) {
@@ -170,6 +174,51 @@ Page({
   backyy:function(){
     wx.reLaunch({
       url: '/pages/aboutus/aboutus',
+    });
+  },
+  
+  /**
+   * 
+   * @param {*} e 
+   * 发布动态
+   */
+  releaseDynamic:function(){
+    wx.navigateTo({
+      url:'/teacherVersion/teacherReleaseDynamic/teacherReleaseDynamic',
+    });
+  },
+
+  /**
+   * 评论/点赞等点击事件
+   */
+  smallIcon:function(e){
+    let that = this,needIndex = e.currentTarget.dataset.index;
+    if(needIndex === 1){
+      wx.navigateTo({
+        url:'/teacherVersion/teacherReview/teacherReview',
+      });
+    }
+  },
+
+  /**
+   * 
+   * @param {*} options
+   * 教师点击查看更多招聘信息 
+   */
+  moreRecruit:function(){
+    wx.navigateTo({
+      url:'/teacherVersion/teacherRecruitList/teacherRecruitList',
+    });
+  },
+
+  /**
+   * 
+   * @param {*} options 
+   * 招聘详情页
+   */
+  recruitInfo:function(){
+    wx.navigateTo({
+      url:'/teacherVersion/teacherRecruit/teacherRecruit',
     });
   },
 

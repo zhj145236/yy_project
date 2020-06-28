@@ -7,7 +7,40 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dynamicInfo:datas.dynamicInfo, // 动态信息
+    bottomInfo:datas.bottomInfo, // 动态信息底部
+    nums:0,
+    chooseCoupons:[
+      {type:'stay',name:'好友动态',num:'3'},
+      {type:'has',name:'我的动态',num:'1'},
+      {type:'overdue',name:'我的关注',num:'0'},
+      {type:'overdue',name:'谁关注了我',num:'0'}
+    ], // 状态选择
+  },
 
+  /**
+   * 评论/点赞等点击事件
+   */
+  smallIcon:function(e){
+    let that = this,needIndex = e.currentTarget.dataset.index;
+    if(needIndex === 1){
+      wx.navigateTo({
+        url:'/parentsVersion/parentsReview/parentsReview',
+      });
+    }
+  },
+
+  /**
+   * 
+   * @param {*} options
+   * 选择状态
+   */
+  chooseCoupons:function(e){
+    console.log(e);
+    let that = this,index = e.currentTarget.dataset.index,type = e.currentTarget.dataset.type;
+    that.setData({
+      nums:index
+    });
   },
 
   /**

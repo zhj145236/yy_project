@@ -4,3 +4,44 @@ page{
   background-color: #f2f2f2;
   font-family:  Microsoft YaHei;
 }
+/* 顶部 */
+.registered{
+  width: 90%;
+  margin: 30rpx auto;
+  padding: 30rpx 0;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+.registered-txt{
+  width: 90%;
+  margin: 0 auto;
+  color: #74cdce;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* 优惠券使用情况 */
+.coupons-use-situation{
+  width: 90%;
+  border-radius: 10rpx;
+  background: #fff;
+  margin: 20rpx auto;
+  padding:40rpx 0;
+}
+.coupons-use-situation-box{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  align-items: center;
+  color: #707070;
+  font-size: 28rpx;
+}
+.coupons-use-situation-stay>text,.coupons-use-situation-has>text,.coupons-use-situation-overdue>text{
+  margin-left: 10rpx;
+}
+.active{
+  color: #74cdce;
+}

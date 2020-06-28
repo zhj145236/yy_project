@@ -742,57 +742,71 @@ const perfectInfoData = [
 // 教师中心信息
 const teacherFun = [
   {
+    id:1,
     centerImg:'/image/zc.png',
     backGroundColor:'#f2b04a',
     centerCon:'我要注册',
+    url:'/teacherRegistered/teacherRegistered',
   },{
+    id:2,
     centerImg:'/image/info.png',
     backGroundColor:'#74cdce',
-    centerCon:'完善信息',
+    centerCon:'优惠管理',
+    url:'/teacherDiscounts/teacherDiscounts',
   },{
+    id:3,
     centerImg:'/image/js.png',
     backGroundColor:'#51aa38',
     centerCon:'我的产品',
+    url:'/teacherProduct/teacherProduct',
   },{
-    centerImg:'/image/gz.png',
+    id:4,
+    centerImg:'/image/mp.png',
+    backGroundColor:'#51aa38',
+    centerCon:'个人名片',
+    url:'/teacherBusinessCard/teacherBusinessCard',
+  },{
+    id:5,
+    centerImg:'/image/jlzx.png',
+    backGroundColor:'#f2b04a',
+    centerCon:'简历中心',
+    url:'/teacherResume/teacherResume',
+  },{
+    id:6,
+    centerImg:'/image/dt.png',
     backGroundColor:'#74cdce',
-    centerCon:'我的关注',
+    centerCon:'互动中心',
+    url:'/teacherDynamic/teacherDynamic',
   },{
+    id:7,
+    centerImg:'/image/gljg.png',
+    backGroundColor:'#f2b04a',
+    centerCon:'我的收藏',
+    url:'/teacherManagement/teacherManagement',
+  },{
+    id:8,
+    centerImg:'/image/sq.png',
+    backGroundColor:'#74cdce',
+    centerCon:'微信授权',
+    url:'',
+  },{
+    id:9,
     centerImg:'/image/bz.png',
     backGroundColor:'#51aa38',
     centerCon:'使用帮助',
+    url:'/teacherHelp/teacherHelp',
   },{
-    centerImg:'/image/sq.png',
-    backGroundColor:'#f2b04a',
-    centerCon:'微信授权',
-  },{
-    centerImg:'/image/gljg.png',
-    backGroundColor:'#51aa38',
-    centerCon:'我的管理',
-  },{
+    id:10,
     centerImg:'/image/sc.png',
-    backGroundColor:'#f2b04a',
-    centerCon:'投诉建议',
+    backGroundColor:'#74cdce',
+    centerCon:'悦优留言',
+    url:'/teacherAdvice/teacherAdvice',
   },{
+    id:11,
     centerImg:'/image/fx.png',
-    backGroundColor:'#74cdce',
+    backGroundColor:'#51aa38',
     centerCon:'发现悦优',
-  },{
-    centerImg:'/image/mp.png',
-    backGroundColor:'#74cdce',
-    centerCon:'个人名片',
-  },{
-    centerImg:'/image/jlzx.png',
-    backGroundColor:'#51aa38',
-    centerCon:'简历中心',
-  },{
-    centerImg:'/image/dt.png',
-    backGroundColor:'#f2b04a',
-    centerCon:'我的动态',
-  },{
-    centerImg:'/image/jsgrzx.png',
-    backGroundColor:'#51aa38',
-    centerCon:'个人中心',
+    url:'/teacherFound/teacherFound',
   },
 ];
 
@@ -936,6 +950,15 @@ const couponsDetails = [
   },
 ];
 
+// 教师版 机构招聘 详情信息
+const infoAbstract = [
+  {
+    name:'虎门万达培训机构',
+    desc:['规模：5-10人','机构性质：艺术类培训机构'],
+    welfare:['节日礼品','教学奖金','下午茶']
+  },
+];
+
 module.exports = {
   nearTeacherData: nearTeacherData,
   institutionDetails:institutionDetails,
@@ -967,4 +990,5 @@ module.exports = {
   multiArrayData:multiArrayData,
   chooseCoupons:chooseCoupons,
   couponsDetails:couponsDetails,
+  infoAbstract:infoAbstract
 };

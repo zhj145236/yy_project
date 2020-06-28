@@ -1,2 +1,20 @@
 <!--teacherVersion/teacherResume/teacherResume.wxml-->
-<text>简历中心</text>
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到优惠券管理中心，祝您使用愉快。</view>
+</view>
+<!-- 条件选择 -->
+<view class="coupons-use-situation">
+  <view class="coupons-use-situation-box">
+    <block wx:for="{{chooseCoupons}}" wx:key="uni-coupons">
+      <view data-index="{{index}}" bindtap="chooseCoupons" class="coupons-use-situation-stay {{nums == index?'active':''}}">{{item}}</view>
+    </block>
+  </view>
+</view>
+
+<!-- 内容 -->
+<form>
+  <view>
+
+  </view>
+</form>

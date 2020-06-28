@@ -1,10 +1,9 @@
 {
   "debug": false,
   "pages": [
-    "pages/goodTeacher/goodTeacher",
+    "pages/index/index",
     "pages/chooseRole/chooseRole",
     "pages/login/login",
-    "pages/index/index",
     "pages/userRegistered/userRegistered",
     "pages/aboutus/aboutus",
     "pages/institutionsDetails/institutionsDetails",
@@ -62,14 +61,21 @@
         "teacherProduct/teacherProduct",
         "teacherFocus/teacherFocus",
         "teacherHelp/teacherHelp",
-        "teacherImpower/teacherImpower",
         "teacherManagement/teacherManagement",
         "teacherAdvice/teacherAdvice",
         "teacherFound/teacherFound",
         "teacherBusinessCard/teacherBusinessCard",
         "teacherResume/teacherResume",
         "teacherDynamic/teacherDynamic",
-        "teacherPersonal/teacherPersonal"
+        "TeacherNearParentsMap/TeacherNearParentsMap",
+        "TeacherNearInstitutionMap/TeacherNearInstitutionMap",
+        "teacherReview/teacherReview",
+        "teacherRecruit/teacherRecruit",
+        "teacherRecruitList/teacherRecruitList",
+        "teacherDiscounts/teacherDiscounts",
+        "teacherReleaseDynamic/teacherReleaseDynamic",
+        "teacherProductDetails/teacherProductDetails"
+
       ]
     },
     {
@@ -101,12 +107,6 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "/image/home.png",
-        "selectedIconPath": "/image/homeother.png"
-      },
-      {
-        "pagePath": "pages/goodTeacher/goodTeacher",
         "text": "优质教师",
         "iconPath": "/image/teacher.png",
         "selectedIconPath": "/image/teacherother.png"

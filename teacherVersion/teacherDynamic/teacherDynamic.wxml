@@ -1,2 +1,68 @@
 <!--teacherVersion/teacherDynamic/teacherDynamic.wxml-->
-<text>我的动态</text>
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到个人中心，祝您使用愉快。</view>
+</view>
+<!-- 条件选择 -->
+<view class="coupons-use-situation">
+  <view class="coupons-use-situation-box">
+    <block wx:for="{{chooseCoupons}}" wx:key="uni-coupons">
+      <view data-index="{{index}}" data-type="{{item.type}}" bindtap="chooseCoupons" class="coupons-use-situation-stay {{nums == index?'active':''}}">{{item.name}}<text style="{{item.num === '0'?'display:none;':'display:bolok;'}}">{{item.num}}</text></view>
+    </block>
+  </view>
+</view>
+
+<!-- 好友动态内容 -->
+<view class="near-teacher">
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- count --> 
+      <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic">
+        <view class="dynamic-con">
+          <view class="dynamic-con-box">
+            <!-- 会员图像 -->
+            <view class="dynamic-con-box-img"><image src="{{item.membersImg}}" /></view>
+            <!-- 会员内容 -->
+            <view class="dynamic-con-box-info">
+              <view class="dynamic-con-box-info-top">
+                <view class="dynamic-con-box-info-top-left">
+                  <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
+                  <view class="dynamic-con-box-info-top-left-id">ID:{{item.membersId}}</view>
+                </view>
+                <view class="dynamic-con-box-info-top-right my-focus">已被15人关注</view>
+              </view>
+              <!-- 动态中间内容 -->
+              <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
+              <!-- 动态图像 -->
+              <view class="dynamic-con-box-info-img">
+                <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
+                  <view class="dynamic-con-for-img">
+                    <image src="{{dynamicImg.specificImg}}" />
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 底部 -->
+        <view class="dynamic-bom">
+          <view class="dynamic-bom-box">
+            <block wx:for="{{bottomInfo}}" wx:key="uni-bom" wx:for-item="smallIcon">
+              <view data-id="{{item.id}}" data-index="{{index}}" bindtap="smallIcon" class="dynamic-bom-box-con">
+                <view class="dynamic-bom-box-con-img"><image src="{{smallIcon.icon}}" /></view>
+                <view class="dynamic-bom-box-con-text">{{smallIcon.con}}</view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

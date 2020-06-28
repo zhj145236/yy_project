@@ -1,16 +1,29 @@
-/* pages/index/index.wxss */
+/* pages/goodTeacher/goodTeacher.wxss */
 page{
   font-size: 30rpx;
   background-color: #f2f2f2;
   font-family:  Microsoft YaHei;
 }
+.active > .condition-screen-con-box-one-con{
+  color: #007bd0;
+}
+
 /* 地址定位 */
+.search-positioning{
+  background-color: #007bd0;
+  padding-bottom: 40rpx;
+}
+.search-positioning-box{
+  width: 90%;
+  margin:auto;
+}
 .location-img{
   /* margin-bottom: 30rpx; */
-  position: absolute;
+  /* position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 1; */
+  margin-bottom: 28rpx;
   width: 100%;
 }
 .location-img-view{
@@ -18,7 +31,6 @@ page{
   align-items:center;
   justify-content:flex-start;
   flex-direction:row;
-  width: 90%;
   margin: 0 auto;
 }
 .add-img{
@@ -34,45 +46,17 @@ page{
 .text-info{
   color: #fff;
 }
-.banner{
-  position: relative;
-  height: 336rpx;
-}
-.banner-img{
-  width:100%;
-  height: 400rpx;
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-}
-.banner-swiper{
-  width: 100%;
-  margin-left:auto;
-  margin-right: auto;
-  position: absolute;
-  top: 200rpx;
-  left: 50%;
-  margin-left: -50%;
-}
-.slide-image{
-  width: 100%;
-  display: block;
-  height: 200rpx;
-}
 .search{
   display:flex;
   justify-content: space-between;
-  position: absolute;
-  top: 80rpx;
-  z-index: 1;
-  width: 90%;
+  align-items:center;
+  /* width: 90%; */
   /* border: 1px solid red; */
 }
-.search-set{
+/* .search-set{
   width: 90%;
   margin: auto;
-}
+} */
 .set{
   display:flex;
   justify-content: flex-start;
@@ -111,6 +95,88 @@ page{
   line-height: 80rpx;
   background: #fff;
 }
+/* 占位图 */
+.placeholder-place-img{
+  width: 100%;
+  height: 170rpx;
+  margin: 30rpx 0;
+  overflow: hidden;
+}
+.placeholder-place-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 教师保障 */
+.condition-screen-box{
+  width: 90%;
+  background-color: #fff;
+  margin: 30rpx auto;
+  border-radius: 10rpx;
+  padding: 30rpx 0;
+}
+.condition-screen-top{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  margin: 0 auto;
+  height: 80rpx;
+}
+.teacher-security{
+  font-size: 26rpx;
+  color: #007bd0;
+  margin-right: 20rpx;
+}
+.teacher-security-box{
+  color: #007bd0;
+  font-size: 24rpx;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:row;
+  margin-right: 20rpx;
+}
+.teacher-security-box-img{
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+.teacher-security-box-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.condition-screen-con-box{
+  display: flex;
+  align-items:center;
+  justify-content:space-around;
+  flex-direction:row;
+  width: 90%;
+  margin:40rpx auto 0 auto;
+}
+.condition-screen-con-box-one{
+  display: flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-direction:row;
+}
+.condition-screen-con-box-one-con{
+  margin-right: 10rpx;
+  color: #707070;
+  font-size: 28rpx;
+}
+.condition-screen-con-box-one-img{
+  width: 24rpx;
+  height: 24rpx;
+}
+.condition-screen-con-box-one-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 /* 附近教师 */
 .position-height{
@@ -124,13 +190,19 @@ page{
   border-radius: 10rpx;
   padding: 30rpx 0;
 }
+/* .near-teacher-inner{
+  
+} */
+.near-teacher-title{
+  width: 90%;
+  margin:0 auto;
+}
 .near-teacher-title{
   display: flex;
   flex-direction:row;
   justify-content:space-between;
   align-items:center;
-  width: 90%;
-  margin:0 auto;
+  height: 80rpx;
 }
 .near-teacher-title-left-text,.near-teacher-title-left,.near-teacher-title-right{
   display: flex;
@@ -217,20 +289,49 @@ page{
   font-size: 26rpx;
   color: #565656;
 }
-/* 占位图 */
-.placeholder-place-img{
-  width: 100%;
-  height: 170rpx;
-  margin: 30rpx 0;
-  overflow: hidden;
+
+/* 底部总部信息 */
+.platform-info{
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #adadad;
+  width:56%;
+  margin: 100rpx auto 0 auto;
 }
-.placeholder-place-img > image{
-  display: block;
-  width: 100%;
-  height: 100%;
+.platform-info > view{
+  height: 40rpx;
+  line-height: 40rpx;
 }
 
-/* 附近机构 */
+/* 底部占位 */
+.position-bottom{
+  width: 100%;
+  height: 100rpx;
+}
+
+.choose-category{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  border-top: 8rpx solid #f2f2f2;
+  margin-top: 40rpx;
+  background: #f2f2f2;
+}
+.choose-category-teacher,.choose-category-product{
+  font-size: 28rpx;
+  color: #707070;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 50%;
+  text-align: center;
+}
+.addBck{
+  background: rgba(0, 123, 208, 0.7);
+  color: #fff;
+}
+
+/* 教师产品 */
 .institution-view{
   display: flex;
   flex-direction:row;
@@ -266,35 +367,17 @@ page{
   font-size: 26rpx;
   padding: 20rpx 0;
 }
-.institution-details{
-  width: 200rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  text-align: center;
-  color: #fff;
-  border-radius:14rpx;
-  background-color: #cd2a17;
-  margin-top: 20rpx;
-}
 .change-style{
   font-weight: 600;
 }
-
-/* 底部总部信息 */
-.platform-info{
-  font-size: 24rpx;
-  font-weight: 600;
-  color: #adadad;
-  width:56%;
-  margin: 100rpx auto 0 auto;
+.price{
+  color: #cd2a17;
 }
-.platform-info > view{
-  height: 40rpx;
-  line-height: 40rpx;
+.institution-more{
+  font-size: 30rpx;
 }
 
-/* 底部占位 */
-.position-bottom{
-  width: 100%;
-  height: 100rpx;
-}
+
+
+
+

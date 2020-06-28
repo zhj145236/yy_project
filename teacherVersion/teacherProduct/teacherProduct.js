@@ -11,6 +11,30 @@ Page({
   },
 
   /**
+   * 
+   * @param {*} options
+   * 长按事件 
+   */
+  longPress:function(e){
+    o.alert('移除课程','请确定是否移除收藏的课程',callback=>{
+      if(callback.confirm){
+        console.log('用户确认取消收藏该课程');
+      }
+    });
+  },
+
+  /**
+   * 
+   * @param {*} options
+   * 进入产品详情 
+   */
+  detailsClick:function(){
+    wx.navigateTo({
+      url:'/teacherVersion/teacherProductDetails/teacherProductDetails',
+    });
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {

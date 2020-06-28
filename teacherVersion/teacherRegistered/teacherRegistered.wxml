@@ -1,6 +1,6 @@
 <!--parentsVersion/parentsRegistered/parentsRegistered.wxml-->
 <view class="registered">
-  <view class="registered-txt">欢迎来到家长版注册中心，祝您使用愉快。</view>
+  <view class="registered-txt">欢迎来到教师版注册中心，祝您使用愉快。</view>
 </view>
 
 <!-- 注册内容 -->

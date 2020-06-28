@@ -10,28 +10,6 @@
 <!-- 内容 -->
 <form bindsubmit="formSubmit">
   <view class="product-details">
-    <!-- 年月日 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
-          <view class="course-info-box-inp">
-            <input type="text" value="" name="time" placeholder="年-月-日" />
-          </view>
-        </view>
-      </view>
-    </view>
-    <!-- 星期 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
-          <view class="course-info-box-inp">
-            <input type="text" value="" name="week" placeholder="今天星期几" />
-          </view>
-        </view>
-      </view>
-    </view>
     <!-- 天气 -->
     <view class="course-info">
       <view class="course-info-outside">
@@ -39,17 +17,6 @@
           <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
           <view class="course-info-box-inp">
             <input type="text" value="" name="weather" placeholder="今天的天气" />
-          </view>
-        </view>
-      </view>
-    </view>
-    <!-- 日记标题 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
-          <view class="course-info-box-inp">
-            <input type="text" value="" name="title" placeholder="日记标题" />
           </view>
         </view>
       </view>

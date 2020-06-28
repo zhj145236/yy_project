@@ -1,2 +1,44 @@
 <!--teacherVersion/teacherManagement/teacherManagement.wxml-->
-<text>我的管理</text>
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到收藏页面，祝您工作愉快。</view>
+</view>
+<view class="diary-center">
+  <view class="diary-center-box">
+    <block wx:for="{{recruitInfo}}" wx:key="uni-recruit">
+      <view class="recruit-con">
+        <view class="recruit-con-img"><image mode="widthFix" src="{{item.recruitImg}}" /></view>
+        <view class="recruit-con-des">
+          <view class="recruit-con-des-type">
+            <view class="recruit-con-des-type-title">{{item.mainTitle}}</view>
+            <view class="recruit-con-des-type-msg">
+              <view class="recruit-con-des-type-price">{{item.price}}</view>
+              <block wx:for="{{item.recruitInfo}}" wx:key="uni-con" wx:for-item="itemRecruit">
+                <view class="recruit-con-des-type-data">
+                  <view class="recruit-con-des-type-data-img"><image src="{{itemRecruit.recruitIcon}}" /></view>
+                  <view class="recruit-con-des-type-data-text">{{itemRecruit.recruitInfo}}</view>
+                </view>
+              </block>
+            </view>
+          </view>
+          <view class="recruit-con-des-type-center">
+            <view class="recruit-con-des-type-center-title">{{item.recruitCenterTitle}}</view>
+            <view class="recruit-con-des-type-center-con">{{item.recruitCenterCon}}</view>
+          </view>
+          <view class="recruit-con-des-type-bom">
+            <view class="recruit-con-des-type-bom-title">{{item.recruitBomTitle}}</view>
+            <view class="recruit-con-des-type-bom-con">{{item.recruitBomCom}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

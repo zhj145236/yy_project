@@ -1,0 +1,169 @@
+/* teacherVersion/teacherRecruitList/teacherRecruitList.wxss */
+page{
+  font-size: 30rpx;
+  background-color: #f2f2f2;
+  font-family:  Microsoft YaHei;
+}
+
+/* 机构招聘 */
+.condition-screen-con-box{
+  display: flex;
+  align-items:center;
+  justify-content:space-around;
+  flex-direction:row;
+  width: 90%;
+  margin:40rpx auto 0 auto;
+  background-color: #fff;
+  padding: 30rpx 0;
+  border-radius: 10rpx;
+}
+.condition-screen-con-box-one{
+  display: flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-direction:row;
+}
+.condition-screen-con-box-one-con{
+  margin-right: 10rpx;
+  color: #707070;
+  font-size: 28rpx;
+}
+.condition-screen-con-box-one-img{
+  width: 24rpx;
+  height: 24rpx;
+}
+.condition-screen-con-box-one-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.active > .condition-screen-con-box-one-con{
+  color: #007bd0;
+}
+
+.recruit{
+  width:90%;
+  margin: 30rpx auto;
+  padding: 30rpx 0;
+  background-color: #f1f9ff;
+  border-radius: 10rpx;
+}
+.recruit-box{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+}
+.recruit-box-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.recruit-box-img>image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.recruit-box-text{
+  font-size: 28rpx;
+  color: #666666;
+}
+/* con */
+.diary-center{
+  width: 90%;
+  margin: 30rpx auto;
+  padding: 40rpx 0;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+.diary-center-box{
+  width: 90%;
+  margin: auto;
+}
+.diary-center-copy{
+  color: #acacac;
+  font-size: 26rpx;
+  margin: 30rpx 0;
+}
+.recruit-con{
+  border-radius: 10rpx;
+  background-color: #f2f2f2;
+  overflow: hidden;
+  margin-bottom:30rpx;
+}
+.recruit-con-img{
+  width: 100%;
+  height: 300rpx;
+  overflow: hidden;
+}
+.recruit-con-img>image{
+  width: 100%;
+  height: 100%;
+}
+.recruit-con-des{
+  width:90%;
+  margin: auto;
+  padding: 30rpx 0;
+}
+.recruit-con-des-type-title{
+  font-size: 30rpx;
+  color: #505050;
+  margin-bottom: 10rpx;
+}
+.recruit-con-des-type-center{
+  margin: 20rpx 0;
+}
+.recruit-con-des-type-center-title,.recruit-con-des-type-bom-title{
+  margin-bottom: 10rpx;
+}
+.recruit-con-des-type-center,.recruit-con-des-type-bom{
+  color: #797979;
+  font-size: 28rpx;
+}
+.recruit-con-des-type-price{
+  color: #fe9d3d;
+  font-size: 26rpx;
+}
+.recruit-con-des-type-msg{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  color: #969696;
+}
+
+.recruit-con-des-type-data{
+  display: flex;
+  align-items:center;
+  justify-content:flex-start;
+  flex-direction:row;
+}
+.recruit-con-des-type-data-img{
+  width: 40rpx;
+  height: 40rpx;
+}
+.recruit-con-des-type-data-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 底部总部信息 */
+.platform-info{
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #adadad;
+  width:56%;
+  margin: 100rpx auto 0 auto;
+}
+.platform-info > view{
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+/* 底部占位 */
+.position-bottom{
+  width: 100%;
+  height: 100rpx;
+}

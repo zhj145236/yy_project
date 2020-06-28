@@ -1,0 +1,9 @@
+<!--teacherVersion/TeacherNearParentsMap/TeacherNearParentsMap.wxml-->
+<view class="map-view">
+  <map bindtap="csClick" style="width:100vh;height:100vh;" latitude="{{lat}}" longitude="{{lon}}" scale="16" show-location markers="{{markers}}"></map>
+</view>
+<view class="map-add">
+  <text class="map-add-name">东莞市昱升科技有限公司</text>
+  <text class="map-add-info" bindtap="callTel">联系电话：13310829325</text>
+  <text class="map-add-info">广东省东莞市厚街镇莞太路厚街段281号2号楼406室</text>
+</view>

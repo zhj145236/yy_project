@@ -228,7 +228,7 @@ Page({
    * 用户点击功能事件 
    */
   funClick:function(e){
-    let that = this,num = e.currentTarget.dataset.index,personalFuns = that.data.personalFun,len = personalFuns.length,needId = e.currentTarget.dataset.id;
+    let that = this,num = e.currentTarget.dataset.index,personalFuns = that.data.personalFun,needId = e.currentTarget.dataset.id;
     if(needId !== 4){
       wx.navigateTo({
         url:'/parentsVersion' + personalFuns[num].url,

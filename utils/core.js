@@ -244,7 +244,7 @@ module.exports = {
         // return 'http://47.115.57.64/';
         
         // 测试ip
-        return "http://192.168.31.76:8000/";
+        return "http://192.168.31.97:8000/";
 
         //开发人员IP
         // return "http://192.168.31.174:8000/"

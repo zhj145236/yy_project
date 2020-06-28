@@ -7,7 +7,21 @@ Page({
    * 页面的初始数据
    */
   data: {
+    nums:0,
+    chooseCoupons:['我的简历','我的投递','谁查看了我'],
+  },
 
+  /**
+   * 
+   * @param {*} options
+   * 简历中心选项 
+   */
+  chooseCoupons:function(e){
+    console.log(e);
+    let that = this,index = e.currentTarget.dataset.index,type = e.currentTarget.dataset.type;
+    that.setData({
+      nums:index
+    });
   },
 
   /**

@@ -36,8 +36,18 @@
   </view>
   <!-- 站位高度 -->
   <view class="position-height"></view>
+
+  <!-- 选择类目 -->
+  <view class="choose-category-box">
+    <view class="choose-category">
+      <block wx:for="{{chooseCategory}}" wx:key="uni-category">
+        <view data-index="{{index}}" class="choose-category-teacher {{useClick == index?'addBck':''}}" bindtap="categoryClick">{{item}}</view>
+      </block>
+    </view>
+  </view>
+
   <!-- 附近家长 -->
-  <view class="near-teacher"> 
+  <view style="{{useClick == '0'?'display:block':'display:none'}}" class="near-teacher"> 
     <view class="near-teacher-out">
       <view class="near-teacher-inner">
         <!-- title -->
@@ -47,7 +57,7 @@
               <view class="near">附近</view>
               <view class="teacher">家长</view>
             </view>
-            <view class="near-teacher-title-left-btn">地图查看家长</view>
+            <view bindtap="viewNearParents" class="near-teacher-title-left-btn">地图查看家长</view>
           </view>
           <view class="near-teacher-title-right">
             <view class="near-teacher-title-right-more">查看更多</view>
@@ -74,13 +84,9 @@
       </view>
     </view>
   </view>
-  <!-- 占位图 -->
-  <view class="placeholder-place-img">
-    <image mode="widthFix" src="../../image/zwt.png" />
-  </view>
 
   <!-- 附近机构 -->
-  <view class="near-teacher"> 
+  <view style="{{useClick == '1'?'display:block':'display:none'}}" class="near-teacher"> 
     <view class="near-teacher-out">
       <view class="near-teacher-inner">
         <!-- title -->
@@ -90,7 +96,7 @@
               <view class="near">附近</view>
               <view class="teacher">机构</view>
             </view>
-            <view class="near-teacher-title-left-btn">地图查看机构</view>
+            <view bindtap="" class="near-teacher-title-left-btn">地图查看机构</view>
           </view>
           <view class="near-teacher-title-right">
             <view class="near-teacher-title-right-more">查看更多</view>
@@ -120,7 +126,7 @@
 </block>
 <block wx:if="{{blockid==1}}">
   <!-- 顶部数据 -->
-  <view class="recruit">
+  <view bindtap="releaseDynamic" class="recruit">
     <view class="recruit-box">
       <view class="recruit-box-img"><image src="/image/xj.png" /></view>
       <view class="recruit-box-text">发布动态</view>
@@ -132,21 +138,6 @@
   <view class="near-teacher">
     <view class="near-teacher-out">
       <view class="near-teacher-inner">
-        <!-- title -->
-        <view class="near-teacher-title add-btm">
-          <view class="near-teacher-title-left">
-            <view class="near-teacher-title-left-text">
-              <view class="near">家长</view>
-              <view class="teacher">动态</view>
-            </view>
-          </view>
-          <view class="near-teacher-title-right">
-            <view class="near-teacher-title-right-more">更多</view>
-            <view class="near-teacher-title-right-img">
-            <image src="../../image/jt.png" />
-            </view>
-          </view>
-        </view>
         <!-- count --> 
         <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic">
           <view class="dynamic-con">
@@ -182,73 +173,7 @@
           <view class="dynamic-bom">
             <view class="dynamic-bom-box">
               <block wx:for="{{bottomInfo}}" wx:key="uni-bom">
-                <view class="dynamic-bom-box-con">
-                  <view class="dynamic-bom-box-con-img"><image src="{{item.icon}}" /></view>
-                  <view class="dynamic-bom-box-con-text">{{item.con}}</view>
-                </view>
-              </block>
-            </view>
-          </view>
-        </block>
-      </view>
-    </view>
-  </view>
-
-  <!-- 教师动态 -->
-  <view class="near-teacher">
-    <view class="near-teacher-out">
-      <view class="near-teacher-inner">
-        <!-- title -->
-        <view class="near-teacher-title add-btm">
-          <view class="near-teacher-title-left">
-            <view class="near-teacher-title-left-text">
-              <view class="near">教师</view>
-              <view class="teacher">动态</view>
-            </view>
-          </view>
-          <view class="near-teacher-title-right">
-            <view class="near-teacher-title-right-more">更多</view>
-            <view class="near-teacher-title-right-img">
-            <image src="../../image/jt.png" />
-            </view>
-          </view>
-        </view>
-        <!-- count --> 
-        <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic">
-          <view class="dynamic-con">
-            <view class="dynamic-con-box">
-              <!-- 会员图像 -->
-              <view class="dynamic-con-box-img"><image src="{{item.membersImg}}" /></view>
-              <!-- 会员内容 -->
-              <view class="dynamic-con-box-info">
-                <view class="dynamic-con-box-info-top">
-                  <view class="dynamic-con-box-info-top-left">
-                    <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
-                    <view class="dynamic-con-box-info-top-left-id">ID:{{item.membersId}}</view>
-                  </view>
-                  <view class="dynamic-con-box-info-top-right">
-                    <view class="dynamic-con-box-info-top-right-img"><image src="/image/jh.png" /></view>
-                    <view class="dynamic-con-box-info-top-right-attention">关注</view>
-                  </view>
-                </view>
-                <!-- 动态中间内容 -->
-                <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
-                <!-- 动态图像 -->
-                <view class="dynamic-con-box-info-img">
-                  <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
-                    <view class="dynamic-con-for-img">
-                      <image src="{{dynamicImg.specificImg}}" />
-                    </view>
-                  </block>
-                </view>
-              </view>
-            </view>
-          </view>
-          <!-- 底部 -->
-          <view class="dynamic-bom">
-            <view class="dynamic-bom-box">
-              <block wx:for="{{bottomInfo}}" wx:key="uni-bom">
-                <view class="dynamic-bom-box-con">
+                <view data-id="{{item.id}}" data-index="{{index}}" bindtap="smallIcon" class="dynamic-bom-box-con">
                   <view class="dynamic-bom-box-con-img"><image src="{{item.icon}}" /></view>
                   <view class="dynamic-bom-box-con-text">{{item.con}}</view>
                 </view>
@@ -264,11 +189,47 @@
 </block>
 <block wx:if="{{blockid==2}}">
   <!-- 机构招聘 -->
-  <!-- 顶部数据 -->
-  <view class="recruit">
-    <view class="recruit-box">
-      <view class="recruit-box-img"><image src="/image/dz.png" /></view>
-      <view class="recruit-box-text">位置筛选</view>
+  <view class="condition-screen-con" style="{{useClick == 0?'display:block':'display:none'}}">
+    <view class="condition-screen-con-box">
+      <!-- 课类 -->
+      <picker data-type="0" bindtap="teacherPresentClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{teacherMultiArray}}">
+        <view class="condition-screen-con-box-one {{teacherSetType == 0?'active':''}}">
+          <view class="condition-screen-con-box-one-con">薪资</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teacherSetType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+
+      <!-- 区域 -->
+      <picker data-type="1" bindtap="teacherPresentClick" mode="region" value="{{region}}" custom-item="{{customItem}}" bindchange="regionBindchange">
+        <view class="condition-screen-con-box-one {{teacherSetType == 1?'active':''}}">
+          <view class="condition-screen-con-box-one-con">教龄</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teacherSetType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+
+      <!-- 性别 -->
+      <picker data-type="2" bindtap="teacherPresentClick" mode="selector" value="{{index}}" custom-item="{{customItem}}" bindchange="bindSelectorPickerChange" range="{{genderArray}}">
+        <view class="condition-screen-con-box-one {{teacherSetType == 2?'active':''}}">
+          <view class="condition-screen-con-box-one-con">学历</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teacherSetType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+
+      <!-- 级段 -->
+      <picker data-type="3" bindtap="teacherPresentClick" mode="multiSelector" value="{{courseIndex}}" custom-item="{{customItem}}" bindchange="courseBindChange" bindcolumnchange="bindMultiCourseColumnChange" range="{{courseMultiArray}}">
+        <view class="condition-screen-con-box-one {{teacherSetType == 3?'active':''}}">
+          <view class="condition-screen-con-box-one-con">区域</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teacherSetType == 3?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
     </view>
   </view>
 
@@ -276,13 +237,13 @@
     <view class="diary-center-box">
       <view class="diary-center-title">
         <view class="diary-center-title-left">机构招聘</view>
-        <view class="diary-center-title-rigth">
+        <view bindtap="moreRecruit" class="diary-center-title-rigth">
           <view class="diary-center-title-more">更多</view>
           <view class="diary-center-title-img"><image src="/image/downjtother2.png" /></view>
         </view>
       </view>
       <block wx:for="{{recruitInfo}}" wx:key="uni-recruit">
-        <view class="recruit-con">
+        <view bindtap="recruitInfo" class="recruit-con">
           <view class="recruit-con-img"><image mode="widthFix" src="{{item.recruitImg}}" /></view>
           <view class="recruit-con-des">
             <view class="recruit-con-des-type">
@@ -321,7 +282,7 @@
         <view class="personal-center-box-left-img"><image src="{{userInfo.avatarUrl}}" /></view>
         <view class="personal-center-box-left-info">
           <view class="personal-center-box-left-info-nick">昵称：{{userInfo.nickName}}</view>
-          <view class="personal-center-box-left-info-id">头像：修改头像</view>
+          <view bindtap="perfectData" class="personal-center-box-left-info-id">资料：资料完善</view>
           <view class="info-remind">消息提醒<view class="info-remind-num">12</view></view>
         </view>
       </view>
@@ -343,7 +304,7 @@
     <view class="personal-fun-box">
       <block wx:for="{{teacherFun}}" wx:key="uno-fun">
         <view class="personal-fun-box-out">
-          <view style="background:{{item.backGroundColor}};" data-index="{{index}}" bindtap="funClick" class="personal-fun-box-con">
+          <view style="background:{{item.backGroundColor}};" data-index="{{index}}" data-id="{{item.id}}" bindtap="funClick" class="personal-fun-box-con">
             <view class="personal-fun-box-con-img"><image src="{{item.centerImg}}" /></view>
             <view class="personal-fun-box-con-msg">{{item.centerCon}}</view>
           </view>

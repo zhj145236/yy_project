@@ -1,4 +1,4 @@
-// teacherVersion/teacherImpower/teacherImpower.js
+// teacherVersion/teacherReleaseDynamic/teacherReleaseDynamic.js
 const datas = require('../../utils/data.js');
 const app = getApp(), o = app.requirejs('core');
 Page({
@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-
   },
 
   /**
