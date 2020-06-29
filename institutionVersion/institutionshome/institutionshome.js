@@ -23,7 +23,7 @@ Page({
     nearTeacherDatas: datas.nearTeacherData, // 附近教师
     institutionsProductCenterData:datas.institutionsProductCenterData, // 机构产品
     recruitInfo:datas.recruitInfo, // 机构招聘
-    personalFun:datas.personalFun, // 企业中心
+    institutionFun:datas.institutionFun, // 企业中心
 
 
     blockid:0,
@@ -83,6 +83,26 @@ Page({
       blockid:index
     });
     that.onLoad();
+  },
+
+  /**
+   * 
+   * @param {*} e
+   * 用户点击功能事件 
+   */
+  funClick:function(e){
+    let that = this,num = e.currentTarget.dataset.index,institutionFun = that.data.institutionFun,needId = e.currentTarget.dataset.id;
+    if(needId !== 6){
+      wx.navigateTo({
+        url:'/institutionVersion' + institutionFun[num].url,
+      });
+    }else{
+      wx.openSetting({
+        success (res) {
+          console.log(res.authSetting);
+        }
+      })
+    }
   },
 
   /**

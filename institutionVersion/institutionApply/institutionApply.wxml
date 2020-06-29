@@ -1,0 +1,41 @@
+<!--institutionVersion/institutionApply/institutionApply.wxml-->
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">选择适合您的VIP套餐。</view>
+</view>
+
+<!-- 内容 -->
+<block wx:for="{{VIPdata}}" wx:key="uni-coupons">
+  <view class="coupons-details">
+    <view class="coupons-details-box">
+      <view class="coupons-details-left">
+        <view class="coupons-details-left-top-digital">{{item.figure}}</view>
+        <view class="coupons-details-left-down">{{item.explain}}</view>
+      </view>
+      <view class="coupons-details-right">
+        <view class="coupons-details-right-header">
+          <view class="coupons-details-right-header-icon"><image src="/image/bq.png" /></view>
+          <view class="coupons-details-right-header-text">{{item.title}}</view>
+        </view>
+        <view class="coupons-details-right-con">
+          <view class="coupons-details-right-con-use">{{item.case}}</view>
+        </view>
+        <view bindtap="basicContent" class="coupons-details-right-info">
+          <view class="coupons-details-right-info-text">基本信息</view>
+          <view class="coupons-details-right-icon"><image src="/image/jtdown.png" /></view>
+        </view>
+      </view>
+    </view>
+    <!-- 基本内容 -->
+    <view class="basic-content" style="display:none;">
+      <block wx:for="{{item.basicInfo}}" wx:key="uni-basic" wx:for-item="basicItem">
+        <view class="basic-content-box">
+          <view wx:if="{{basicItem.type == 'name'}}" class="basic-name">姓名：{{basicItem.name}}</view>
+          <view wx:elif="{{basicItem.type == 'address'}}" class="basic-area">区域：{{basicItem.address}}</view>
+          <view wx:elif="{{basicItem.type == 'grade'}}" class="basic-grade">级段：{{basicItem.grade}}</view>
+          <view wx:else class="basic-quality">课程性质：{{basicItem.quality}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</block>

@@ -811,7 +811,7 @@ const teacherFun = [
 ];
 
 // 课类数据
-multiArrayData = [
+const multiArrayData = [
   {
     multiArray: [
       // 所有一级数据
@@ -959,6 +959,138 @@ const infoAbstract = [
   },
 ];
 
+// 机构中心 功能数据
+const institutionFun = [
+  {
+    id:1,
+    centerImg:'/image/zc.png',
+    backGroundColor:'#f2b04a',
+    centerCon:'入住申请',
+    url:'/institutionApply/institutionApply',
+  },{
+    id:2,
+    centerImg:'/image/info.png',
+    backGroundColor:'#51aa38',
+    centerCon:'优惠管理',
+    url:'/institutionManagement/institutionManagement',
+  },{
+    id:3,
+    centerImg:'/image/sc.png',
+    backGroundColor:'#74cdce',
+    centerCon:'软件定制',
+    url:'/institutionCustom/institutionCustom',
+  },{
+    id:4,
+    centerImg:'/image/sq.png',
+    backGroundColor:'#51aa38',
+    centerCon:'发布招聘',
+    url:'/institutionrecRuitment/institutionrecRuitment',
+  },{
+    id:5,
+    centerImg:'/image/yhq.png',
+    backGroundColor:'#74cdce',
+    centerCon:'家教互动',
+    url:'/institutionrecInteractive/institutionrecInteractive',
+  },{
+    id:6,
+    centerImg:'/image/xh.png',
+    backGroundColor:'#f2b04a',
+    centerCon:'微信授权',
+    url:'',
+  },{
+    id:7,
+    centerImg:'/image/gz.png',
+    backGroundColor:'#74cdce',
+    centerCon:'使用帮助',
+    url:'/institutionrecHelp/institutionrecHelp',
+  },{
+    id:8,
+    centerImg:'/image/bz.png',
+    backGroundColor:'#f2b04a',
+    centerCon:'悦优留言',
+    url:'/institutionrecLeaveWord/institutionrecLeaveWord',
+  },{
+    id:9,
+    centerImg:'/image/ly.png',
+    backGroundColor:'#51aa38',
+    centerCon:'发现悦优',
+    url:'/institutionrecFound/institutionrecFound',
+  }
+];
+
+const VIPdata = [
+  {
+    tag:'1',
+    figure:'999',
+    explain:'每年',
+    title:'白银会员',
+    case:'查看功能详情',
+    basicInfo:[
+      {tag:'1'},
+      {con:[{
+            type:'name',
+            name:'李老师'
+          },{
+            type:'address',
+            address:'虎门镇'
+          },{
+            type:'grade',
+            grade:'三年级'
+          },{
+            type:'quality',
+            quality:'该教师名下课程通用'
+          },
+        ]}
+    ],
+  },{
+    tag:'1',
+    figure:'1999',
+    explain:'每年',
+    title:'黄金会员',
+    case:'查看功能详情',
+    basicInfo:[
+      {tag:'1'},
+      {con:[{
+            type:'name',
+            name:'李老师'
+          },{
+            type:'address',
+            address:'虎门镇'
+          },{
+            type:'grade',
+            grade:'三年级'
+          },{
+            type:'quality',
+            quality:'该教师名下课程通用'
+          },
+        ]}
+    ],
+  },{
+    tag:'1',
+    figure:'2999',
+    explain:'每年',
+    title:'铂金会员',
+    case:'查看功能详情',
+    basicInfo:[
+      {tag:'1'},
+      {con:[{
+            type:'name',
+            name:'李老师'
+          },{
+            type:'address',
+            address:'虎门镇'
+          },{
+            type:'grade',
+            grade:'三年级'
+          },{
+            type:'quality',
+            quality:'该教师名下课程通用'
+          },
+        ]}
+    ],
+  },
+];
+
 module.exports = {
   nearTeacherData: nearTeacherData,
   institutionDetails:institutionDetails,
@@ -990,5 +1122,7 @@ module.exports = {
   multiArrayData:multiArrayData,
   chooseCoupons:chooseCoupons,
   couponsDetails:couponsDetails,
-  infoAbstract:infoAbstract
+  infoAbstract:infoAbstract,
+  institutionFun:institutionFun,
+  VIPdata:VIPdata
 };

@@ -81,7 +81,15 @@
     {
       "root":"institutionVersion",
       "pages":[
-        "institutionshome/institutionshome"
+        "institutionshome/institutionshome",
+        "institutionApply/institutionApply",
+        "institutionManagement/institutionManagement",
+        "institutionCustom/institutionCustom",
+        "institutionrecRuitment/institutionrecRuitment",
+        "institutionrecInteractive/institutionrecInteractive",
+        "institutionrecHelp/institutionrecHelp",
+        "institutionrecLeaveWord/institutionrecLeaveWord",
+        "institutionrecFound/institutionrecFound"
       ]
     }
   ],

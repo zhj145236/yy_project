@@ -1,0 +1,56 @@
+<!--institutionVersion/institutionCustom/institutionCustom.wxml-->
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到软件定制中心。</view>
+</view>
+
+<form bindsubmit="formSubmit">
+  <view class="product-details">
+    <!-- 姓名 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" value="" name="title" placeholder="请输入姓名" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 联系方式 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" value="" name="title" placeholder="请输入手机号" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 软件需求说明 -->
+    <view class="course-info">
+      <view class="course-info-outside remove-bottom">
+        <view class="course-info-box textarea-box">
+          <view class="course-info-box-img"><image src="/image/desc.png" /></view>
+          <view class="course-info-box-inp textarea-inp">
+            <textarea type="text" name="desc" value="" placeholder="请大致描述一下您需要的软件说明" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 说明 -->
+  <view class="instructions">
+    <view class="instructions-con">{{instructions}}</view>
+  </view>
+  <!-- 提交 -->
+  <button class="submit-registered" form-type='submit'>完成</button>
+</form>
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

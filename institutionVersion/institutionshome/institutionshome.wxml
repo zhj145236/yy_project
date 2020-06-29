@@ -242,8 +242,8 @@
   <!-- 内容 -->
   <view class="personal-fun">
     <view class="personal-fun-box">
-      <block wx:for="{{personalFun}}" wx:key="uno-fun">
-        <view style="background:{{item.backGroundColor}};" class="personal-fun-box-con">
+      <block wx:for="{{institutionFun}}" wx:key="uno-fun">
+        <view style="background:{{item.backGroundColor}};" data-id="{{item.id}}" data-index="{{index}}" bindtap="funClick" class="personal-fun-box-con">
           <view class="personal-fun-box-con-img"><image src="{{item.centerImg}}" /></view>
           <view class="personal-fun-box-con-msg">{{item.centerCon}}</view>
         </view>
