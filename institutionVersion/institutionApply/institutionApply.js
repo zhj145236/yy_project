@@ -12,6 +12,18 @@ Page({
 
   /**
    * 
+   * @param {*} e 
+   * 用户点击查看功能详情进入功能详情页面
+   */
+  viewDetails:function(e){
+    let that = this,id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url:'/institutionVersion/institutionFunDetails/institutionFunDetails?id=' + id,
+    });
+  },
+
+  /**
+   * 
    * @param {*} e
    * 展示基本信息 
    */

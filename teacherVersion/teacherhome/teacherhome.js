@@ -20,8 +20,6 @@ Page({
     useClick:0,
 
     // count
-    teacherNearParents: datas.teacherNearParents, // 附近教师
-    institutionDetails:datas.institutionDetails, // 附近机构
     recruitInfo:datas.recruitInfo, // 机构招聘
     dynamicInfo:datas.dynamicInfo, // 动态信息
     bottomInfo:datas.bottomInfo, // 动态信息底部
@@ -67,96 +65,6 @@ Page({
       }
     ]
   },
-
-  /**
-   * 
-   * @param {*} e
-   * 查看附近家长
-   */
-  viewNearParents:function(){
-    console.log('ceshi');
-    app.FunGetSeting(data=>{
-      console.log(data.authSetting['scope.userLocation'],'授权数据');
-      // 用户授权的时候监听用户曾经是否有授权行为，如果授权则走true，否则走false
-      if(data.authSetting['scope.userLocation']){
-        console.log('111');
-        o.FunGetLocation('gcj02',callback=>{
-          let latitude = callback.latitude,longitude = callback.longitude;
-          wx.navigateTo({
-            url:'../TeacherNearParentsMap/TeacherNearParentsMap?latitude=' + latitude + '&longitude=' + longitude,
-          });
-        });
-      }else{
-        console.log('222');
-        o.FunGetLocation('wgs84',callback=>{
-          let errMsg = callback.errMsg;
-          if(errMsg === "getLocation:ok"){
-            const latitude = callback.latitude,longitude = callback.longitude;
-            wx.navigateTo({
-              url:'../TeacherNearParentsMap/TeacherNearParentsMap?latitude=' + latitude + '&longitude=' + longitude,
-            });
-          }else{
-            wx.navigateTo({
-              url:'../TeacherNearParentsMap/TeacherNearParentsMap?latitude=' + '23.02067' + '&longitude=' + '113.75179',
-            });
-          }
-        });
-      }
-    });
-  },
-
-  /**
-   * 
-   * @param {*} e
-   * 教师中心，点击发布课程产品，跳转发布页面 
-   */
-  jumpRelease:function(){
-    wx.navigateTo({
-      url:'../teacherPeleaseProduct/teacherPeleaseProduct',
-    });
-  },
-
-  /**
-   * 
-   * @param {*} e
-   * 用户点击功能事件 
-   */
-  funClick:function(e){
-    let that = this,num = e.currentTarget.dataset.index,teacherFuns = that.data.teacherFun,needId = e.currentTarget.dataset.id;
-    if(needId !== 9){
-      wx.navigateTo({
-        url:'/teacherVersion' + teacherFuns[num].url,
-      });
-    }else{
-      wx.openSetting({
-        success (res) {
-          console.log(res.authSetting);
-        }
-      })
-    }
-  },
-
-  /**
-   * 
-   * @param {*} e
-   * 完善资料 
-   */
-  perfectData:function(){
-    wx.navigateTo({
-      url:'/teacherVersion/teacherPerfectInfo/teacherPerfectInfo',
-    });
-  },
-  
-  /**
-  * 用户选择类目
-  */
- categoryClick:function(e){
-   let that = this,useClick = e.currentTarget.dataset.index;
-   that.setData({
-     useClick:useClick,
-   });
- },
-
   // event.detail 的值为当前选中项的索引
   tabbarChange(e) {
     var index = parseInt(e.detail),that = this;
@@ -167,37 +75,84 @@ Page({
   },
 
   /**
-   * 
-   * @param {*} options
-   * 返回悦优中心 
+   * 首页数据点击事件数据请求============================================== start
    */
-  backyy:function(){
-    wx.reLaunch({
-      url: '/pages/aboutus/aboutus',
-    });
-  },
-  
+
   /**
    * 
    * @param {*} e 
-   * 发布动态
+   * 首页 点击机构 进入机构详情
    */
-  releaseDynamic:function(){
+  insDetails:function(e){
     wx.navigateTo({
-      url:'/teacherVersion/teacherReleaseDynamic/teacherReleaseDynamic',
+      url:'/teacherVersion/teacherInstitutionDetail/teacherInstitutionDetail?id=' + e.currentTarget.dataset.id,
     });
   },
 
   /**
-   * 评论/点赞等点击事件
+   * 点击更多 进入机构列表
    */
-  smallIcon:function(e){
-    let that = this,needIndex = e.currentTarget.dataset.index;
-    if(needIndex === 1){
+  insList:function(){
+    wx.navigateTo({
+      url:'/teacherVersion/teacherInstitutionList/teacherInstitutionList'
+    });
+  },
+
+  /**
+   * 地图查看更多机构
+   */
+  viewNearIns:function(){
+    app.MapEvent('/teacherVersion/TeacherNearInstitutionMap/TeacherNearInstitutionMap','org');
+  },
+
+  /**
+   * 首页数据点击事件数据请求============================================== end
+   */
+
+  /**
+   * 附近动态数据点击事件数据请求============================================== start
+   */
+  
+    /**
+     * 
+     * @param {*} e 
+     * 发布动态
+     */
+    releaseDynamic:function(){
       wx.navigateTo({
-        url:'/teacherVersion/teacherReview/teacherReview',
+        url:'/teacherVersion/teacherReleaseDynamic/teacherReleaseDynamic',
       });
-    }
+    },
+
+    /**
+     * 评论/点赞等点击事件
+     */
+    smallIcon:function(e){
+      let that = this,needIndex = e.currentTarget.dataset.index;
+      if(needIndex === 1){
+        wx.navigateTo({
+          url:'/teacherVersion/teacherReview/teacherReview',
+        });
+      }
+    },
+
+  /**
+   * 附近动态数据点击事件数据请求============================================== end
+   */
+
+  /**
+   * 机构招聘数据请求============================================== start
+   */
+
+  /**
+   * 
+   * @param {*} e
+   * 条件筛选 点击事件
+   * || ========================== 6/18 张 start
+   */
+  teaRecruitClick:function(e){
+    let that = this,type = e.currentTarget.dataset.type;
+    o.FunPresentClick(that,type,'teaRecruitType');
   },
 
   /**
@@ -223,17 +178,162 @@ Page({
   },
 
   /**
+  * 
+  * @param {*} e
+  * 机构招聘 薪资组件弹出数据 
+  * || ========================== 6/18 张 start
+  */
+ teaSalaryChange:function(e){
+     let that = this,
+     teaSalaryData = that.data.teaSalaryData[e.detail.value].value,
+     data = {'value':teaSalaryData};
+     console.log(that.data.teaSalaryData,'数据');
+     console.log(data,'薪资传提交数据');
+    //  o.funGoodTeacher(that,data,'app/plat/org/productList',0,5,'parentsInstitutionsCourseList','4');
+   },
+ /**
+  * 
+  * @param {*} e
+  * 机构招聘 薪资组件弹出数据
+  * || ========================== 6/18 张 end
+  */
+
+  /**
+  * 
+  * @param {*} e
+  * 机构招聘 教龄组件弹出数据 
+  * || ========================== 6/18 张 start
+  */
+    teaAgeChange:function(e){
+      let that = this,
+      teaAgeData = that.data.teaAgeData[e.detail.value].value,
+      data = {'value':teaAgeData};
+      console.log(that.data.teaAgeData,'数据');
+      console.log(data,'薪资传提交数据');
+    //  o.funGoodTeacher(that,data,'app/plat/org/productList',0,5,'parentsInstitutionsCourseList','4');
+    },
+  /**
+  * 
+  * @param {*} e
+  * 机构招聘 教龄组件弹出数据
+  * || ========================== 6/18 张 end
+  */
+
+  /**
+  * 
+  * @param {*} e
+  * 机构招聘 学历组件弹出数据 
+  * || ========================== 6/18 张 start
+  */
+    learnChange:function(e){
+      let that = this,
+      learnData = that.data.learnData[e.detail.value].value,
+      data = {'value':learnData};
+      console.log(that.data.learnData,'数据');
+      console.log(data,'薪资传提交数据');
+    //  o.funGoodTeacher(that,data,'app/plat/org/productList',0,5,'parentsInstitutionsCourseList','4');
+    },
+  /**
+  * 
+  * @param {*} e
+  * 机构招聘 学历组件弹出数据
+  * || ========================== 6/18 张 end
+  */
+
+  /**
+   * 机构招聘数据请求============================================== end
+   */
+
+  /**
+   * 教师中心数据点击事件数据请求============================================== start
+   */
+
+    /**
+     * 
+     * @param {*} e
+     * 教师中心，点击发布课程产品，跳转发布页面 
+     */
+    jumpRelease:function(){
+      wx.navigateTo({
+        url:'../teacherPeleaseProduct/teacherPeleaseProduct',
+      });
+    },
+
+    /**
+     * 
+     * @param {*} e
+     * 用户点击功能事件 
+     */
+    funClick:function(e){
+      let that = this,num = e.currentTarget.dataset.index,teacherFuns = that.data.teacherFun,needId = e.currentTarget.dataset.id;
+      if(needId !== 9){
+        wx.navigateTo({
+          url:'/teacherVersion' + teacherFuns[num].url,
+        });
+      }else{
+        wx.openSetting({
+          success (res) {
+            console.log(res.authSetting);
+          }
+        })
+      }
+    },
+
+    /**
+     * 
+     * @param {*} e
+     * 完善资料 
+     */
+    perfectData:function(){
+      wx.navigateTo({
+        url:'/teacherVersion/teacherPerfectInfo/teacherPerfectInfo',
+      });
+    },
+
+    /**
+     * 
+     * @param {*} options
+     * 返回悦优中心 
+     */
+    backyy:function(){
+      wx.reLaunch({
+        url: '/pages/aboutus/aboutus',
+      });
+    },
+
+  /**
+   * 教师中心数据点击事件数据请求============================================== end
+   */
+  
+  /**
+  * 用户选择类目
+  */
+ categoryClick:function(e){
+   let that = this,useClick = e.currentTarget.dataset.index;
+   that.setData({
+     useClick:useClick,
+   });
+ },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let that = this;
-    console.log(that.data.blockid);
     if(that.data.blockid === 0){
-      console.log('加载首页的数据');
+      let data = {};
+      // 机构列表接口
+      o.funGoodTeacher(that,data,'app/plat/org/goodOrg',0,5,'teaHomeInstitutions','3');
     }else if(that.data.blockid === 1){
-      console.log('加载搜索页的数据');
+      console.log('附近动态');
     }else if(that.data.blockid === 2){
-      console.log('加载我的数据');
+      console.log('机构招聘');
+      // 机构招聘 薪资接口数据
+      o.funPriceSort(that,'app/com/dict/salary_range','teaSalaryArray','teaSalaryData');
+      // 机构招聘 教龄接口数据
+      o.funPriceSort(that,'app/com/dict/work_year','teaAgeArray','teaAgeData');
+      // 机构招聘 学历接口数据
+      o.funPriceSort(that,'app/com/dict/educational_limit','learnArray','learnData');
     }else{
       // 个人中心数据加载
       /**
@@ -242,19 +342,19 @@ Page({
        * 否则加载默认数据
        * 2020/6/5增 --- 张 showVendor用户授权判断
        */
-      if(app.globalData.userInfo !== ''){
-        let userInfo = app.globalData.userInfo;
-        that.setData({
-          userInfo:userInfo
-        });
-      }else{
-        let userInfo = {};
-        userInfo.avatarUrl = '/image/dtimg.jpg';
-        userInfo.nickName = '游客登录';
-        that.setData({
-          userInfo:userInfo
-        });
-      }
+      // if(app.globalData.userInfo !== ''){
+      //   let userInfo = app.globalData.userInfo;
+      //   that.setData({
+      //     userInfo:userInfo
+      //   });
+      // }else{
+      //   let userInfo = {};
+      //   userInfo.avatarUrl = '/image/dtimg.jpg';
+      //   userInfo.nickName = '游客登录';
+      //   that.setData({
+      //     userInfo:userInfo
+      //   });
+      // }
     }
   },
 

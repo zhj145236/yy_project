@@ -11,7 +11,8 @@ Page({
     impowerLoginWay:datas.impowerLoginWay,
     isShow:false,
     nums:0,
-    isPhone:false,
+    isPhone:false, // 验证手机号是否正确
+    isCode:false, // 验证码是否输入正确
   },
 
   /**
@@ -80,27 +81,13 @@ Page({
    * 用户选择微信身份登录 
    */
   getUserInfo:function(e){
+    console.log(e,'授权数据');
     let that = this,
     userInfoSucces = e.detail.errMsg,
     useType = that.data.useType;
+    // console.log();
     if(userInfoSucces == 'getUserInfo:ok'){
-      let userInfo = e.detail.userInfo;
-      app.globalData.userInfo = userInfo;
-      that.jumpFun(useType);
-    }
-  },
-
-  /**
-   * 获取手机验证码倒计时
-   */
-  countdownClick:function(){
-    let that = this,isPhone = that.data.isPhone;
-    console.log(isPhone,'222');
-    if(isPhone){
-      that.setData({
-        isShow:true,
-      });
-      o.timesFun(10,that,'isShow');
+      o.FunWxLogin(e.detail.encryptedData,e.detail.iv,useType);
     }
   },
 
@@ -108,22 +95,73 @@ Page({
    * 输入手机号验证
    */
   bindblur:function(e){
-    let that = this,phoneNum = e.detail.value,validationPhone = /^1[3456789]\d{9}$/;
-    o.ridBlankSpace(phoneNum,that,'phoneNum');
+    let that = this,validationPhone = /^1[3456789]\d{9}$/;
+    o.ridBlankSpace('phoneNum',that,e.detail.value);
+    if(that.data.phoneNum !== ''){
     // 当手机号输入框失去焦点时验证
-    if(!validationPhone.test(phoneNum)){
-      o.showToast('手机号输入有误，请重新输入');
+    if(!validationPhone.test(that.data.phoneNum)){
+      o.funShowToast('手机号输入有误，请重新输入');
       that.setData({
         phoneNum:'',
         isPhone:false
       });
+      }else{
+        that.setData({
+          phoneNum:that.data.phoneNum,
+          isPhone:true
+        });
+      }
     }else{
-      that.setData({
-        phoneNum:phoneNum,
-        isPhone:true
-      });
+      o.funShowToast('手机号不能为空');
     }
-    console.log(e,'123');
+  },
+
+  /**
+   * 获取手机验证码倒计时
+   */
+  countdownClick:function(){
+    let that = this,isPhone = that.data.isPhone,phoneNum = that.data.phoneNum;
+    console.log(phoneNum,'111');
+    if(phoneNum === undefined){
+      o.funShowToast('请输入手机号');
+      return;
+    }
+    
+    if(isPhone){
+      console.log('123');
+      that.setData({
+        isShow:true,
+      });
+      o.timesFun(60,that,'isShow');
+      o.FunGetCode(phoneNum);
+    }
+  },
+
+  /**
+   * 
+   * @param {*} e 
+   * 验证码 输入验证 去除空格
+   */
+  bindblurCode:function(e){
+    let that = this;
+    o.ridBlankSpace('verification',that,e.detail.value);
+    console.log(that.data.verification.length,'返回正常数据');
+    if(that.data.verification !== ''){
+      if(that.data.verification.length === 6){
+        that.setData({
+          verification:that.data.verification,
+          isCode:true,
+        });
+      }else{
+        o.funShowToast('请输入正确的6位验证码');
+        that.setData({
+          verification:'',
+          isCode:false,
+        });
+      }
+    }else{
+      o.funShowToast('验证码不能为空');
+    }
   },
 
   /**
@@ -132,13 +170,32 @@ Page({
    * 输入账号密码登录 
    */
   formSubmit:function(e){
-    let that = this,nums = that.data.nums;
+    let that = this,
+    nums = that.data.nums,
+    isPhone = that.data.isPhone,
+    isCode = that.data.isCode,
+    useType = that.data.useType;
+    console.log(isPhone);
     switch(nums){
-      case 1:
-        console.log('手机登录');
+      case 0:
+        console.log(e,'手机登录');
         break;
-      case 2:
-        let val = e.detail.value.val,pasd = e.detail.value.pasd;
+      case 1:
+        console.log(e,'验证码登录');
+        let phoneNum = e.detail.value.phoneNum,verification = e.detail.value.verification;
+        if(phoneNum === ""){
+          o.funShowToast('手机号不能位空');
+          return;
+        }
+        if(isPhone){
+          if(verification === ""){
+            o.funShowToast('验证码不能为空');
+            return;
+          }
+        }
+        if(isPhone && isCode){
+          o.FunCodeLogin(phoneNum,verification,useType);
+        }
         break;
     }
   },

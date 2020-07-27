@@ -12,14 +12,15 @@ Page({
       '../../image/banner2.png',
       '../../image/banner2.png',
     ],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     circular: true,
     interval: 3000,
     duration: 1000,
+    couponsInfo:datas.couponsInfo, // 优惠券信息
 
     platformInspect:datas.platformInspect, // 平台核查数据
-    teacherInfo:datas.teacherInfo, // 教师信息
+    // teacherInfo:datas.teacherInfo, // 教师信息
     productCenterData:datas.productCenterData, // 产品中心
     approveInfo:datas.approveInfo, // 认证数据
     myInfo:'每个人都有潜在的能量，只是很容易被习惯掩盖，被时间迷离，被惰性所消磨', // 人生格言
@@ -35,10 +36,9 @@ Page({
     });
   },
 
-  // 点击产品进入产品详情页
-  teacherProductClick:function(){
+  detailInfo:function(e){
     wx.navigateTo({
-      url:'../teacherProductCenter/teacherProductCenter',
+      url:'../teacherProductCenter/teacherProductCenter?id=' + e.currentTarget.dataset.id,
     });
   },
 
@@ -51,7 +51,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options.id,'数据');
+    let that = this,id = options.id;
+    o.funTeacherDetails(that,id,'app/tea/center/home','needData','1');
   },
 
   /**

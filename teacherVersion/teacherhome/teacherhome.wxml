@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<!-- 首页 -->
 <block wx:if="{{blockid==0}}">
   <!-- 顶部banner图 -->
   <view class='banner'>
@@ -37,68 +38,23 @@
   <!-- 站位高度 -->
   <view class="position-height"></view>
 
-  <!-- 选择类目 -->
-  <view class="choose-category-box">
-    <view class="choose-category">
-      <block wx:for="{{chooseCategory}}" wx:key="uni-category">
-        <view data-index="{{index}}" class="choose-category-teacher {{useClick == index?'addBck':''}}" bindtap="categoryClick">{{item}}</view>
-      </block>
-    </view>
-  </view>
-
   <!-- 附近家长 -->
-  <view style="{{useClick == '0'?'display:block':'display:none'}}" class="near-teacher"> 
-    <view class="near-teacher-out">
-      <view class="near-teacher-inner">
-        <!-- title -->
-        <view class="near-teacher-title">
-          <view class="near-teacher-title-left">
-            <view class="near-teacher-title-left-text">
-              <view class="near">附近</view>
-              <view class="teacher">家长</view>
-            </view>
-            <view bindtap="viewNearParents" class="near-teacher-title-left-btn">地图查看家长</view>
-          </view>
-          <view class="near-teacher-title-right">
-            <view class="near-teacher-title-right-more">查看更多</view>
-            <view class="near-teacher-title-right-img">
-            <image src="../../image/jt.png" />
-            </view>
-          </view>
-        </view>
-        <!-- count -->
-        <view class="institution-view">
-          <block  wx:for="{{teacherNearParents}}" wx:key="uni">
-            <view class="institution">
-              <view class="institution-img">
-                <image mode="widthFix" src="{{item.memberImg}}" />
-              </view>
-              <view class="institution-con">
-                <view class="institution-con-style change-style">姓名：{{item.name}}</view>
-                <view class="institution-con-style">座右铭：{{item.motto}}</view>
-                <view class="institution-details">详情</view>
-              </view>
-            </view>
-          </block>
-        </view>
-      </view>
-    </view>
-  </view>
+  
 
   <!-- 附近机构 -->
-  <view style="{{useClick == '1'?'display:block':'display:none'}}" class="near-teacher"> 
+  <view class="near-teacher"> 
     <view class="near-teacher-out">
       <view class="near-teacher-inner">
         <!-- title -->
         <view class="near-teacher-title">
           <view class="near-teacher-title-left">
             <view class="near-teacher-title-left-text">
-              <view class="near">附近</view>
+              <view class="near">优质</view>
               <view class="teacher">机构</view>
             </view>
-            <view bindtap="" class="near-teacher-title-left-btn">地图查看机构</view>
+            <view bindtap="viewNearIns" class="near-teacher-title-left-btn">地图查看机构</view>
           </view>
-          <view class="near-teacher-title-right">
+          <view class="near-teacher-title-right" bindtap="insList">
             <view class="near-teacher-title-right-more">查看更多</view>
             <view class="near-teacher-title-right-img">
             <image src="../../image/jt.png" />
@@ -106,24 +62,32 @@
           </view>
         </view>
         <!-- count -->
-        <view class="institution-view">
-          <block  wx:for="{{institutionDetails}}" wx:key="uni">
-            <view class="institution">
-              <view class="institution-img">
-                <image mode="widthFix" src="{{item.img}}" />
+        <block  wx:for="{{teaHomeInstitutions}}" wx:key="">
+          <view bindtap="insDetails" data-id="{{item.id}}" class="near-teacher-count">
+            <view class="near-teacher-count-out">
+              <view class="near-teacher-count-left">
+                <view class="near-teacher-count-img"><image src="{{item.headImg}}" /></view>
               </view>
-              <view class="institution-con">
-                <view class="institution-con-style change-style">名称：{{item.name}}</view>
-                <view class="institution-con-style">地址：{{item.address}}</view>
-                <view class="institution-details">详情</view>
+              <view class="near-teacher-count-right">
+                <view class="near-teacher-count-right-change">
+                  <text class="near-teacher-count-right-change-txt">机构简介：</text>
+                  <view class="near-teacher-count-right-dec">
+                    <view class="new-box">机构名称：{{item.name}}</view>
+                    <view class="new-box">辅导科目：{{item.teachItem}}</view>
+                    <view class="new-box">服务范围：{{item.teachObj}}</view>
+                    <view class="new-box">机构地址：{{item.locationDesc}}</view>
+                  </view>
+                </view>
               </view>
             </view>
-          </block>
-        </view>
+          </view>
+        </block>
       </view>
     </view>
   </view>
 </block>
+
+<!-- 附近动态 -->
 <block wx:if="{{blockid==1}}">
   <!-- 顶部数据 -->
   <view bindtap="releaseDynamic" class="recruit">
@@ -187,46 +151,48 @@
 
 
 </block>
+
+<!-- 机构招聘 -->
 <block wx:if="{{blockid==2}}">
   <!-- 机构招聘 -->
   <view class="condition-screen-con" style="{{useClick == 0?'display:block':'display:none'}}">
     <view class="condition-screen-con-box">
-      <!-- 课类 -->
-      <picker data-type="0" bindtap="teacherPresentClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{teacherMultiArray}}">
-        <view class="condition-screen-con-box-one {{teacherSetType == 0?'active':''}}">
+      <!-- 薪资 -->
+      <picker data-type="0" bindtap="teaRecruitClick" mode="selector" value="{{salaryIndex}}" custom-item="{{customItem}}" bindchange="teaSalaryChange" range="{{teaSalaryArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 0?'active':''}}">
           <view class="condition-screen-con-box-one-con">薪资</view>
           <view class="condition-screen-con-box-one-img">
-            <image src="{{teacherSetType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
+            <image src="{{teaRecruitType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+
+      <!-- 教龄 -->
+      <picker data-type="1" bindtap="teaRecruitClick" mode="selector" value="{{teaAgeIndex}}" custom-item="{{customItem}}" bindchange="teaAgeChange" range="{{teaAgeArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 1?'active':''}}">
+          <view class="condition-screen-con-box-one-con">教龄</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teaRecruitType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+
+      <!-- 学历 -->
+      <picker data-type="2" bindtap="teaRecruitClick" mode="selector" value="{{learnIndex}}" custom-item="{{customItem}}" bindchange="learnChange" range="{{learnArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 2?'active':''}}">
+          <view class="condition-screen-con-box-one-con">学历</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teaRecruitType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
           </view>
         </view>
       </picker>
 
       <!-- 区域 -->
-      <picker data-type="1" bindtap="teacherPresentClick" mode="region" value="{{region}}" custom-item="{{customItem}}" bindchange="regionBindchange">
-        <view class="condition-screen-con-box-one {{teacherSetType == 1?'active':''}}">
-          <view class="condition-screen-con-box-one-con">教龄</view>
-          <view class="condition-screen-con-box-one-img">
-            <image src="{{teacherSetType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
-          </view>
-        </view>
-      </picker>
-
-      <!-- 性别 -->
-      <picker data-type="2" bindtap="teacherPresentClick" mode="selector" value="{{index}}" custom-item="{{customItem}}" bindchange="bindSelectorPickerChange" range="{{genderArray}}">
-        <view class="condition-screen-con-box-one {{teacherSetType == 2?'active':''}}">
-          <view class="condition-screen-con-box-one-con">学历</view>
-          <view class="condition-screen-con-box-one-img">
-            <image src="{{teacherSetType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
-          </view>
-        </view>
-      </picker>
-
-      <!-- 级段 -->
-      <picker data-type="3" bindtap="teacherPresentClick" mode="multiSelector" value="{{courseIndex}}" custom-item="{{customItem}}" bindchange="courseBindChange" bindcolumnchange="bindMultiCourseColumnChange" range="{{courseMultiArray}}">
-        <view class="condition-screen-con-box-one {{teacherSetType == 3?'active':''}}">
+      <picker data-type="3" bindtap="teaRecruitClick" mode="multiSelector" value="{{teaHomeAreaIndex}}" custom-item="{{customItem}}" bindchange="teaHomeAreaChange" bindcolumnchange="teaHomeAreaColumnChange" range="{{teaHomeAreaArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 3?'active':''}}">
           <view class="condition-screen-con-box-one-con">区域</view>
           <view class="condition-screen-con-box-one-img">
-            <image src="{{teacherSetType == 3?'/image/downjtother.png':'/image/downjt.png'}}" />
+            <image src="{{teaRecruitType == 3?'/image/downjtother.png':'/image/downjt.png'}}" />
           </view>
         </view>
       </picker>
@@ -242,7 +208,7 @@
           <view class="diary-center-title-img"><image src="/image/downjtother2.png" /></view>
         </view>
       </view>
-      <block wx:for="{{recruitInfo}}" wx:key="uni-recruit">
+      <block wx:for="{{insRecruitInfo}}" wx:key="uni-recruit">
         <view bindtap="recruitInfo" class="recruit-con">
           <view class="recruit-con-img"><image mode="widthFix" src="{{item.recruitImg}}" /></view>
           <view class="recruit-con-des">
@@ -273,6 +239,8 @@
   </view>
 
 </block>
+
+<!-- 教师中心 -->
 <block wx:if="{{blockid==3}}">
   <!-- 教师中心 -->
   <!-- 顶部 -->

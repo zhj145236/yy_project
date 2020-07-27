@@ -4,12 +4,58 @@ page{
   background-color: #f2f2f2;
   font-family:  Microsoft YaHei;
 }
+/* 公共样式 教育产品左右布局 */
+.new-box-sex,.new-box-price,.new-box-knob{
+  display: flex;
+  align-items: center;
+}
+.new-box-nature{
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: #565656;
+  font-weight: normal;
+}
+.new-box{
+  font-size: 26rpx;
+  margin-bottom: 10rpx;
+}
+.new-box-sex{
+  display: flex;
+  align-items: center;
+}
+.new-box-sex-img{
+  width: 35rpx;
+  height: 35rpx;
+  margin-right: 20rpx;
+}
+.new-box-sex-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.title-box{
+  color: #464646;
+  font-weight: 600;
+  font-size: 30rpx;
+}
+.new-box-price{
+  color: #cd2a17;
+  font-weight: 600;
+  font-size: 28rpx;
+}
+.new-box-price > text{
+  font-size: 24rpx;
+}
+.yet-new-box-num{
+  color: #FF9700;
+}
+
 /*  ========================== 首页样式 ========================== */
 .search-set{
-  position: absolute;
+  /* position: absolute;
   top: 30rpx;
   z-index: 1;
-  left: 0;
+  left: 0; */
   width: 100%;
 }
 .parents-search{
@@ -67,8 +113,10 @@ button::after{
   font-size: 24rpx;
 }
 .banner{
-  position: relative;
-  height: 336rpx;
+  /* position: relative;
+  height: 336rpx; */
+  background-color: #f2b04a;
+  padding: 40rpx 0;
 }
 .banner-img{
   width:100%;
@@ -77,15 +125,6 @@ button::after{
   left: 0;
   top: 0;
   display: block;
-}
-.banner-swiper{
-  width: 100%;
-  margin-left:auto;
-  margin-right: auto;
-  position: absolute;
-  top: 140rpx;
-  left: 50%;
-  margin-left: -50%;
 }
 .slide-image{
   width: 100%;
@@ -390,6 +429,18 @@ button::after{
   font-size: 26rpx;
   color: #7a7a7a;
   margin: 30rpx 0;
+}
+.has-focus{
+  color: #f2b04a;
+  font-weight: 600;
+}
+.my-dynamic{
+  border: none;
+  font-weight: 600;
+  width: 200rpx;
+}
+.my-set-dynamic{
+  color: #f2b04a;
 }
 /* 动态底部 */
 .dynamic-bom{
@@ -764,9 +815,6 @@ button::after{
 .change-style{
   font-weight: 600;
 }
-.set-height{
-  height: 130rpx;
-}
 
 /* 条件筛选 */
 .active > .condition-screen-con-box-one-con{
@@ -818,11 +866,11 @@ button::after{
 }
 .teacher-security{
   font-size: 26rpx;
-  color: #007bd0;
+  color: #4EB9FF;
   margin-right: 20rpx;
 }
 .teacher-security-box{
-  color: #007bd0;
+  color: #4EB9FF;
   font-size: 24rpx;
   display: flex;
   align-items:center;

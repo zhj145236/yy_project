@@ -2,6 +2,8 @@
   "debug": false,
   "pages": [
     "pages/index/index",
+    "pages/video/video",
+    "pages/startPage/startPage",
     "pages/chooseRole/chooseRole",
     "pages/login/login",
     "pages/userRegistered/userRegistered",
@@ -38,12 +40,13 @@
         "parentsinstPreferential/parentsinstPreferential",
         "parentsinstCollection/parentsinstCollection",
         "parentsinstPerfectInfo/parentsinstPerfectInfo",
-        "parentsTeacherDetails/parentsTeacherDetails",
         "parentsInstitutionDetails/parentsInstitutionDetails",
-        "parentsNearTeacher/parentsNearTeacher",
+        "parentsInstitutionList/parentsInstitutionList",
+        "parentsInstitutionProductCenter/parentsInstitutionProductCenter",
+        "parentsInstitutionProductList/parentsInstitutionProductList",
         "parentsNearTeacherMap/parentsNearTeacherMap",
-        "parentsNearInstitutionMap/parentsNearInstitutionMap",
         "parentsReview/parentsReview",
+        "parentsTeacherDetails/parentsTeacherDetails",
         "parentsTeacherProductList/parentsTeacherProductList",
         "parentsTeacherProductCenter/parentsTeacherProductCenter",
         "parentsTeacherList/parentsTeacherList",
@@ -67,8 +70,11 @@
         "teacherBusinessCard/teacherBusinessCard",
         "teacherResume/teacherResume",
         "teacherDynamic/teacherDynamic",
-        "TeacherNearParentsMap/TeacherNearParentsMap",
         "TeacherNearInstitutionMap/TeacherNearInstitutionMap",
+        "teacherInstitutionDetail/teacherInstitutionDetail",
+        "teacherInstitutionList/teacherInstitutionList",
+        "teacherInstitutionProductDetail/teacherInstitutionProductDetail",
+        "teacherInstitutionProductList/teacherInstitutionProductList",
         "teacherReview/teacherReview",
         "teacherRecruit/teacherRecruit",
         "teacherRecruitList/teacherRecruitList",
@@ -89,7 +95,9 @@
         "institutionrecInteractive/institutionrecInteractive",
         "institutionrecHelp/institutionrecHelp",
         "institutionrecLeaveWord/institutionrecLeaveWord",
-        "institutionrecFound/institutionrecFound"
+        "institutionrecFound/institutionrecFound",
+        "institutionFunDetails/institutionFunDetails",
+        "institutionWriteData/institutionWriteData"
       ]
     }
   ],
@@ -103,7 +111,8 @@
   "window": {
     "navigationBarBackgroundColor": "#007bd0",
     "navigationBarTitleText": "悦优·教育",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "navigationStyle":"default"
   },
   
 

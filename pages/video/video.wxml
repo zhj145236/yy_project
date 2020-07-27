@@ -1,0 +1,9 @@
+<!--pages/video/video.wxml-->
+<view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" style="height:{{height}};width:{{width}}" class='banner-video'>
+  <video class="myVideo" bindended="bindended" bindplay="bindplay" bindpause="bindpause"  play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="fill" enable-play-gesture="{{playGesture}}" src="{{tempFilePathVideo}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+  <view class="position-btn">
+    <button open-type="share" class="position-btn-fx"><image src="/image/spfx.png" /></button>
+    <view class="position-btn-line"></view>
+    <view catchtap="outClick" class="position-btn-out"><image src="/image/out.png" /></view>
+  </view>
+</view>

@@ -2,6 +2,5 @@
   "enablePullDownRefresh": true,
   "component": true,
   "usingComponents": {},
-  "backgroundColor":"#007bd0",
-  "navigationBarTitleText":"企业详情"
+  "backgroundColor":"#007bd0"
 }

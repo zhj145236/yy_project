@@ -1,0 +1,15 @@
+<!--pages/startPage/startPage.wxml-->
+<view class="start-page" style="width:{{windowWidth}};height:{{windowHeight}}">
+  <view class="start-page-img">
+    <image mode="widthFix" src="/image/yyqd.png" />
+  </view>
+</view>
+
+<view class="start-page-text">
+  <view class="start-page-text-title">提高成绩 · 拓展思维</view>
+  <view class="start-page-text-detail">
+    <view class="start-page-text-detail-top">寻名师 / 找家教 / 选机构</view>
+    <view class="start-page-text-detail-bom">附近查找 · 免费咨询 · 交易自由</view>
+  </view>
+  <view class="start-page-text-adv-lang">欢迎使用悦优，您身边的教育平台。</view>
+</view>

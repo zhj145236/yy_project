@@ -12,7 +12,7 @@
           <form bindsubmit="formSubmit">
             <!-- 账号登录 -->
             <view wx:if="{{nums === 0}}" class="login-info-inp">
-              <view class="login-info-inp-account mar-btm"><input type="text" name="val" value="{{val}}" placeholder="请输入账号" /></view>
+              <view class="login-info-inp-account mar-btm"><input type="text" name="val" value="{{val}}" placeholder="请输入账号/手机号" /></view>
               <view class="login-info-inp-account"><input type="text" value="{{pasd}}" name="pasd" placeholder="请输入密码" /></view>
             </view>
             <!-- 手机登录 -->
@@ -26,7 +26,7 @@
               
               <view class="verification-code-box">
                 <view class="verification-code-box-inp">
-                  <input type="text" value="{{verification}}" name="verification" placeholder="请输入验证码" />
+                  <input type="number" bindblur="bindblurCode" value="{{verification}}" name="verification" placeholder="请输入验证码" />
                 </view>
                 <view bindtap="countdownClick" wx:if="{{!isShow}}" class="verification-code">获取验证码</view>
                 <view wx:if="{{isShow}}" class="verification-code">{{times}}</view>
@@ -58,10 +58,10 @@
               <view class="login-info-box-bottom-icon-wx-img"><image src="{{item.img}}" /></view>
               <view class="login-info-box-bottom-icon-wx-txt">{{item.txt}}</view>
             </button>
-            <view wx:else bindtap="impowerLoginWay" style="background:{{use.iconColor}};" data-index="{{index}}" class="login-info-box-bottom-icon-wx">
+            <!-- <view wx:else bindtap="impowerLoginWay" style="background:{{use.iconColor}};" data-index="{{index}}" class="login-info-box-bottom-icon-wx">
               <view class="login-info-box-bottom-icon-wx-img"><image src="{{item.img}}" /></view>
               <view class="login-info-box-bottom-icon-wx-txt">{{item.txt}}</view>
-            </view>
+            </view> -->
           </block>
         </view>
       </view>

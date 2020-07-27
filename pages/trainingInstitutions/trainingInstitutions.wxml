@@ -1,29 +1,22 @@
 <!--pages/goodTeacher/goodTeacher.wxml-->
 <!-- 顶部搜索 -->
 <view class="search-positioning">
-  <!-- 定位 -->
-    <view class="search-positioning-box">
-      <view class="location-img">
-        <view class="location-img-view">
-          <view class="img-view"><image class="add-img" src="../../image/add.png" mode="widthFix" /></view>
-          <view class="text-info">东莞</view>
-        </view>
-      </view>
-      <!-- 搜索框部分 -->
-      <view class='search-set'>
-        <form bindsubmit="formSubmit">
-          <view class='search'>
-            <view class='set'>
-              <image class='search-icon change-icon' src='../../image/serch.png' />
-              <input name="searchGoods" class='search-inp' placeholder='附近机构' />
-            </view>
-            <view>
-              <button data-btnid="searchId" form-type='submit' class='search-icon search-icon-inp'>搜索</button>
-            </view>
+  <view class="search-positioning-box">
+    <!-- 搜索框部分 -->
+    <view class='search-set'>
+      <form bindsubmit="formSubmit">
+        <view class='search'>
+          <view class='set'>
+            <image class='search-icon change-icon' src='../../image/serch.png' />
+            <input name="searchGoods" class='search-inp' placeholder='附近机构' />
           </view>
-        </form>
-      </view>
+          <view>
+            <button data-btnid="searchId" form-type='submit' class='search-icon search-icon-inp'>搜索</button>
+          </view>
+        </view>
+      </form>
     </view>
+  </view>
 </view>
 
 <!-- 占位图 -->
@@ -36,7 +29,7 @@
   <view class="condition-screen-box">
     <!-- 顶部 -->
     <view class="condition-screen-top">
-      <view class="teacher-security">培训机构</view>
+      <view class="teacher-security">机构保障</view>
       <block wx:for="{{teacherSituation}}" wx:key="uni">
         <view class="teacher-security-box">
           <view class="teacher-security-box-img">
@@ -46,23 +39,97 @@
         </view>
       </block>
     </view>
+
+    <!-- 选择类目 -->
+    <view class="choose-category">
+      <block wx:for="{{chooseCategory}}" wx:key="uni-category">
+        <view data-index="{{index}}" class="choose-category-teacher {{useClick == index?'addBck':''}}" bindtap="categoryClick">{{item}}</view>
+      </block>
+    </view>
+
     <!-- 区间筛选 -->
-    <view class="condition-screen-con">
+    <!-- 培训机构 -->
+    <view class="condition-screen-con" style="{{useClick == 0?'display:block':'display:none'}}">
       <view class="condition-screen-con-box">
-        <block wx:for="{{userChoose}}" wx:key="uni-box">
-          <view data-index="{{index}}" bindtap="presentClick" class="condition-screen-con-box-one">
-            <view class="condition-screen-con-box-one-con">{{item.con}}</view>
+        <!-- 课类 -->
+        <picker data-type="0" bindtap="enterprisePresentClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="enterpriseBindMultiPickerChange" bindcolumnchange="enterpriseBindMultiPickerColumnChange" value="{{enterpriseMultiIndex}}" range="{{enterpriseMultiArray}}">
+          <view class="condition-screen-con-box-one {{enterpriseSetType == 0?'active':''}}">
+            <view class="condition-screen-con-box-one-con">课类</view>
             <view class="condition-screen-con-box-one-img">
-              <image src="{{item.noChooseImg}}" />
+              <image src="{{enterpriseSetType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
             </view>
           </view>
-        </block>
+        </picker>
+
+        <!-- 区域 -->
+        <picker data-type="1" bindtap="enterprisePresentClick" mode="multiSelector" value="{{enterpriseAreaIndex}}" custom-item="{{customItem}}" bindchange="enterpriseAreaBindchange" bindcolumnchange="enterpriseAreaColumnChange" range="{{enterpriseAreaMultiArray}}">
+          <view class="condition-screen-con-box-one {{enterpriseSetType == 1?'active':''}}">
+            <view class="condition-screen-con-box-one-con">区域</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{enterpriseSetType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+
+        <!-- 服务范围 -->
+        <picker data-type="2" bindtap="enterprisePresentClick" mode="multiSelector" value="{{enterpriseCourseIndex}}" custom-item="{{customItem}}" bindchange="enterpriseCourseBindChange" bindcolumnchange="enterpriseBindMultiCourseColumnChange" range="{{enterpriseCourseMultiArray}}">
+          <view class="condition-screen-con-box-one {{enterpriseSetType == 2?'active':''}}">
+            <view class="condition-screen-con-box-one-con">服务范围</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{enterpriseSetType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 课程产品 -->
+    <view class="condition-screen-con" style="{{useClick == 1?'display:block':'display:none'}}">
+      <view class="condition-screen-con-box">
+        <!-- 课类 -->
+        <picker data-type="0" bindtap="courseEnterpriseClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="enterpriseProductClass" bindcolumnchange="enterpriseProductClassChange" value="{{enterpriseProductIndex}}" range="{{enterpriseProductMultiArray}}">
+          <view class="condition-screen-con-box-one {{courseEnterpriseSetType == 0?'active':''}}">
+            <view class="condition-screen-con-box-one-con">课类</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseEnterpriseSetType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+
+        <!-- 区域 -->
+        <picker data-type="1" bindtap="courseEnterpriseClick" mode="multiSelector" value="{{enterpriseProductAddIndex}}" custom-item="{{customItem}}" bindchange="enterpriseproductAdd" bindcolumnchange="enterpriseProductAddChange" range="{{enterpriseProductAreaMultiArray}}">
+          <view class="condition-screen-con-box-one {{courseEnterpriseSetType == 1?'active':''}}">
+            <view class="condition-screen-con-box-one-con">区域</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseEnterpriseSetType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+
+        <!-- 价格 -->
+        <picker data-type="2" bindtap="courseEnterpriseClick" mode="selector" value="{{enterpriseProductPriceIndex}}" custom-item="{{customItem}}" bindchange="enterpriseProductPrice" bindcolumnchange="enterpriseProductPriceChange" range="{{enterpriseProductPriceArray}}">
+          <view class="condition-screen-con-box-one {{courseEnterpriseSetType == 2?'active':''}}">
+            <view class="condition-screen-con-box-one-con">价格</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseEnterpriseSetType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
+        <!-- 服务范围 -->
+        <picker data-type="3" bindtap="courseEnterpriseClick" mode="multiSelector" value="{{enterpriseProductGradeIndex}}" custom-item="{{customItem}}" bindchange="enterpriseProductGrade" bindcolumnchange="enterpriseProductGradeChange" range="{{enterpriseProductGradeArray}}">
+          <view class="condition-screen-con-box-one {{courseEnterpriseSetType == 3?'active':''}}">
+            <view class="condition-screen-con-box-one-con">服务范围</view>
+            <view class="condition-screen-con-box-one-img">
+              <image src="{{courseEnterpriseSetType == 3?'/image/downjtother.png':'/image/downjt.png'}}" />
+            </view>
+          </view>
+        </picker>
       </view>
     </view>
   </view>
 </view>
 <!-- 附近的机构 -->
-<view class="near-teacher"> 
+<view class="near-teacher" style="{{useClick == 0?'display:block':'display:none'}}"> 
   <view class="near-teacher-out">
     <view class="near-teacher-inner">
       <!-- title -->
@@ -72,30 +139,81 @@
             <view class="near">优质</view>
             <view class="teacher">机构</view>
           </view>
-          <view class="near-teacher-title-left-btn">地图查看机构</view>
+          <view bindtap="viewNearTeacher" class="near-teacher-title-left-btn">地图查看机构</view>
         </view>
-        <view class="near-teacher-title-right" bindtap="moreInstitution">
+        <view class="near-teacher-title-right" bindtap="moreTeacher">
           <view class="near-teacher-title-right-more">查看更多</view>
           <view class="near-teacher-title-right-img">
-           <image src="../../image/jt.png" />
+          <image src="../../image/jt.png" />
           </view>
         </view>
       </view>
       <!-- count -->
-      <view class="institution-view">
-        <block  wx:for="{{institutionDetails}}" wx:key="uni">
-          <view bindtap="institutionInfo" class="institution">
-            <view class="institution-img">
-              <image mode="widthFix" src="{{item.img}}" />
+      <block  wx:for="{{goodInstitutions}}" wx:key="">
+        <view bindtap="teacherInfo" data-id="{{item.id}}" class="near-teacher-count">
+          <view class="near-teacher-count-out">
+            <view class="near-teacher-count-left">
+              <view class="near-teacher-count-img"><image src="{{item.headImg}}" /></view>
             </view>
-            <view class="institution-con">
-              <view class="institution-con-style change-style">名称：{{item.name}}</view>
-              <view class="institution-con-style">地址：{{item.address}}</view>
-              <view class="institution-details">详情</view>
+            <view class="near-teacher-count-right">
+              <view class="near-teacher-count-right-change">
+                <text class="near-teacher-count-right-change-txt">机构简介：</text>
+                <view class="near-teacher-count-right-dec">
+                  <view class="new-box">机构名称：{{item.name}}</view>
+                  <view class="new-box">辅导科目：{{item.teachItem}}</view>
+                  <view class="new-box">服务范围：{{item.teachObj}}</view>
+                  <view class="new-box">机构地址：{{item.locationDesc}}</view>
+                </view>
+              </view>
             </view>
           </view>
-        </block>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 机构产品 -->
+<view class="near-teacher" style="{{useClick == 0?'display:none':'display:block'}}">
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">机构</view>
+            <view class="teacher">产品</view>
+          </view>
+        </view>
+        <view class="near-teacher-title-right">
+          <view class="near-teacher-title-right-more">更多产品</view>
+          <view class="near-teacher-title-right-img">
+          <image src="../../image/jt.png" />
+          </view>
+        </view>
       </view>
+      <!-- count -->
+      <block  wx:for="{{institutionsCourseList}}" wx:key="">
+        <view bindtap="detailInfo" data-id="{{item.id}}" class="near-teacher-count">
+          <view class="near-teacher-count-out">
+            <view class="near-teacher-count-left">
+              <view class="near-teacher-count-img"><image src="{{item.banner}}" /></view>
+            </view>
+            <view class="near-teacher-count-right">
+              <view class="near-teacher-count-right-change">
+                <view class="near-teacher-count-right-dec">
+                  <view class="new-box title-box">{{item.title}}</view>
+                  <view class="new-box new-box-price"><text>￥</text>{{item.price}}<view class="new-box-nature">性质：{{item.teachWay}}</view></view>
+                  <view class="new-box new-box-knob">总节数：{{item.setCount}}</view>
+                  <view class="new-box">授课地点：{{item.teachSite}}</view>
+                  <view class="new-box">课程人数：{{item.studentLimit}}</view>
+                  <view class="yet-new-box-num">已预约：{{item.destineCount}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
     </view>
   </view>
 </view>

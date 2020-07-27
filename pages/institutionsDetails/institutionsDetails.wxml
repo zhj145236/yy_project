@@ -1,13 +1,10 @@
 <!-- banner图 -->
 <view class='banner-swiper'>
-  <swiper indicator-dots="{{indicatorDots}}"
-    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" style='width:90%;height:292rpx;margin: 30rpx auto 0 auto;'>
-      <block wx:for="{{imgUrls}}" wx:key="unique">
-        <swiper-item>
-          <image mode='widthFix' style="border-radius: 10rpx;" src="{{item}}" class="slide-image"/>
-        </swiper-item>
-      </block>
-  </swiper>
+  <view class='banner-swiper-video'>
+    <view class='banner-video' style="{{setStyle}}">
+      <video class="myVideo" src="{{needData.videoUrl}}" poster="{{needData.banner}}" binderror="videoErrorCallback" controls show-mute-btn enable-auto-rotation show-screen-lock-button auto-pause-if-navigate title="{{needData.name}} + 视频介绍" picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture' custom-cache="{{false}}"></video>
+    </view>
+  </view>
 </view>
 <!-- 平台核查 -->
 <view class="platform-inspect">
@@ -36,12 +33,52 @@
      </view>
      <!-- 教师信息 -->
      <view class="info-abstract-box-info">
-      <block wx:for="{{institutionsInfo}}" wx:key="uni-info">
+      <block wx:for="{{needData.institutionsInfo}}" wx:key="uni-info">
         <view class="info-abstract-box-info-data">
           <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
           <view class="info-abstract-box-info-data-con">{{item.con}}</view>
         </view>
       </block>
+
+      <!-- 优惠券 -->
+      <view wx:if="{{needData.couponsInfo.length === 0}}" class="none-class none-class-coupons"><view class="none-class-img"><image src="/image/kl.png" /></view>该课程暂未设置优惠券</view>
+      <block wx:for="{{couponsInfo}}" wx:key="uni-coupons">
+        <view class="coupons" bindtap="receiveCoupons">
+          <view class="coupons-box">
+            <view class="coupons-left">
+              <!-- <view class="coupons-left-box-price"> -->
+                <!-- <view class="coupons-left-box-price-bj">￥</view> -->
+                <view class="coupons-left-box-price-num">{{item.price}}</view>
+              <!-- </view> -->
+              <view class="coupons-left-box-mes">
+                <view class="coupons-left-box-mes-msg">优惠券</view>
+                <view class="coupons-left-box-mes-type">{{item.type}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="coupons-right">
+            <view class="coupons-right-text">立即领取</view>
+            <view class="coupons-border"></view>
+          </view>
+        </view>
+      </block>
+      <!-- <block wx:for="{{needData.couponsInfo}}" wx:key="uni-coupons">
+        <view class="coupons" bindtap="receiveCoupons">
+          <view class="coupons-box">
+            <view class="coupons-left">
+              <view class="coupons-left-box-price-num">{{item.couponType1}}</view>
+              <view class="coupons-left-box-mes">
+                <view class="coupons-left-box-mes-msg">{{item.title}}</view>
+                <view class="coupons-left-box-mes-type">{{item.desc}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="coupons-right">
+            <view class="coupons-right-text">领取</view>
+            <view class="coupons-border"></view>
+          </view>
+        </view>
+      </block> -->
       <view class="helpful-hints">友情提示：部分信息较为敏感，需注册授权后方可查看。</view>
      </view>
   </view>
@@ -73,18 +110,25 @@
       </view>
       <!-- count -->
       <view class="institution-view">
-        <block  wx:for="{{institutionsProductCenterData}}" wx:key="uni-product">
-          <view class="institution" bindtap="institutionsProductClick">
-            <view class="institution-img">
-              <image mode="widthFix" src="{{item.courseImg}}" />
-            </view>
-            <view class="institution-con">
-              <view class="institution-con-style change-style">{{item.title}}</view>
-              <view class="institution-con-style">人数：{{item.num}}人</view>
-              <view class="institution-con-style">周期：{{item.cycle}}节</view>
-              <view class="institution-con-style price">￥{{item.price}}RMB</view>
-              <view class="institution-more">...</view>
-              <!-- <view class="institution-details">详情</view> -->
+      <view wx:if="{{needData.institutionsProductCenterData.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>暂无更多课程</view>
+        <block  wx:for="{{needData.institutionsProductCenterData}}" wx:key="">
+          <view bindtap="detailInfo" data-id="{{item.id}}" class="near-teacher-count">
+            <view class="near-teacher-count-out">
+              <view class="near-teacher-count-left">
+                <view class="near-teacher-count-img"><image src="{{item.banner}}" /></view>
+              </view>
+              <view class="near-teacher-count-right">
+                <view class="near-teacher-count-right-change">
+                  <view class="near-teacher-count-right-dec">
+                    <view class="new-box title-box">{{item.title}}</view>
+                    <view class="new-box new-box-price"><text>￥</text>{{item.price}}<view class="new-box-nature">性质：{{item.teachWay}}</view></view>
+                    <view class="new-box new-box-knob">总节数：{{item.setCount}}</view>
+                    <view class="new-box">授课地点：{{item.teachSite}}</view>
+                    <view class="new-box">课程人数：{{item.studentLimit}}</view>
+                    <view class="yet-new-box-num">已预约：{{item.destineCount}}</view>
+                  </view>
+                </view>
+              </view>
             </view>
           </view>
         </block>
@@ -106,7 +150,8 @@
      </view>
      <!--资质信息 -->
      <view class="info-abstract-box-info">
-      <block wx:for="{{institutionsApproveInfo}}" wx:key="">
+      <view wx:if="{{needData.institutionsApproveInfo.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>暂未上传资质证书</view>
+      <block wx:for="{{needData.institutionsApproveInfo}}" wx:key="">
         <view class="info-abstract-box-info-data">
           <view class="certification"><image src="{{item.approveIcon}}" /></view>
           <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
@@ -136,7 +181,7 @@
      <view class="info-abstract-box-info">
         <view class="info-abstract-box-info-data other-style">
           <!-- <view class="info-abstract-box-info-data-totle change-style">我想对自己说：</view> -->
-          <view class="info-abstract-box-info-data-con change-width">{{myInfo}}</view>
+          <view class="info-abstract-box-info-data-con change-width">{{needData.myInfo}}</view>
         </view>
      </view>
   </view>
@@ -165,31 +210,30 @@
       </form>
     </view>
     <!-- 留言内容 -->
-    <view class="leave-word-box pad-btn">
-      <view class="leave-word-box-info">
-        <view class="leave-word-info-name">{{title}}</view>
-        <view class="leave-word-info-con">{{con}}</view>
-      </view>
-    </view>
-    <view class="leave-word-box pad-btn">
-      <view class="leave-word-box-info">
-        <view class="leave-word-info-name">
-          <text class="leave-word-info-name-parents">李老师回复</text>
-          <text class="leave-word-info-name-symbol">@</text>
-          <text>恐低的鸟：</text>
+    <block wx:if="{{needData.commentsInfo.length !== 0}}">
+      <block wx:for="{{needData.commentsInfo}}">
+        <view class="leave-word-box pad-btn">
+          <view class="leave-word-box-info">
+            <view class="leave-word-info-name">{{item.nickName1}}</view>
+            <view class="leave-word-info-con">{{item.comment}}</view>
+            <view wx:if="{{item.nickName2 !== ''}}" class="leave-word-info-name">
+              <text class="leave-word-info-name-parents">{{item.nickName2}}</text>
+              <text class="leave-word-info-name-symbol">~@~</text>
+              <text>{{item.nickName1}}：</text>
+            </view>
+            <view class="leave-word-info-con">{{item.replyContent}}</view>
+          </view> 
         </view>
-        <view class="leave-word-info-con">{{teacherCon}}</view>
-      </view>
-    </view>
-    
+      </block>
+    </block>
   </view>
 </view>
 <!-- 回复框 -->
-<view class="reply-info">
+<!-- <view class="reply-info">
     <view class="reply-send-con">
       <textarea auto-height adjust-position maxlength="-1" placeholder="回复：" value="{{name}}" name="textarea" class="leave-word"></textarea>
     </view>
-</view>
+</view> -->
 
 <!-- 平台信息 -->
 <view class="platform-info">

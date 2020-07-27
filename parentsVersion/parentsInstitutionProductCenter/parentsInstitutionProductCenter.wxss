@@ -1,0 +1,487 @@
+/* parentsVersion/parentsInstitutionProductCenter/parentsInstitutionProductCenter.wxss */
+page{
+  font-size: 30rpx;
+  background-color: #f2f2f2;
+  font-family:  Microsoft YaHei;
+  overflow-x: hidden;
+}
+.banner-box{
+  width: 90%;
+  overflow: hidden;
+  border-radius: 10rpx;
+}
+.slide-image{
+  width: 100%;
+  display: block;
+  height: 200rpx;
+}
+/* 平台核查 */
+.platform-inspect{
+  width: 90%;
+  background-color: #fff;
+  margin: 30rpx auto;
+  border-radius: 10rpx;
+  padding: 30rpx 0;
+}
+.condition-screen-top{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:flex-start;
+  margin: 0 auto;
+}
+.teacher-security-right{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  align-items:center;
+  width: 460rpx;
+}
+.teacher-security{
+  font-size: 26rpx;
+  color: #007bd0;
+  margin-right: 20rpx;
+  width: 110rpx;
+}
+.teacher-security-box{
+  color: #007bd0;
+  font-size: 24rpx;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:row;
+  margin-right: 20rpx;
+  margin-bottom: 10rpx;
+}
+.teacher-security-box-img{
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+.teacher-security-box-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 信息简介 */
+.info-abstract{
+  width: 90%;
+  background-color: #fff;
+  margin: 0 auto;
+  padding: 30rpx 0;
+  border-radius: 10rpx;
+}
+.info-abstract-box{
+  width: 90%;
+  margin: 0 auto;
+  font-size: 26rpx;
+}
+.info-abstract-box-top{
+  display: flex;
+  justify-content:flex-start;
+  align-items:flex-end;
+  /* margin-bottom: 30rpx; */
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom:2px solid #c7c7c7;
+}
+.info-abstract-box-top-message{
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #007bd0;
+  margin-right: 10rpx;
+}
+.info-abstract-box-top-abstract{
+  font-size: 26rpx;
+  color:#cd2a17;
+}
+.info-abstract-box-info{
+  margin-top: 20rpx;
+}
+.info-abstract-box-info-data{
+  display: flex;
+  /* margin-bottom: 20rpx; */
+  align-items: flex-start;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #e9e9e9;
+}
+.info-abstract-box-info-data-totle{
+  color: #575757;
+  margin-right: 10rpx;
+  width: 30%;
+}
+.info-abstract-box-info-data-con{
+  color: #a5a5a5;
+  width: 66%;
+}
+/* 占位图 */
+.placeholder-place-img{
+  width: 100%;
+  height: 170rpx;
+  margin: 30rpx 0;
+  overflow: hidden;
+}
+.placeholder-place-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 产品中心 */
+.near-teacher-out{
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 30rpx 0;
+}
+.near-teacher-title{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  width: 90%;
+  margin:0 auto 20rpx auto;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1px solid #c7c7c7;
+}
+.near-teacher-title-left-text,.near-teacher-title-left,.near-teacher-title-right{
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+}
+.near{
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #007bd0;
+  margin-right: 10rpx;
+}
+.teacher{
+  font-size: 26rpx;
+  color: #cd2a17;
+}
+.near-teacher-title-right-img{
+  width: 38rpx;
+  height: 38rpx;
+  margin-left: 10rpx;
+}
+.near-teacher-title-right-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.near-teacher-title-right-more{
+  color: #a3a3a3;
+  font-size: 28rpx;
+}
+.change-style{
+  font-weight: 600;
+}
+.price{
+  color: #cd2a17;
+}
+
+/* 优惠券 */
+.coupons{
+  background-color: #cd2a17;
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  width: 450rpx;
+  margin: 30rpx 0;
+}
+.coupons-border{
+  width: 8rpx;
+  background-color: #fff;
+  border-left: 8rpx dashed #cd2a17;
+  height: 180rpx;
+}
+.coupons-box{
+  background-color: #FF9700;
+  width: 330rpx;
+  margin-left:20rpx;
+}
+.coupons-left{
+  display: flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  width: 90%;
+  margin: 0 auto;
+  padding:10rpx 0;
+}
+/* .coupons-left-box-price{
+  display: flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:flex-end;
+} */
+.coupons-left-box-price-bj{
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #cd2a17;
+}
+.coupons-left-box-price-num{
+  font-size:82rpx;
+  font-weight: 600;
+  color: #cd2a17;
+  text-shadow: 1px 0 0 #FFF;
+}
+.coupons-left-box-mes{
+  margin-left: 10rpx;
+}
+.coupons-left-box-mes-msg{
+  font-size: 30rpx;
+  font-weight: 800;
+  height: 40rpx;
+  line-height: 40rpx;
+  border-bottom: 1px solid #cd2a17;
+  color: #cd2a17;
+  text-align: center;
+  text-shadow: 1px 0 0 #FFF;
+}
+.coupons-left-box-mes-type{
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #cd2a17;
+  text-align: center;
+  text-shadow: 1px 0 0 #FFF;
+}
+.coupons-right{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+.coupons-right-text{
+  width: 30rpx;
+  margin-right:26rpx;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #fff;
+}
+.helpful-hints{
+  font-size: 22rpx;
+  color: #e19e9e;
+}
+
+/* 课程详情图 */
+/* .certification{
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 10rpx;
+}
+.certification > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+} */
+.certificate{
+  width:100%;
+  margin-bottom: 30rpx;
+}
+.certificate > image{
+  display: block;
+  width:100%;
+  height: 100%;
+}
+
+.active{
+  color: #cd2a17;
+}
+
+/* 底部总部信息 */
+.platform-info{
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #adadad;
+  width:56%;
+  margin: 100rpx auto 0 auto;
+}
+.platform-info > view{
+  height: 40rpx;
+  line-height: 40rpx;
+}
+/* 课程预约 */
+.apply-for-course{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 140rpx;
+  background-color: #fff;
+  border-top: 1px solid #e7e7e7;
+}
+.order-course{
+  text-align: center;
+  height:80rpx;
+  line-height:80rpx;
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 600;
+  width: 40%;
+  border-radius:10rpx;
+}
+.order-course{
+  background-color: #cd2a17;
+}
+.call-tel{
+  border-right: 1px solid #b8b8b8;
+  padding-right: 34rpx;
+}
+.call-tel,.collection-course{
+  display: flex;
+  flex-direction:row;
+  flex-flow:nowrap;
+  justify-content:flex-start;
+  align-items:center;
+}
+.call-tel-img,.collection-course-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.call-tel-img > image,.collection-course-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.call-tel-text,.collection-course-img-text{
+  font-size: 26rpx;
+  color: #707070;
+}
+
+/* 底部占位 */
+.position-bottom{
+  width: 100%;
+  height: 200rpx;
+}
+.near-teacher-count-out{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  width: 90%;
+  margin: auto;
+}
+.near-teacher-count-left{
+  width: 40%;
+}
+.near-teacher-count-img{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 100%;
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+.near-teacher-count-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.near-teacher-count-right{
+  width: 60%;
+}
+.near-teacher-count-img{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 100%;
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+.near-teacher-count-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.near-teacher-count{
+  background-color: #f2f2f2;
+  width: 90%;
+  margin:30rpx auto 0 auto;
+  padding: 20rpx 0;
+  border-radius: 10rpx;
+}
+.near-teacher-count-out{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  width: 90%;
+  margin: auto;
+}
+.near-teacher-count-left{
+  width: 40%;
+}
+.near-teacher-count-right{
+  width: 60%;
+}
+.near-teacher-count-right-change{
+  width:100%;
+}
+.near-teacher-count-right-change > text{
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.new-box{
+  font-size: 26rpx;
+  margin-bottom: 10rpx;
+}
+.near-teacher-count-right-dec{
+  font-size: 26rpx;
+  color: #565656;
+}
+.new-box-sex,.new-box-price,.new-box-knob{
+  display: flex;
+  align-items: center;
+}
+.new-box-price{
+  color: #cd2a17;
+  font-weight: 600;
+  font-size: 28rpx;
+}
+.new-box-price > text{
+  font-size: 24rpx;
+}
+.new-box-nature{
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: #565656;
+  font-weight: normal;
+}
+.yet-new-box-num{
+  color: #FF9700;
+}
+.none-class{
+  width: 90%;
+  margin: auto;
+  font-size: 26rpx;
+  color: #a4a4a4;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.none-class-img{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 10rpx;
+}
+.none-class-img>image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.none-class-coupons{
+  width: 100%;
+  margin: 20rpx 0;
+}

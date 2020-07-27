@@ -69,7 +69,7 @@
         </picker>
 
         <!-- 区域 -->
-        <picker data-type="1" bindtap="teacherPresentClick" mode="region" value="{{region}}" custom-item="{{customItem}}" bindchange="regionBindchange">
+        <picker data-type="1" bindtap="teacherPresentClick" mode="multiSelector" value="{{areaIndex}}" custom-item="{{customItem}}" bindchange="areaBindchange" bindcolumnchange="areaColumnChange" range="{{areaMultiArray}}">
           <view class="condition-screen-con-box-one {{teacherSetType == 1?'active':''}}">
             <view class="condition-screen-con-box-one-con">区域</view>
             <view class="condition-screen-con-box-one-img">
@@ -104,7 +104,7 @@
     <view class="condition-screen-con" style="{{useClick == 1?'display:block':'display:none'}}">
       <view class="condition-screen-con-box">
         <!-- 课类 -->
-        <picker data-type="0" bindtap="coursePresentClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <picker data-type="0" bindtap="coursePresentClick" mode="multiSelector" custom-item="{{customItem}}" bindchange="ProductClass" bindcolumnchange="ProductClassChange" value="{{ProductIndex}}" range="{{ProductMultiArray}}">
           <view class="condition-screen-con-box-one {{courseSetType == 0?'active':''}}">
             <view class="condition-screen-con-box-one-con">课类</view>
             <view class="condition-screen-con-box-one-img">
@@ -112,8 +112,9 @@
             </view>
           </view>
         </picker>
+
         <!-- 区域 -->
-        <picker data-type="1" bindtap="coursePresentClick" mode="region" value="{{region}}" custom-item="{{customItem}}" bindchange="">
+        <picker data-type="1" bindtap="coursePresentClick" mode="multiSelector" value="{{ProductAddIndex}}" custom-item="{{customItem}}" bindchange="productAdd" bindcolumnchange="productAddChange" range="{{productAreaMultiArray}}">
           <view class="condition-screen-con-box-one {{courseSetType == 1?'active':''}}">
             <view class="condition-screen-con-box-one-con">区域</view>
             <view class="condition-screen-con-box-one-img">
@@ -121,8 +122,9 @@
             </view>
           </view>
         </picker>
+
         <!-- 价格 -->
-        <picker data-type="2" bindtap="coursePresentClick" mode="" value="{{}}" custom-item="{{customItem}}" bindchange="">
+        <picker data-type="2" bindtap="coursePresentClick" mode="selector" value="{{ProductPriceIndex}}" custom-item="{{customItem}}" bindchange="ProductPrice" bindcolumnchange="ProductPriceChange" range="{{ProductPriceArray}}">
           <view class="condition-screen-con-box-one {{courseSetType == 2?'active':''}}">
             <view class="condition-screen-con-box-one-con">价格</view>
             <view class="condition-screen-con-box-one-img">
@@ -131,7 +133,7 @@
           </view>
         </picker>
         <!-- 级段 -->
-        <picker data-type="3" bindtap="coursePresentClick" mode="" value="{{}}" custom-item="{{customItem}}" bindchange="">
+        <picker data-type="3" bindtap="coursePresentClick" mode="multiSelector" value="{{ProductGradeIndex}}" custom-item="{{customItem}}" bindchange="productGrade" bindcolumnchange="productGradeChange" range="{{ProductGradeArray}}">
           <view class="condition-screen-con-box-one {{courseSetType == 3?'active':''}}">
             <view class="condition-screen-con-box-one-con">级段</view>
             <view class="condition-screen-con-box-one-img">
@@ -143,6 +145,7 @@
     </view>
   </view>
 </view>
+
 <!-- 附近的教师 -->
 <view class="near-teacher" style="{{useClick == 0?'display:block':'display:none'}}"> 
   <view class="near-teacher-out">
@@ -151,7 +154,7 @@
       <view class="near-teacher-title">
         <view class="near-teacher-title-left">
           <view class="near-teacher-title-left-text">
-            <view class="near">附近</view>
+            <view class="near">优质</view>
             <view class="teacher">教师</view>
           </view>
           <view bindtap="viewNearTeacher" class="near-teacher-title-left-btn">地图查看教师</view>
@@ -165,19 +168,19 @@
       </view>
       <!-- count -->
       <block  wx:for="{{nearTeacherDatas}}" wx:key="">
-        <view bindtap="teacherInfo" class="near-teacher-count">
+        <view bindtap="teacherInfo" data-id="{{item.id}}" class="near-teacher-count">
           <view class="near-teacher-count-out">
             <view class="near-teacher-count-left">
-              <view class="near-teacher-count-img"><image src="{{item.img}}" /></view>
+              <view class="near-teacher-count-img"><image src="{{item.headImg}}" /></view>
             </view>
             <view class="near-teacher-count-right">
               <view class="near-teacher-count-right-change">
-                <text>教师简介：</text>
+                <text class="near-teacher-count-right-change-txt">教师简介：</text>
                 <view class="near-teacher-count-right-dec">
-                  <view>{{item.name}}</view>
-                  <view>{{item.nickname}}</view>
-                  <view>{{item.subjects}}</view>
-                  <view>{{item.motto}}</view>
+                  <view class="new-box">姓名：{{item.name}}</view>
+                  <view class="new-box">教授科目：{{item.teachItem}}</view>
+                  <view class="new-box">任职级段：{{item.teachObj}}</view>
+                  <view class="new-box new-box-sex">性别：<view class="new-box-sex-img"><image src="{{item.icon}}" /></view>{{item.sex}}</view>
                 </view>
               </view>
             </view>
@@ -208,22 +211,28 @@
         </view>
       </view>
       <!-- count -->
-      <view class="institution-view">
-        <block  wx:for="{{productCenterData}}" wx:key="uni-product">
-          <view class="institution">
-            <view class="institution-img">
-              <image mode="widthFix" src="{{item.courseImg}}" />
+      <block  wx:for="{{TeacherProductDatas}}" wx:key="">
+        <view bindtap="detailInfo" data-id="{{item.id}}" class="near-teacher-count">
+          <view class="near-teacher-count-out">
+            <view class="near-teacher-count-left">
+              <view class="near-teacher-count-img"><image src="{{item.banner}}" /></view>
             </view>
-            <view class="institution-con">
-              <view class="institution-con-style change-style">{{item.title}}</view>
-              <view class="institution-con-style">周期：{{item.cycle}}节</view>
-              <view class="institution-con-style price">￥{{item.price}}RMB</view>
-              <view class="institution-more">...</view>
-              <!-- <view class="institution-details">详情</view> -->
+            <view class="near-teacher-count-right">
+              <view class="near-teacher-count-right-change">
+                <view class="near-teacher-count-right-dec">
+                  <view class="new-box title-box">{{item.title}}</view>
+                  <view class="new-box new-box-price"><text>￥</text>{{item.price}}<view class="new-box-nature">性质：{{item.teachWay}}</view></view>
+                  <view class="new-box">单价：{{item.unitPrice}}</view>
+                  <view class="new-box new-box-knob">总节数：{{item.setCount}}</view>
+                  <view class="new-box">授课地点：{{item.teachSite}}</view>
+                  <view class="new-box">课程人数：{{item.studentLimit}}</view>
+                  <view class="yet-new-box-num">已预约：{{item.destineCount}}</view>
+                </view>
+              </view>
             </view>
           </view>
-        </block>
-      </view>
+        </view>
+      </block>
     </view>
   </view>
 </view>

@@ -17,7 +17,7 @@
           <view class="coupons-details-right-header-icon"><image src="/image/bq.png" /></view>
           <view class="coupons-details-right-header-text">{{item.title}}</view>
         </view>
-        <view class="coupons-details-right-con">
+        <view bindtap="viewDetails" data-id="{{item.id}}" class="coupons-details-right-con">
           <view class="coupons-details-right-con-use">{{item.case}}</view>
         </view>
         <view bindtap="basicContent" class="coupons-details-right-info">

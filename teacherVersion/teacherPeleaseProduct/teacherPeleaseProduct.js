@@ -18,6 +18,7 @@ Page({
     multiIndex: [0, 0],
     typeIndex:0,
     siteIndex:0,
+    needUrl:[],
   },
 
   /**
@@ -26,59 +27,45 @@ Page({
    * 产品详情图上传 
    */
   uploadImg:function(){
-    const that = this,newsArr = that.data.newArr,uploadNum = 8 - newsArr.length;
-    console.log(uploadNum);
-    if(uploadNum == 0){
-      o.showToast('已经上传了8张，无法继续上传');
-    }else{
-      wx.chooseImage({
-        count: uploadNum,
-        sizeType: ['original', 'compressed'],
-        sourceType: ['album', 'camera'],
-        success (res) {
-          // tempFilePath可以作为img标签的src属性显示图片
-          let tempFilePathsArr = that.data.newArr,tempFilePaths = res.tempFilePaths;
-          // 返回base64
-          // wx.getFileSystemManager().readFile({
-          //   filePath: res.tempFilePaths[0], //选择图片返回的相对路径
-          //   encoding: '', //编码格式
-          //   success: res => { //成功的回调
-          //     console.log(res)
-          //     that.setData({
-          //       img: + res.data
-          //     });
-          //   }
-          // })
-
-          // 上传文件
-          // wx.uploadFile({
-          //   url: o.urlCon() + 'api/pictures', //仅为示例，非真实的接口地址
-          //   filePath: tempFilePaths[0],
-          //   name: 'file',
-          //   header: {
-          //     'content-type': 'multipart/form-data',
-          //   },
-          //   formData: {
-          //   },
-          //   success (res){
-          //     const data = res.data;
-          //     console.log(data,'11');
-          //     //do something
-          //   },
-          //   fail(res){
-          //     console.log(res,'22');
-          //   }
-          // })
-          for(let i in tempFilePaths){
-            tempFilePathsArr.push(tempFilePaths[i]);
+    let that = this,needUrl = that.data.needUrl;
+    o.FunchooseImage(that,that.data.newArr,9,['compressed'],['album', 'camera'],'tempFilePathsArr',callback=>{
+      let tempFilePaths = callback.tempFilePaths,
+      len = tempFilePaths.length,
+      use = that.data.use,
+      // token = use.token;
+      token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzUxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiIzYzY3ZjRhNzg4ZmU0YzIzODgzZGFjYmE1MjAxN2EzMyJ9.b73Xpev8Ve9OOK6jpmy8xPePn1OZXRouESLu2GEDZhfOHZLSYfUpNzMXAyT2anL7BjO8u-u-VREeB3HtO-lV8g";
+      for(let z=0;z<len;z++){
+        o.FunUploadImg(z,'file',token,tempFilePaths,callback=>{
+          if(Number(z+1) == len){
+            wx.hideLoading();
+            o.funShowToast('已经完成上传了');
+          }else{
+            wx.showLoading({
+              title:'正在上传第' + Number(z+1) + '张',
+            });
           }
-          that.setData({
-            tempFilePathsArr:tempFilePathsArr
-          });
-        }
-      })
-    }
+          needUrl.push(JSON.parse(decodeURIComponent(callback.data)).url);
+        });
+      }
+    });
   },
+
+  /**
+   * 
+   * @param {*} e 
+   * 图片预览
+   */
+  previewImg:function(e){
+    let that = this,
+    index = e.currentTarget.dataset.index,
+    tempFilePathsArr = that.data.tempFilePathsArr;
+    wx.previewImage({
+      current: tempFilePathsArr[index], //当前显示图片
+      urls: tempFilePathsArr //所有图片
+    });
+  },
+
+
 
   /**
    * 
@@ -87,49 +74,6 @@ Page({
    */
   coverImg:function(){
     const that = this;
-      wx.chooseImage({
-        count: 1,
-        sizeType: ['original', 'compressed'],
-        sourceType: ['album', 'camera'],
-        success (res) {
-          // tempFilePath可以作为img标签的src属性显示图片
-          let tempFilePaths = res.tempFilePaths;
-          // 返回base64
-          // wx.getFileSystemManager().readFile({
-          //   filePath: res.tempFilePaths[0], //选择图片返回的相对路径
-          //   encoding: '', //编码格式
-          //   success: res => { //成功的回调
-          //     console.log(res)
-          //     that.setData({
-          //       img: + res.data
-          //     });
-          //   }
-          // })
-
-          // 上传文件
-          // wx.uploadFile({
-          //   url: o.urlCon() + 'api/pictures', //仅为示例，非真实的接口地址
-          //   filePath: tempFilePaths[0],
-          //   name: 'file',
-          //   header: {
-          //     'content-type': 'multipart/form-data',
-          //   },
-          //   formData: {
-          //   },
-          //   success (res){
-          //     const data = res.data;
-          //     console.log(data,'11');
-          //     //do something
-          //   },
-          //   fail(res){
-          //     console.log(res,'22');
-          //   }
-          // })
-          that.setData({
-            productCover:tempFilePaths
-          });
-        }
-      })
   },
 
   // 授课方式
@@ -252,7 +196,8 @@ Page({
    * 提交数据 
    */
   formSubmit:function(e){
-    console.log(e);
+    let that = this;
+    console.log(that.data.needUrl,'需要的url');
   },
 
 
@@ -260,7 +205,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this,use = app.globalData.userInfo;
+    that.setData({use:use});
   },
 
   /**

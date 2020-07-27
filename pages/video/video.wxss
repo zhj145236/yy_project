@@ -1,0 +1,59 @@
+/* pages/video/video.wxss */
+page{
+  overflow: hidden;
+}
+.banner-video{
+  position: relative;
+}
+.position-btn{
+  position: absolute;
+  left: 30rpx;
+  bottom: 160rpx;
+  background-color: rgba(255, 255, 225, 0.5);
+  color: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx;
+}
+.myVideo{
+  width: 100%;
+  height: 100%;
+}
+.position-btn-line{
+  width: 50rpx;
+  height: 1px;
+  background-color: rgba(41, 41, 41, 0.6);
+  margin: 20rpx auto;
+}
+.position-btn-fx,.position-btn-out{
+  width: 60rpx;
+  height: 60rpx;
+  padding: 10rpx 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+.position-btn-fx > image,.position-btn-out > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+button{
+  display: block;
+  list-style-type:none;
+  padding: 0;
+  margin: 0;
+  position: static;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 0;
+  box-sizing:unset;
+  border: none;
+  outline:none;
+}
+button::after{
+  content: '';
+  width: 0;
+  height: 0;
+  position: static;
+  border: none;
+  box-sizing: unset;
+  border-radius:0;
+  border: none;
+}

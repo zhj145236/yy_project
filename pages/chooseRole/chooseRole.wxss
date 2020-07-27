@@ -51,6 +51,7 @@ page{
   height: 400rpx;
   border-top: 8rpx solid #a9a9a9;
   margin-bottom: 20rpx;
+  overflow: hidden;
 }
 .choose-role-img > image{
   display: block;

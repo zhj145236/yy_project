@@ -32,7 +32,7 @@
           <view class="product-details-img-upload-place-img">
             <image mode="widthFix" src="{{item}}" />
             <view class="mask-layer">
-              <view class="mask-layer-img">
+              <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
                 <image src="/image/yl.png" />
               </view>
             </view>

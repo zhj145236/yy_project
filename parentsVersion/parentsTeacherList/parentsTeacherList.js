@@ -15,7 +15,7 @@ Page({
   // 点击教师详情进入详情页面
   teacherInfo:function(){
     wx.navigateTo({
-      url:'/parentsVersion/parentsNearTeacher/parentsNearTeacher',
+      url:'/parentsVersion/parentsTeacherDetails/parentsTeacherDetails',
     });
   },
   viewNearTeacher:function(){

@@ -639,11 +639,7 @@ const impowerLoginWay = [
     img:'/image/wx.png',
     txt:'微信登录',
     type:'wx',
-  },{
-    img:'/image/yk.png',
-    txt:'游客进入',
-    type:'yk',
-  },
+  }
 ];
 
 const registeredInfo = [
@@ -1020,13 +1016,14 @@ const institutionFun = [
 
 const VIPdata = [
   {
-    tag:'1',
+    id:1,
+    tag:1,
     figure:'999',
     explain:'每年',
     title:'白银会员',
     case:'查看功能详情',
     basicInfo:[
-      {tag:'1'},
+      {tag:1},
       {con:[{
             type:'name',
             name:'李老师'
@@ -1043,13 +1040,14 @@ const VIPdata = [
         ]}
     ],
   },{
-    tag:'1',
+    id:2,
+    tag:2,
     figure:'1999',
     explain:'每年',
     title:'黄金会员',
     case:'查看功能详情',
     basicInfo:[
-      {tag:'1'},
+      {tag:2},
       {con:[{
             type:'name',
             name:'李老师'
@@ -1066,13 +1064,14 @@ const VIPdata = [
         ]}
     ],
   },{
-    tag:'1',
+    id:3,
+    tag:3,
     figure:'2999',
     explain:'每年',
     title:'铂金会员',
     case:'查看功能详情',
     basicInfo:[
-      {tag:'1'},
+      {tag:3},
       {con:[{
             type:'name',
             name:'李老师'

@@ -1,13 +1,12 @@
 // pages/chooseRole/chooseRole.js
 const datas = require('../../utils/data.js');
-const app = getApp(), o = app.requirejs('core');
+const app = getApp(), o = app.requirejs('core'),u = o.urlCon();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    chooseRoleInfo:datas.chooseRoleInfo,
   },
 
   // 选择家长/教师/培训机构
@@ -23,7 +22,37 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this,
+    url = u + 'app/plat/role/role_res',
+    data = {},
+    header = {"content-type":"application/json"};
+    o.get(url,data,header,callback=>{
+      let needData = callback.data,chooseRoleInfo = [
+        {
+          placeholderImg:'/image/zwt.png',
+          mainTitle:'成为家长',
+          viceTitle:'Parents',
+          roleImg:needData.parBanner,
+          conText:needData.parDesc,
+          roleBtn:'成为家长 ',
+        },{
+          placeholderImg:'/image/zwt.png',
+          mainTitle:'成为教师',
+          viceTitle:'Teacher',
+          roleImg:needData.teaBanner,
+          conText:needData.teaDesc,
+          roleBtn:'成为教师 ',
+        },{
+          placeholderImg:'/image/zwt.png',
+          mainTitle:'成为企业',
+          viceTitle:'Institutions',
+          roleImg:needData.orgBanner,
+          conText:needData.orgDesc,
+          roleBtn:'成为企业 ',
+        },
+      ];
+      that.setData({chooseRoleInfo:chooseRoleInfo});
+    });
   },
 
   /**

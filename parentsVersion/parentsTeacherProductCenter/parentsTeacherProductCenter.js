@@ -1,6 +1,6 @@
 // pages/teacherProductCenter/teacherProductCenter.js
 const datas = require('../../utils/data.js');
-const app = getApp(), o = app.requirejs('core');
+const app = getApp(), o = app.requirejs('core'),u = o.urlCon();
 Page({
 
   /**
@@ -12,7 +12,7 @@ Page({
       '../../image/banner2.png',
       '../../image/banner2.png',
     ],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     circular: true,
     interval: 3000,
@@ -24,15 +24,6 @@ Page({
     productCenterData:datas.productCenterData, // 产品中心
     couponsInfo:datas.couponsInfo, // 优惠券信息
     classDetailsImg:datas.classDetailsImg, // 认证数据
-  },
-
-  /**
-   * 进入产品详情页
-   */
-  teacherProductClick:function(){
-    wx.navigateTo({
-      url:'/parentsVersion/parentsTeacherProductCenter/parentsTeacherProductCenter',
-    });
   },
 
   /**
@@ -73,13 +64,22 @@ Page({
   },
 
   /**
+   * 点击课程 跳转至课程详情
+   */
+  teacherProductClick:function(e){
+    wx.navigateTo({
+      url:'../teacherProductCenter/teacherProductCenter?id=' + e.currentTarget.dataset.id,
+    });
+  },
+
+  /**
    * 
    * @param {*} options
    * 家长拨打电话 
    */
   callTel:function(){
     wx.makePhoneCall({
-      phoneNumber: '13310829325' //为昱升公司电话
+      phoneNumber: this.data.tel //为昱升公司电话
     })
   },
 
@@ -106,7 +106,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this,
+    id = parseInt(options.id), // 课程id
+    url = u + 'app/plat/tea/getTel?courseId=' + id, // 联系电话
+    data = {},
+    header = {"content-type":"application/json"};
+    o.funClassDetail(that,id,'app/plat/tea/courseDetail','needData','1');
+    o.get(url,data,header,callback=>{
+      that.setData({tel:callback.data.tel});
+    });
+    console.log(id);
   },
 
   /**

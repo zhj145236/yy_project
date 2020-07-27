@@ -4,6 +4,9 @@ page{
   background-color: #f2f2f2;
   font-family:  Microsoft YaHei;
 }
+.active > .condition-screen-con-box-one-con{
+  color: #007bd0;
+}
 /* 地址定位 */
 .search-positioning{
   background-color: #007bd0;
@@ -11,36 +14,13 @@ page{
 }
 .search-positioning-box{
   width: 90%;
-  margin:auto;
-}
-.location-img{
-  /* margin-bottom: 30rpx; */
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1; */
-  margin-bottom: 28rpx;
-  width: 100%;
-}
-.location-img-view{
-  display: flex;
-  align-items:center;
-  justify-content:flex-start;
-  flex-direction:row;
-  margin: 0 auto;
+  margin: auto;
+  padding-top: 20rpx;
 }
 .add-img{
   display: block;
   width: 100%;
   height: 100%;
-}
-.img-view{
-  width: 54rpx;
-  height: 54rpx;
-  margin-right: 10rpx;
-}
-.text-info{
-  color: #fff;
 }
 .search{
   display:flex;
@@ -119,6 +99,7 @@ page{
   justify-content:center;
   align-items:center;
   margin: 0 auto;
+  height: 80rpx;
 }
 .teacher-security{
   font-size: 26rpx;
@@ -147,10 +128,10 @@ page{
 .condition-screen-con-box{
   display: flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:space-around;
   flex-direction:row;
   width: 90%;
-  margin:30rpx auto 0 auto;
+  margin:40rpx auto 0 auto;
 }
 .condition-screen-con-box-one{
   display: flex;
@@ -191,10 +172,13 @@ page{
 .near-teacher-title{
   width: 90%;
   margin:0 auto;
+}
+.near-teacher-title{
   display: flex;
   flex-direction:row;
   justify-content:space-between;
   align-items:center;
+  height: 80rpx;
 }
 .near-teacher-title-left-text,.near-teacher-title-left,.near-teacher-title-right{
   display: flex;
@@ -239,10 +223,11 @@ page{
 }
 /* 附近教师内容 */
 .near-teacher-count-img{
-  width: 200rpx;
-  height: 200rpx;
+  width: 160rpx;
+  height: 160rpx;
   border-radius: 100%;
   overflow: hidden;
+  background-color: #f7f7f7;
 }
 .near-teacher-count-img > image{
   display: block;
@@ -282,56 +267,6 @@ page{
   color: #565656;
 }
 
-/* 附近机构 */
-.institution-view{
-  display: flex;
-  flex-direction:row;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  align-items:center;
-  width: 90%;
-  margin:auto;
-}
-.institution{
-  width: 48%;
-  margin-top: 3%;
-  background-color: #f2f2f2;
-  border-radius: 10rpx;
-  overflow: hidden;
-}
-.institution-con-style{
-  margin-bottom: 10rpx;
-}
-.institution-img{
-  width: 100%;
-  height: 180rpx;
-  overflow:hidden;
-}
-.institution-img > image{
-  display: block;
-  width: 100%;
-}
-.institution-con{
-  width: 90%;
-  margin: auto;
-  color: #565656;
-  font-size: 26rpx;
-  padding: 20rpx 0;
-}
-.institution-details{
-  width: 200rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  text-align: center;
-  color: #fff;
-  border-radius:14rpx;
-  background-color: #cd2a17;
-  margin-top: 20rpx;
-}
-.change-style{
-  font-weight: 600;
-}
-
 /* 底部总部信息 */
 .platform-info{
   font-size: 24rpx;
@@ -349,6 +284,86 @@ page{
 .position-bottom{
   width: 100%;
   height: 100rpx;
+}
+
+.choose-category{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  border-top: 8rpx solid #f2f2f2;
+  margin-top: 40rpx;
+  background: #f2f2f2;
+}
+.choose-category-teacher,.choose-category-product{
+  font-size: 28rpx;
+  color: #707070;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 50%;
+  text-align: center;
+}
+.addBck{
+  background: rgba(0, 123, 208, 0.7);
+  color: #fff;
+}
+
+/* 教师产品 */
+.institution-view{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  width: 90%;
+  margin:auto;
+}
+.near-teacher-count-right-change-txt{
+  margin-bottom: 10rpx;
+}
+.new-box-sex,.new-box-price,.new-box-knob{
+  display: flex;
+  align-items: center;
+}
+.new-box-nature{
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: #565656;
+  font-weight: normal;
+}
+.new-box{
+  font-size: 26rpx;
+  margin-bottom: 10rpx;
+}
+.new-box-sex{
+  display: flex;
+  align-items: center;
+}
+.new-box-sex-img{
+  width: 35rpx;
+  height: 35rpx;
+  margin-right: 20rpx;
+}
+.new-box-sex-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.title-box{
+  color: #464646;
+  font-weight: 600;
+  font-size: 30rpx;
+}
+.new-box-price{
+  color: #cd2a17;
+  font-weight: 600;
+  font-size: 28rpx;
+}
+.new-box-price > text{
+  font-size: 24rpx;
+}
+.yet-new-box-num{
+  color: #FF9700;
 }
 
 

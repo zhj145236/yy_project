@@ -14,18 +14,33 @@
     <view class="course-info">
       <view class="course-info-outside">
         <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
-          <view class="course-info-box-inp">
-            <input type="text" value="" name="weather" placeholder="今天的天气" />
+          <view class="course-info-box-img"><image src="/image/tq.png" /></view>
+          <view catchtap="weatherClick" class="course-info-box-inp weather-father-show">
+            <view class="weather-icon"><image src="{{weatherIcon}}" /></view>
+            <view class="weather-txt">{{weatherValue}}</view>
           </view>
         </view>
       </view>
     </view>
+
+    <!-- 心情 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/xq.png" /></view>
+          <view catchtap="moodClick" class="course-info-box-inp weather-father-show">
+            <view class="weather-icon"><image src="{{moodIcon}}" /></view>
+            <view class="weather-txt">{{moodValue}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
     <!-- 日记内容 -->
     <view class="course-info">
       <view class="course-info-outside remove-bottom">
         <view class="course-info-box textarea-box">
-          <view class="course-info-box-img"><image src="/image/desc.png" /></view>
+          <view class="course-info-box-img"><image src="/image/sx.png" /></view>
           <view class="course-info-box-inp textarea-inp">
             <textarea type="text" name="desc" value="" placeholder="日记正文内容" />
           </view>
@@ -45,7 +60,7 @@
       <view class="product-details-img-upload-title">视频上传</view>
     </view>
 
-    <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+    <view bindtap="uploadVideo" class="product-details-img-upload-list-box">
       <view class="product-details-img-upload-list">
       <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
       <view>上传视频</view>
@@ -53,20 +68,17 @@
       </view>
     </view>
 
-    <view class="product-details-img-upload-box-external">
-      <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
-        <view class="product-details-img-upload-box">
-          <view class="product-details-img-upload-place-img">
-            <image mode="widthFix" src="{{item}}" />
-            <view class="mask-layer">
-              <view class="mask-layer-img">
-                <image src="/image/yl.png" />
-              </view>
-            </view>
-            <view class="deal-img"><image src="/image/deal.png" /></view>
+    <!-- 视频容器 -->
+    <view wx:if="{{isShowVideo}}" class='banner-swiper'>
+      <view class='banner-swiper-video'>
+        <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
+          <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{tempFilePathVideo}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+          <view class="set-mc">
+            <view class="set-mc-img"><image src="/image/play.png" /></view>
           </view>
+          <view class="duration-txt">{{duration}}</view>
         </view>
-      </block>
+      </view>
     </view>
   </view>
 
@@ -90,7 +102,7 @@
           <view class="product-details-img-upload-place-img">
             <image mode="widthFix" src="{{item}}" />
             <view class="mask-layer">
-              <view class="mask-layer-img">
+              <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
                 <image src="/image/yl.png" />
               </view>
             </view>
@@ -98,6 +110,21 @@
           </view>
         </view>
       </block>
+    </view>
+  </view>
+
+  <!-- 选择当前位置 -->
+  <view class="product-details clear-pad">
+    <!-- 位置 -->
+    <view class="course-info">
+      <view class="course-info-outside clear-btn">
+        <view catchtap="chooseLocation" class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/wz.png" /></view>
+          <view class="course-info-box-inp">
+            <input type="text" disabled="true" value="{{address}}" name="location" placeholder="选择您的当前位置" />
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 
@@ -115,6 +142,54 @@
   </view>
   <!-- 提交 -->
   <button class="submit-registered" form-type='submit'>完成</button>
+
+  
+
+  <!-- 天气选择器 -->
+  <block wx:if="{{isWeather}}">
+    <view class="set-mask" style="width:{{width}};height:{{height}}">
+      <view class="set-mask-con">
+        <view class="set-mask-con-top">今天的天气怎样？</view>
+        <picker-view bindchange="bindchange" indicator-style="height: 50px;" style="width: 100%; height: 200px;" value="{{value}}">
+          <picker-view-column>
+            <block wx:for="{{weather}}" wx:key="{{weather}}">
+              <view class="weather-father">
+                <view class="weather-icon"><image class="picker-icon" src="{{item.label}}" /></view>
+                <view class="weather-text">{{item.value}}</view>
+              </view>
+            </block>
+          </picker-view-column>
+        </picker-view>
+        <view class="set-mask-con-btm">
+          <view catchtap="cancelClick" class="set-mask-con-btm-left">取消</view>
+          <view catchtap="determineClick" class="set-mask-con-btm-right">确定</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 心情选择器 -->
+  <block wx:if="{{isMood}}">
+    <view class="set-mask" style="width:{{width}};height:{{height}}">
+      <view class="set-mask-con">
+        <view class="set-mask-con-top">记录您的今日心情</view>
+        <picker-view bindchange="bindMoodchange" indicator-style="height: 50px;" style="width: 100%; height: 200px;" value="{{value}}" name="">
+          <picker-view-column>
+            <block wx:for="{{feelingMood}}" wx:key="{{mood}}">
+              <view class="weather-father">
+                <view class="weather-icon"><image class="picker-icon" src="{{item.label}}" /></view>
+                <view class="weather-text">{{item.value}}</view>
+              </view>
+            </block>
+          </picker-view-column>
+        </picker-view>
+        <view class="set-mask-con-btm">
+          <view catchtap="MoodCancelClick" class="set-mask-con-btm-left">取消</view>
+          <view catchtap="MoodDetermineClick" class="set-mask-con-btm-right">确定</view>
+        </view>
+      </view>
+    </view>
+  </block>
 </form>
 
 <!-- 平台信息 -->

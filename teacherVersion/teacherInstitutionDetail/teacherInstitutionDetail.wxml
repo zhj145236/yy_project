@@ -1,0 +1,245 @@
+<!--teacherVersion/teacherInstitutionDetail/teacherInstitutionDetail.wxml-->
+<view class='banner-swiper'>
+  <view class='banner-swiper-video'>
+    <view class='banner-video' style="{{setStyle}}">
+      <video class="myVideo" src="{{needData.videoUrl}}" poster="{{needData.banner}}" binderror="videoErrorCallback" controls show-mute-btn enable-auto-rotation show-screen-lock-button auto-pause-if-navigate title="{{needData.name}} + 视频介绍" picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture' custom-cache="{{false}}"></video>
+    </view>
+  </view>
+</view>
+<!-- 平台核查 -->
+<view class="platform-inspect">
+  <view class="condition-screen-top">
+    <view class="teacher-security">平台核查</view>
+    <view class="teacher-security-right">
+      <block wx:for="{{platformInspect}}" wx:key="uni">
+        <view class="teacher-security-box">
+          <view class="teacher-security-box-img">
+            <image src="{{item.img}}" />
+          </view>
+          <view class="teacher-security-box-txt">{{item.con}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 信息简介 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">信息</view>
+      <view class="info-abstract-box-top-abstract">简介</view>
+     </view>
+     <!-- 教师信息 -->
+     <view class="info-abstract-box-info">
+      <block wx:for="{{needData.institutionsInfo}}" wx:key="uni-info">
+        <view class="info-abstract-box-info-data">
+          <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
+          <view class="info-abstract-box-info-data-con">{{item.con}}</view>
+        </view>
+      </block>
+
+      <!-- 优惠券 -->
+      <view wx:if="{{needData.couponsInfo.length === 0}}" class="none-class none-class-coupons"><view class="none-class-img"><image src="/image/kl.png" /></view>该课程暂未设置优惠券</view>
+      <block wx:for="{{couponsInfo}}" wx:key="uni-coupons">
+        <view class="coupons" bindtap="receiveCoupons">
+          <view class="coupons-box">
+            <view class="coupons-left">
+              <!-- <view class="coupons-left-box-price"> -->
+                <!-- <view class="coupons-left-box-price-bj">￥</view> -->
+                <view class="coupons-left-box-price-num">{{item.price}}</view>
+              <!-- </view> -->
+              <view class="coupons-left-box-mes">
+                <view class="coupons-left-box-mes-msg">优惠券</view>
+                <view class="coupons-left-box-mes-type">{{item.type}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="coupons-right">
+            <view class="coupons-right-text">立即领取</view>
+            <view class="coupons-border"></view>
+          </view>
+        </view>
+      </block>
+      <!-- <block wx:for="{{needData.couponsInfo}}" wx:key="uni-coupons">
+        <view class="coupons" bindtap="receiveCoupons">
+          <view class="coupons-box">
+            <view class="coupons-left">
+              <view class="coupons-left-box-price-num">{{item.couponType1}}</view>
+              <view class="coupons-left-box-mes">
+                <view class="coupons-left-box-mes-msg">{{item.title}}</view>
+                <view class="coupons-left-box-mes-type">{{item.desc}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="coupons-right">
+            <view class="coupons-right-text">领取</view>
+            <view class="coupons-border"></view>
+          </view>
+        </view>
+      </block> -->
+      <view class="helpful-hints">友情提示：部分信息较为敏感，需注册授权后方可查看。</view>
+     </view>
+  </view>
+</view>
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 机构产品 -->
+<view class="near-teacher"> 
+  <view class="near-teacher-out">
+    <view class="near-teacher-inner">
+      <!-- title -->
+      <view class="near-teacher-title">
+        <view class="near-teacher-title-left">
+          <view class="near-teacher-title-left-text">
+            <view class="near">产品</view>
+            <view class="teacher">中心</view>
+          </view>
+        </view>
+        <view class="near-teacher-title-right" bindtap="institutionsMoreProduct">
+          <view class="near-teacher-title-right-more">更多产品</view>
+          <view class="near-teacher-title-right-img">
+           <image src="../../image/jt.png" />
+          </view>
+        </view>
+      </view>
+      <!-- count -->
+      <view class="institution-view">
+      <view wx:if="{{needData.institutionsProductCenterData.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>暂无更多课程</view>
+        <block  wx:for="{{needData.institutionsProductCenterData}}" wx:key="">
+          <view bindtap="detailInfo" data-id="{{item.id}}" class="near-teacher-count">
+            <view class="near-teacher-count-out">
+              <view class="near-teacher-count-left">
+                <view class="near-teacher-count-img"><image src="{{item.banner}}" /></view>
+              </view>
+              <view class="near-teacher-count-right">
+                <view class="near-teacher-count-right-change">
+                  <view class="near-teacher-count-right-dec">
+                    <view class="new-box title-box">{{item.title}}</view>
+                    <view class="new-box new-box-price"><text>￥</text>{{item.price}}<view class="new-box-nature">性质：{{item.teachWay}}</view></view>
+                    <view class="new-box new-box-knob">总节数：{{item.setCount}}</view>
+                    <view class="new-box">授课地点：{{item.teachSite}}</view>
+                    <view class="new-box">课程人数：{{item.studentLimit}}</view>
+                    <view class="yet-new-box-num">已预约：{{item.destineCount}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+<!-- 资质证书 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">资质</view>
+      <view class="info-abstract-box-top-abstract">证书</view>
+     </view>
+     <!--资质信息 -->
+     <view class="info-abstract-box-info">
+      <view wx:if="{{needData.institutionsApproveInfo.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>暂未上传资质证书</view>
+      <block wx:for="{{needData.institutionsApproveInfo}}" wx:key="">
+        <view class="info-abstract-box-info-data">
+          <view class="certification"><image src="{{item.approveIcon}}" /></view>
+          <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
+          <view class="info-abstract-box-info-data-con">{{item.con}}</view>
+        </view>
+        <view class="certificate">
+          <image mode="widthFix" src="{{item.approveImg}}" />
+        </view>
+      </block>
+      <view class="helpful-hints">友情提示：部分信息较为敏感，需注册授权后方可查看。</view>
+     </view>
+  </view>
+</view>
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+<!-- 人生格言 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+     <!-- 头部 -->
+     <view class="info-abstract-box-top">
+      <view class="info-abstract-box-top-message">企业</view>
+      <view class="info-abstract-box-top-abstract">简介</view>
+     </view>
+     <!-- 我想对自己说 -->
+     <view class="info-abstract-box-info">
+        <view class="info-abstract-box-info-data other-style">
+          <!-- <view class="info-abstract-box-info-data-totle change-style">我想对自己说：</view> -->
+          <view class="info-abstract-box-info-data-con change-width">{{needData.myInfo}}</view>
+        </view>
+     </view>
+  </view>
+</view>
+
+<!-- 占位图 -->
+<view class="placeholder-place-img">
+  <image mode="widthFix" src="../../image/zwt.png" />
+</view>
+
+<!-- 给他/她留言 -->
+<view class="info-abstract">
+  <view class="info-abstract-box">
+    <!-- 头部 -->
+    <view class="info-abstract-box-top">
+    <view class="info-abstract-box-top-message">给企业</view>
+    <view class="info-abstract-box-top-abstract">留言</view>
+    </view>
+    <!-- 留言内容 -->
+    <view class="leave-word-box">
+      <form bindsubmit="bindFormSubmit">
+        <textarea maxlength="-1" placeholder="给企业：" value="{{name}}" name="textarea" class="leave-word"></textarea>
+        <view class="leave-word-btn-box">
+          <button form-type="submit" type="button" class="leave-word-btn">发布</button>
+        </view>
+      </form>
+    </view>
+    <!-- 留言内容 -->
+    <block wx:if="{{needData.commentsInfo.length !== 0}}">
+      <block wx:for="{{needData.commentsInfo}}">
+        <view class="leave-word-box pad-btn">
+          <view class="leave-word-box-info">
+            <view class="leave-word-info-name">{{item.nickName1}}</view>
+            <view class="leave-word-info-con">{{item.comment}}</view>
+            <view wx:if="{{item.nickName2 !== ''}}" class="leave-word-info-name">
+              <text class="leave-word-info-name-parents">{{item.nickName2}}</text>
+              <text class="leave-word-info-name-symbol">~@~</text>
+              <text>{{item.nickName1}}：</text>
+            </view>
+            <view class="leave-word-info-con">{{item.replyContent}}</view>
+          </view> 
+        </view>
+      </block>
+    </block>
+  </view>
+</view>
+<!-- 回复框 -->
+<!-- <view class="reply-info">
+    <view class="reply-send-con">
+      <textarea auto-height adjust-position maxlength="-1" placeholder="回复：" value="{{name}}" name="textarea" class="leave-word"></textarea>
+    </view>
+</view> -->
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

@@ -247,10 +247,11 @@ page{
 }
 /* 附近教师内容 */
 .near-teacher-count-img{
-  width: 200rpx;
-  height: 200rpx;
+  width: 160rpx;
+  height: 160rpx;
   border-radius: 100%;
   overflow: hidden;
+  background-color: #f7f7f7;
 }
 .near-teacher-count-img > image{
   display: block;
@@ -332,49 +333,48 @@ page{
 }
 
 /* 教师产品 */
-.institution-view{
-  display: flex;
-  flex-direction:row;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  align-items:center;
-  width: 90%;
-  margin:auto;
-}
-.institution{
-  width: 48%;
-  margin-top: 3%;
-  background-color: #f2f2f2;
-  border-radius: 10rpx;
-  overflow: hidden;
-}
-.institution-con-style{
+.near-teacher-count-right-change-txt{
   margin-bottom: 10rpx;
 }
-.institution-img{
-  width: 100%;
-  height: 180rpx;
-  overflow:hidden;
+.new-box{
+  font-size: 26rpx;
+  margin-bottom: 10rpx;
 }
-.institution-img > image{
+.new-box-sex,.new-box-price,.new-box-knob{
+  display: flex;
+  align-items: center;
+}
+.new-box-sex-img{
+  width: 35rpx;
+  height: 35rpx;
+  margin-right: 20rpx;
+}
+.new-box-sex-img > image{
   display: block;
   width: 100%;
+  height: 100%;
 }
-.institution-con{
-  width: 90%;
-  margin: auto;
-  color: #565656;
-  font-size: 26rpx;
-  padding: 20rpx 0;
-}
-.change-style{
+.title-box{
+  color: #464646;
   font-weight: 600;
-}
-.price{
-  color: #cd2a17;
-}
-.institution-more{
   font-size: 30rpx;
+}
+.new-box-nature{
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  color: #565656;
+  font-weight: normal;
+}
+.yet-new-box-num{
+  color: #FF9700;
+}
+.new-box-price{
+  color: #cd2a17;
+  font-weight: 600;
+  font-size: 28rpx;
+}
+.new-box-price > text{
+  font-size: 24rpx;
 }
 
 

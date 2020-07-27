@@ -1,9 +1,53 @@
 <!--pages/map/map.wxml-->
 <view class="map-view">
-  <map bindtap="csClick" style="width:100vh;height:100vh;" latitude="{{lat}}" longitude="{{lon}}" scale="16" show-location markers="{{markers}}"></map>
+  <map bindtap="mapLonLat" style="width:100vh;height:100vh;" enable-3D="true" enable-overlooking="true" enable-zoom="true" enable-rotate="true" latitude="{{lat}}" longitude="{{lon}}" scale="8" show-location markers="{{markers}}" rotate="360" show-compass="true" enable-traffic="true" skew="40" bindmarkertap="bjd" bindlabeltap="labe" bindcontroltap="kj" bindcallouttap="qipaoClick">
+    <cover-view bindtap="chooleArea" class="current-postion">
+      <cover-image class="position-img" src="/image/dw1.png"></cover-image>
+      <cover-view class="choole-add">定位</cover-view>
+    </cover-view>
+    <view bindtap="clickBub" class="chose-add">
+        <view class="chose-position-img"><image src="/image/dw2.png" /></view>
+        <view class="choole-add-text">点击选择位置</view>
+    </view>
+  </map>
 </view>
-<view class="map-add">
-  <text class="map-add-name">东莞市昱升科技有限公司</text>
-  <text class="map-add-info" bindtap="callTel">联系电话：13310829325</text>
-  <text class="map-add-info">广东省东莞市厚街镇莞太路厚街段281号2号楼406室</text>
+
+
+<view wx:if="{{!isShow}}" class="map-add">
+  <view class="new-box">
+    <text class="map-add-name">东莞市昱升科技有限公司</text>
+    <text class="map-add-info call-tel" bindtap="callTel">联系电话：13310829325</text>
+    <text class="map-add-info">广东省东莞市厚街镇莞太路厚街段281号2号楼406室</text>
+  </view>
 </view>
+
+<block wx:else>
+  <view wx:if="{{isShowAreaInfo}}" class="map-add">
+    <view class="new-box">
+      <view class="new-box-name">{{newName}}</view>
+      <view class="new-box-info">{{newAddress}}</view>
+      <view class="new-box-info map-add-sex" style="color:{{numData===0?'#707070':'#F2B04A'}}"><view class="map-add-sex-img"><image src="{{numData===0?'/image/kl.png':'/image/xl.png'}}" /></view>{{numDataInfo}}</view>
+    </view>
+  </view>
+  <view wx:else class="map-add">
+    <view class="new-box-width">
+      <view wx:if="{{type === 'teacher'}}" class="new-box-left">
+        <text class="map-add-name">姓名：{{name}}</text>
+        <view class="map-add-sex">性别：<view class="map-add-sex-img"><image src="{{sex==='男'?'/image/sexnan.png':'/image/sexnv.png'}}" /></view>{{sex}}</view>
+        <text class="map-add-info">主教科目：{{teachItem}}</text>
+        <text class="map-add-info">现教年级：{{teachObj}}</text>
+      </view>
+      <view wx:else class="new-box-left">
+        <text class="map-add-name">机构名称：{{name}}</text>
+        <text class="map-add-info">主教科目：{{teachItem}}</text>
+        <text class="map-add-info">服务范围：{{teachObj}}</text>
+        <text class="map-add-info">地址：{{locationDesc}}</text>
+      </view>
+      <view class="new-box-right">
+        <view class="new-box-right-img"><image src="/image/jt.png" /></view>
+      </view>
+    </view>
+  </view>
+</block>
+
+

@@ -12,50 +12,23 @@ Page({
       '../../image/banner2.png',
       '../../image/banner2.png',
     ],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     circular: true,
     interval: 3000,
     duration: 1000,
-    isOrder: false,
+    couponsInfo:datas.couponsInfo, // 优惠券信息
 
     platformInspect:datas.platformInspect, // 平台核查数据
-    teacherClassInfo:datas.teacherClassInfo, // 课程信息
+    // teacherInfo:datas.teacherInfo, // 教师信息
     productCenterData:datas.productCenterData, // 产品中心
-    couponsInfo:datas.couponsInfo, // 优惠券信息
-    classDetailsImg:datas.classDetailsImg, // 认证数据
+    approveInfo:datas.approveInfo, // 认证数据
+    myInfo:'每个人都有潜在的能量，只是很容易被习惯掩盖，被时间迷离，被惰性所消磨', // 人生格言
+    title:'恐低的鸟：',
+    con:'看了你的资料我感觉你特别有能力，我孩子数学有些偏科不知道你是否有兴趣帮我做一下一对一辅导。',
+    teacherCon:'非常感谢您的留言，我近期有很多业余时间，不知道您是否方便，您孩子现在是上几年级呢！？。'
   },
 
-  /**
-   * 
-   * @param {*} options
-   * 点击收藏课程 
-   */
-  collectionClick:function(){
-    wx.showToast({
-      title: '收藏成功',
-      icon: 'success',
-      duration: 2000
-    })
-  },
-  /**
-   * 
-   * @param {*} options
-   * 用户预约课程 
-   */
-  orderClick:function(){
-    wx.showToast({
-      title: '申请已发送',
-      icon: 'success',
-      duration: 2000
-    })  
-  },
-
-  /**
-   * 
-   * @param {*} options
-   * 查看该教师的全部课程 
-   */
   // 点击更多课程进入课程列表
   classMore:function(){
     wx.navigateTo({
@@ -63,41 +36,24 @@ Page({
     });
   },
 
-  /**
-   * 
-   * @param {*} options
-   * 家长拨打电话 
-   */
-  callTel:function(){
-    wx.makePhoneCall({
-      phoneNumber: '13310829325' //为昱升公司电话
-    })
+  detailInfo:function(e){
+    wx.navigateTo({
+      url:'../teacherProductCenter/teacherProductCenter?id=' + e.currentTarget.dataset.id,
+    });
   },
 
-  receiveCoupons:function(){
-    wx.showModal({
-      title: '温馨提示',
-      content: '请点击“确定”向教师发出预约申请，教师通过后方可领取优惠券。',
-      success (res) {
-        if (res.confirm) {
-          wx.showToast({
-            title: '申请已发送',
-            icon: 'success',
-            mask:true,
-            duration: 1500
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })    
+  // 提交留言
+  bindFormSubmit:function(e){
+    console.log(e,'这是返回的数据');
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options.id,'数据');
+    let that = this,id = options.id;
+    o.funTeacherDetails(that,id,'app/tea/center/home','needData','1');
   },
 
   /**
