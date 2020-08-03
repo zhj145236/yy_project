@@ -1,6 +1,23 @@
 const app = getApp();
 module.exports = {
 
+  /**
+   * 将时间戳转换成时分秒
+   * @param {*} t time 需要传入的时间戳
+   */
+    FunGetTime:function(t){
+      let date = new Date(t),
+      Y = date.getFullYear() + '-',
+      M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
+      D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ',
+      h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':',
+      m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':',
+      s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds()),
+      strDate = Y+M+D+h+m+s;
+      // console.log(strDate,'时间格式');
+      return strDate;
+      // f.setData({[b]:strDate});
+    },
     /**
      * 获取设备信息
      */
@@ -747,39 +764,67 @@ module.exports = {
   /**
    * 微信登录
    */
-  FunWxLogin:function(e,i,u){
-    wx.login({
+  FunWxLogin:function(e,u,i,r){
+    wx.getStorage({
+      key: 'userInfo',
       success:(res)=>{
-        let codes = res.code;
-        url = this.urlCon() + 'app/login3',
-        data = {code:codes,encryptedData:e,iv:i},
-        header = {"content-type":"application/x-www-form-urlencoded"};
-        this.post(url,data,header,callback=>{
-          if(callback.statusCode === 200){
-            let s = callback.data;
-            getApp().globalData.userInfo = s;
-            console.log(getApp().globalData.userInfo,'保存用户数据');
-            console.log(u,'跳转路径');
-            return;
-            switch(parseInt(u)){
-              case 0:
-                wx.reLaunch({
-                  url: '/parentsVersion/parentshome/parentshome'
-                });
-                break;
-              case 1:
-                wx.reLaunch({
-                  url: '/teacherVersion/teacherhome/teacherhome'
-                });
-                break;
-              case 2:
-                wx.reLaunch({
-                  url: '/institutionVersion/institutionshome/institutionshome'
-                });
-                break;
-            }
+        console.log(JSON.parse(decodeURIComponent(res.data)),'微信缓存用户数据');
+        getApp().globalData.userInfo = JSON.parse(decodeURIComponent(res.data));
+        switch(parseInt(u)){
+          case 0:
+            wx.reLaunch({
+              url: '/parentsVersion/parentshome/parentshome'
+            });
+            break;
+          case 1:
+            wx.reLaunch({
+              url: '/teacherVersion/teacherhome/teacherhome'
+            });
+            break;
+          case 2:
+            wx.reLaunch({
+              url: '/institutionVersion/institutionshome/institutionshome'
+            });
+            break;
+        }
+      },
+      fail:(res)=>{
+        wx.login({
+          success:(res)=>{
+            let codes = res.code;
+            url = this.urlCon() + 'app/login3?role=' + r,
+            data = {code:codes,encryptedData:e,iv:i},
+            header = {"content-type":"application/x-www-form-urlencoded"};
+            this.post(url,data,header,callback=>{
+              console.log(callback,'用户数据');
+              if(callback.statusCode === 200){
+                let s = callback.data;
+                getApp().globalData.userInfo = s;
+                wx.setStorage({
+                  key:"userInfo",
+                  data:encodeURIComponent(JSON.stringify(s))
+                })
+                switch(parseInt(u)){
+                  case 0:
+                    wx.reLaunch({
+                      url: '/parentsVersion/parentshome/parentshome'
+                    });
+                    break;
+                  case 1:
+                    wx.reLaunch({
+                      url: '/teacherVersion/teacherhome/teacherhome'
+                    });
+                    break;
+                  case 2:
+                    wx.reLaunch({
+                      url: '/institutionVersion/institutionshome/institutionshome'
+                    });
+                    break;
+                }
+              }
+            });
           }
-        });
+        })
       }
     })
   },
@@ -801,40 +846,73 @@ module.exports = {
    * 
    * @param {*} p 手机号
    * @param {*} c 验证码
+   * @param {*} r role 用户角色
    */
-  FunCodeLogin:function(p,c,u){
-    wx.login({
-      success: (res) => {
-        console.log(res,'数据');
-        let code = res.code,
-        url  = this.urlCon() + 'app/login2?tel=' + p + '&yzm=' + c + '&code=' + code,
-        data = {},
-        header = {"content-type":"application/x-www-form-urlencoded"};
-        this.post(url,data,header,callback=>{
-          console.log(callback,'返回用户数据');
-          if(callback.statusCode === 200){
-            let s = callback.data;
-            getApp().globalData.userInfo = s;
-            switch(parseInt(u)){
-              case 0:
-                wx.reLaunch({
-                  url: '/parentsVersion/parentshome/parentshome'
-                });
-                break;
-              case 1:
-                wx.reLaunch({
-                  url: '/teacherVersion/teacherhome/teacherhome'
-                });
-                break;
-              case 2:
-                wx.reLaunch({
-                  url: '/institutionVersion/institutionshome/institutionshome'
-                });
-                break;
-            }
-          }
-        });
+  FunCodeLogin:function(p,c,u,r){
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        console.log(JSON.parse(decodeURIComponent(res.data)),'微信缓存用户数据');
+        getApp().globalData.userInfo = JSON.parse(decodeURIComponent(res.data));
+        switch(parseInt(u)){
+          case 0:
+            wx.reLaunch({
+              url: '/parentsVersion/parentshome/parentshome'
+            });
+            break;
+          case 1:
+            wx.reLaunch({
+              url: '/teacherVersion/teacherhome/teacherhome'
+            });
+            break;
+          case 2:
+            wx.reLaunch({
+              url: '/institutionVersion/institutionshome/institutionshome'
+            });
+            break;
+        }
       },
+      fail:(res)=>{
+        wx.login({
+          success: (res) => {
+            let code = res.code,
+            url  = this.urlCon() + 'app/login2?tel=' + p + '&yzm=' + c + '&code=' + code + '&role=' + r,
+            data = {},
+            header = {"content-type":"application/x-www-form-urlencoded"};
+            this.post(url,data,header,callback=>{
+              console.log(callback,'返回用户数据');
+              if(callback.statusCode === 200){
+                let s = callback.data;
+                getApp().globalData.userInfo = s;
+                wx.setStorage({
+                  key:"userInfo",
+                  data:encodeURIComponent(JSON.stringify(s))
+                })
+                switch(parseInt(u)){
+                  case 0:
+                    wx.reLaunch({
+                      url: '/parentsVersion/parentshome/parentshome'
+                    });
+                    break;
+                  case 1:
+                    wx.reLaunch({
+                      url: '/teacherVersion/teacherhome/teacherhome'
+                    });
+                    break;
+                  case 2:
+                    wx.reLaunch({
+                      url: '/institutionVersion/institutionshome/institutionshome'
+                    });
+                    break;
+                }
+              }
+            });
+          },
+          fail:function(res){
+            console.log(res,'返回错误信息');
+          },
+        })
+      }
     })
   },
 
@@ -887,6 +965,7 @@ module.exports = {
             o.fbrole = res[i].role;
             o.followed = res[i].followed;
             o.hasAdmire = res[i].hasAdmire;
+            o.video = res[i].video;
             Darr.push(o);
           }
           console.log(Darr,'组合数据');
@@ -1064,7 +1143,9 @@ module.exports = {
       success: (res) =>{
         return typeof e == "function" && e(res);
       },
-      fail: (res) => {},
+      fail: (res) => {
+        return typeof e == "function" && e(res);
+      },
       complete: (res) => {},
     });
   },
@@ -1072,9 +1153,20 @@ module.exports = {
   /**
    * 
    * @param {*} f this 指向
+   * @param {*} s 控制蒙层显示还是隐藏
+   * @param {*} c 监听用户是点击确定还是取消
    * @param {*} t 需要传出的数据
+   * @param {*} n 总数据
+   * @param {*} i icon 需要加载的第一个icon
+   * @param {*} v value 需要加载的第一个value
    */
-  FunCancelDetermine:function(f,s,t){
+  FunCancelDetermine:function(f,s,c,t,n,i,v){
+    if(c === 'cancel'){
+      f.setData({
+        [i]:n[0].label,
+        [v]:n[0].value,
+      });
+    }
     if(s){
       f.setData({[t]:true});
     }else{
@@ -1126,11 +1218,11 @@ module.exports = {
    * @param {*} v isShowVideo 是否显示视频组件
    * @param {*} u url 请求保存视频的地址
    * @param {*} a videoUrl 需要保存的视频地址
+   * @param {*} i isUploadImg 
    */
-  FunUploadVideo:function(f,t,d,m,p,n,e,v,u,a){
+  FunUploadVideo:function(f,t,d,m,p,n,e,v,u,a,i){
     let use = getApp().globalData.userInfo,
-    // token = use.token;
-    token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww";
+    token = use.token;
     this.alert('友情提示','为了更友好的体验，请上传60秒内的短视频',callback=>{
       console.log(callback,'返回函数');
       if(callback.confirm){
@@ -1141,11 +1233,19 @@ module.exports = {
           compressed: p,
           success:(res) => {
             if(res.duration.toFixed(0)<60){
-              f.setData({
-                [n]:'0:' + res.duration.toFixed(0),
-                [e]:res.tempFilePath,
-                [v]:true
-              });
+              if(res.duration.toFixed(0)<10){
+                f.setData({
+                  [n]:'0:0' + res.duration.toFixed(0),
+                  [e]:res.tempFilePath,
+                  [v]:true
+                });
+              }else{
+                f.setData({
+                  [n]:'0:' + res.duration.toFixed(0),
+                  [e]:res.tempFilePath,
+                  [v]:true
+                });
+              }
             }else if(res.duration.toFixed(0) === 60){
               f.setData({
                 [n]:'1:00',
@@ -1163,7 +1263,8 @@ module.exports = {
               filePath: res.tempFilePath,
               name: 'file',
               success: (res) =>{
-                f.setData({[a]:JSON.parse(decodeURIComponent(res.data)).data[0]});
+                console.log(res,'视频返回路径');
+                f.setData({[a]:JSON.parse(decodeURIComponent(res.data)).data[0],[i]:false});
               },
               fail: (res) => {},
               complete: (res) => {},

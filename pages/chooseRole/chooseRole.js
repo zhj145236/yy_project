@@ -11,10 +11,11 @@ Page({
 
   // 选择家长/教师/培训机构
   roleClick:function(e){
-    let chooseRole = e.currentTarget.dataset.index;
+    let chooseRole = e.currentTarget.dataset.index,
+    role = e.currentTarget.dataset.role;
     console.log(chooseRole,'123');
     wx.reLaunch({
-      url: '/pages/login/login?index=' + chooseRole,
+      url: '/pages/login/login?index=' + chooseRole + '&role=' + role,
     });
   },
 
@@ -35,6 +36,7 @@ Page({
           roleImg:needData.parBanner,
           conText:needData.parDesc,
           roleBtn:'成为家长 ',
+          role:'par',
         },{
           placeholderImg:'/image/zwt.png',
           mainTitle:'成为教师',
@@ -42,6 +44,7 @@ Page({
           roleImg:needData.teaBanner,
           conText:needData.teaDesc,
           roleBtn:'成为教师 ',
+          role:'tea',
         },{
           placeholderImg:'/image/zwt.png',
           mainTitle:'成为企业',
@@ -49,6 +52,7 @@ Page({
           roleImg:needData.orgBanner,
           conText:needData.orgDesc,
           roleBtn:'成为企业 ',
+          role:'org',
         },
       ];
       that.setData({chooseRoleInfo:chooseRoleInfo});

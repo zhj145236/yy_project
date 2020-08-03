@@ -410,7 +410,7 @@ const personalFun = [
     id:7,
     centerImg:'/image/gz.png',
     backGroundColor:'#74cdce',
-    centerCon:'个人中心',
+    centerCon:'动态中心',
     url:'/parentsFocus/parentsFocus',
   },{
     id:8,

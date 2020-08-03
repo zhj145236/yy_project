@@ -51,7 +51,9 @@
         "parentsTeacherProductCenter/parentsTeacherProductCenter",
         "parentsTeacherList/parentsTeacherList",
         "parentsDiaryCenter/parentsDiaryCenter",
-        "parentsinstAdvice/parentsinstAdvice"
+        "parentsinstAdvice/parentsinstAdvice",
+        "parentsinstDiaryList/parentsinstDiaryList",
+        "parentsinstDiaryDetails/parentsinstDiaryDetails"
       ]
     },
     {

@@ -5,7 +5,7 @@
 </view>
 <!-- 进入我的日记列表 -->
 <view class="registered">
-  <view class="registered-txt diary-list">进入我的日记列表</view>
+  <view catchtap="diaryList" class="registered-txt diary-list">进入我的日记列表</view>
 </view>
 <!-- 内容 -->
 <form bindsubmit="formSubmit">
@@ -132,7 +132,7 @@
   <view class="product-details">
     <view class="whether-public">
       <text>是否公开：</text>
-      <radio-group class="radio-group" bindchange="radioChange">
+      <radio-group class="radio-group" name="privateshow" bindchange="radioChange">
         <label class="radio" wx:for="{{publicData}}" wx:key="uni-radio">
           <radio class="radio" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
         </label>

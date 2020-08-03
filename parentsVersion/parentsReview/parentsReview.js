@@ -23,8 +23,7 @@ Page({
   focusOnClick:function(e){
     let that = this,
     use = that.data.use,
-    // token = use.token,
-    token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww",
+    token = use.token,
     uid = parseInt(that.data.uid),
     fbrole = that.data.fbrole;
     if(that.data.followed === 'true'){
@@ -47,8 +46,7 @@ Page({
   bindFormSubmit:function(e){
     let that = this,
     use = that.data.use,
-    // token = use.token,
-    token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww",
+    token = use.token,
     pid = that.data.pid,
     uid = that.data.uid,
     fbrole = that.data.fbrole,
@@ -82,8 +80,7 @@ Page({
     console.log(e.detail.value,'查看返回的是什么');
     let that = this,
     use = that.data.use,
-    // token = use.token,
-    token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww",
+    token = use.token,
     message = e.detail.value,
     id = that.data.sendId;
     o.FunReplyMessge(id,message,token,callback=>{
@@ -113,10 +110,8 @@ Page({
     let that = this,
     arr = [],
     use = app.globalData.userInfo,
-    // userId = parseInt(use.user.userId),
-    userId = 12,
-    // token = use.token;
-    token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww";
+    userId = parseInt(use.user.userId),
+    token = use.token;
     // 获取留言列表
     o.FunLeaveMessageList(that,parseInt(options.pid),options.fbrole,token,'LeaveMessageList');
     if(options.picture !== 'null'){
@@ -129,17 +124,9 @@ Page({
         }
       }
     }
-    // if(parseInt(use.user.userId) === parseInt(options.uid)){
-    //   that.setData({isShow:false,isBtmShow:true});
-    // }else{
-    //   that.setData({isShow:true,isBtmShow:false});
-    // }
-    // 写死 后期改掉
-    if(parseInt(12) === parseInt(options.uid)){
-      // 发布动态的用户与当前登录的用户是同一个人
+    if(parseInt(use.user.userId) === parseInt(options.uid)){
       that.setData({isShow:false,isBtmShow:true});
     }else{
-      // 发布动态的用户与当前登录的用户不是同一人
       that.setData({isShow:true,isBtmShow:false});
     }
     that.setData({

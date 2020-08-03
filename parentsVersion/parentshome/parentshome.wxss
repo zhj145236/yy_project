@@ -333,8 +333,37 @@ button::after{
 
 
 /*  ========================== 附近动态样式 ========================== */
+.recruit{
+  width:90%;
+  margin: 30rpx auto;
+  padding: 30rpx 0;
+  background-color: #fffefb;
+  border-radius: 10rpx;
+}
+.recruit-box{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+}
+.recruit-box-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.recruit-box-img>image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.recruit-box-text{
+  font-size: 28rpx;
+  color: #666666;
+}
 /* 动态高度占位框 */
-.dynamic-height{
+/* .dynamic-height{
   width: 100%;
   height: 60rpx;
 }
@@ -343,7 +372,7 @@ button::after{
   line-height: 80rpx;
   border-bottom: 1px solid #c7c7c7;
   margin-bottom: 30rpx;
-}
+} */
 /* 动态信息内容 */
 .dynamic-con{
   width: 90%;
@@ -415,6 +444,7 @@ button::after{
   width: 242rpx;
   height: 242rpx;
   margin-bottom: 20rpx;
+  background-color: #DCDBDA;
 }
 .dynamic-con-for-img>image{
   width: 100%;
@@ -424,10 +454,11 @@ button::after{
 .dynamic-con-box-info-top-left{
   font-size: 28rpx;
   color: #f2b04a;
+  font-weight: 600;
 }
 .dynamic-con-box-info-center{
-  font-size: 26rpx;
-  color: #7a7a7a;
+  font-size: 28rpx;
+  color: #292929;
   margin: 30rpx 0;
 }
 .has-focus{
@@ -442,9 +473,58 @@ button::after{
 .my-set-dynamic{
   color: #f2b04a;
 }
+
+/* 动态视频 */
+.banner-swiper-video{
+  width:100%;
+  margin: 30rpx auto 0 auto;
+  height: 380rpx;
+}
+.banner-video{
+  width:190rpx;
+  height: 380rpx;
+  /* margin-left: 40rpx; */
+  position: relative;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+.set-mc{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+}
+.set-mc-img{
+  width: 80rpx;
+  height: 80rpx;
+  margin: auto;
+}
+.set-mc-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.duration-txt{
+  position: absolute;
+  right: 30rpx;
+  bottom: 20rpx;
+  color: #fff;
+  font-size: 28rpx;
+}
+.myVideo{
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx;
+}
+
 /* 动态底部 */
 .dynamic-bom{
-  border-top:1px solid #c7c7c7;
+  border-bottom:2px solid #c7c7c7;
+  border-top:1px solid #F9F9F9;
   padding: 30rpx 0;
   margin:30rpx 0 40rpx 0;
 }

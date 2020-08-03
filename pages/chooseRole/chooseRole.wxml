@@ -21,7 +21,7 @@
         <!-- 文字 -->
         <view class="choose-role-con-text">{{item.conText}}</view>
         <!-- 跳转对应程序按钮 -->
-        <view data-index="{{index}}" bindtap="roleClick" class="choose-role-con-btn">{{item.roleBtn}}</view>
+        <view data-index="{{index}}" data-role="{{item.role}}" bindtap="roleClick" class="choose-role-con-btn">{{item.roleBtn}}</view>
       </view>
     </view>
   </block>

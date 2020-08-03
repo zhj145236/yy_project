@@ -84,10 +84,10 @@ Page({
     console.log(e,'授权数据');
     let that = this,
     userInfoSucces = e.detail.errMsg,
-    useType = that.data.useType;
-    // console.log();
+    useType = that.data.useType,
+    role = that.data.role;
     if(userInfoSucces == 'getUserInfo:ok'){
-      o.FunWxLogin(e.detail.encryptedData,e.detail.iv,useType);
+      o.FunWxLogin(e.detail.encryptedData,useType,e.detail.iv,role);
     }
   },
 
@@ -174,8 +174,8 @@ Page({
     nums = that.data.nums,
     isPhone = that.data.isPhone,
     isCode = that.data.isCode,
-    useType = that.data.useType;
-    console.log(isPhone);
+    useType = that.data.useType,
+    role = that.data.role;
     switch(nums){
       case 0:
         console.log(e,'手机登录');
@@ -194,7 +194,7 @@ Page({
           }
         }
         if(isPhone && isCode){
-          o.FunCodeLogin(phoneNum,verification,useType);
+          o.FunCodeLogin(phoneNum,verification,useType,role);
         }
         break;
     }
@@ -204,9 +204,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this,useType = options.index,use = {};
+    console.log(options,'返回数据');
+    let that = this,useType = options.index,role = options.role,use = {};
     that.setData({
-      useType:useType
+      useType:useType,
+      role:role,
     });
     // 用户选择的角色类型 0家长 1教师 2机构
     switch(parseInt(useType)){

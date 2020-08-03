@@ -1,0 +1,18 @@
+<!--parentsVersion/parentsinstDiaryList/parentsinstDiaryList.wxml-->
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到日记列表，祝您使用愉快。</view>
+</view>
+<!--资质信息 -->
+<view wx:if="{{diaryData.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>您尚未书写日记</view>
+<block wx:for="{{diaryData}}" wx:key="uni-diary">
+  <view catchtap="diaryClick" data-time="{{item.createTime}}" data-content="{{item.content}}" data-weather="{{item.weather}}" data-feeling="{{item.feeling}}" data-picture="{{item.picture}}" data-video="{{item.video}}" class="diary-list">
+    <view class="diary-list-con">
+      <view class="diary-list-left">
+        <view class="diary-list-desc">{{item.content}}</view>
+        <view class="diary-list-time">{{item.createTime}}</view>
+      </view>
+      <view class="diary-list-icon"><image src="/image/jt.png" /></view>
+    </view>
+  </view>
+</block>

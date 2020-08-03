@@ -462,8 +462,12 @@
 
 <!-- 附近动态 -->
 <block wx:if="{{blockid==2}}">
-  <!-- 高度占位框 -->
-  <view class="dynamic-height"></view>
+  <view bindtap="releaseDynamic" class="recruit">
+    <view class="recruit-box">
+      <view class="recruit-box-img"><image src="/image/search1.png" /></view>
+      <view class="recruit-box-text">{{foundData}}</view>
+    </view>
+  </view>
   <!-- 动态中心 -->
   <view class="near-teacher">
     <view class="near-teacher-out">
@@ -504,11 +508,24 @@
                 <!-- 动态图像 -->
                 <view class="dynamic-con-box-info-img">
                   <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
-                    <view class="dynamic-con-for-img">
-                      <image src="{{dynamicImg.specificImg}}" />
+                    <view catchtap="previewImg" data-totalnum="{{item.releaseImg}}" data-src="{{dynamicImg.specificImg}}" data-numindex="{{index}}" class="dynamic-con-for-img">
+                      <image mode="aspectFill" src="{{dynamicImg.specificImg}}" />
                     </view>
                   </block>
                 </view>
+                <!-- 动态视频 -->
+                <view wx:if="{{item.video !== null}}" class='banner-swiper'>
+                  <view class='banner-swiper-video'>
+                    <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
+                      <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{item.video}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+                      <view class="set-mc">
+                        <view class="set-mc-img"><image src="/image/play.png" /></view>
+                      </view>
+                      <view class="duration-txt">{{duration}}</view>
+                    </view>
+                  </view>
+                </view>
+
               </view>
             </view>
           </view>

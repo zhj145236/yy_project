@@ -26,6 +26,7 @@ Page({
     insAreaIndex:[0,0,0], // 找机构 区域
     insServiceIndex:[0,0], // 找机构 服务范围
     personalFun:datas.personalFun, // 个人中心信息
+    foundData:'附近动态',
 
     // 重要数据，不要轻易修改
     blockid:0,
@@ -740,6 +741,51 @@ teaSearchList:function(){
  */
 
   /**
+   * 选择位置
+   */
+  releaseDynamic:function(){
+    let that = this,
+    page = 0,
+    use = that.data.use,
+    token = use.token;
+    app.FunGetSeting(callback=>{
+      if(callback.authSetting['scope.userLocation'] !== undefined){
+        if(callback.authSetting['scope.userLocation']){
+          o.FunChooseLocation(data=>{
+            let lgnLat = data.longitude + ',' + data.latitude;
+            console.log(data,'返回数据1');
+            o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+            that.setData({foundData:data.address});
+          });
+        }else{
+          wx.openSetting({
+            success (res) {
+              if(res.authSetting['scope.userLocation']){
+                o.FunChooseLocation(data=>{
+                  console.log(data,'返回数据2');
+                  let lgnLat = data.longitude + ',' + data.latitude;
+                  o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+                  that.setData({foundData:data.address});
+                });
+              }
+            }
+          })
+        }
+      }else{
+        o.FunGetLocation('gcj02',callback=>{
+          if(callback.errMsg === "getLocation:ok"){
+            o.FunChooseLocation(callback=>{
+              let lngLat = callback.longitude + ',' + callback.latitude;
+              console.log(callback,'返回数据3');
+              that.setData({foundData:callback.address,lngLat:lngLat});
+            });
+          }
+        });
+      }
+    });
+  },
+
+  /**
    * 评论/点赞等点击事件
    */
   smallIcon:function(e){
@@ -749,8 +795,7 @@ teaSearchList:function(){
     lgnLat = that.data.lgnLat,
     page = 0,
     use = app.globalData.userInfo,
-    // token = use.token,
-    token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww",
+    token = use.token,
     pid = e.currentTarget.dataset.id;
     if(needIndex === 0){
       if(e.currentTarget.dataset.hasadmire){
@@ -767,11 +812,8 @@ teaSearchList:function(){
     }
     if(needIndex === 1){
       wx.navigateTo({
-        url:'/parentsVersion/parentsReview/parentsReview?pid=' + pid + '&uid=' + e.currentTarget.dataset.uid + '&content=' + e.currentTarget.dataset.content + '&headimg=' + e.currentTarget.dataset.headimg + '&nickname=' + e.currentTarget.dataset.nickname + '&picture=' + e.currentTarget.dataset.picture + '&fbrole=' + e.currentTarget.dataset.fbrole + '&followed=' + e.currentTarget.dataset.followed,
+        url:'/parentsVersion/parentsReview/parentsReview?pid=' + pid + '&token=' + token + '&uid=' + e.currentTarget.dataset.uid + '&content=' + e.currentTarget.dataset.content + '&headimg=' + e.currentTarget.dataset.headimg + '&nickname=' + e.currentTarget.dataset.nickname + '&picture=' + e.currentTarget.dataset.picture + '&fbrole=' + e.currentTarget.dataset.fbrole + '&followed=' + e.currentTarget.dataset.followed,
       });
-      // wx.navigateTo({
-      //   url:'/parentsVersion/parentsReview/parentsReview?pid=' + pid + '&token=' + token + '&uid=' + e.currentTarget.dataset.uid + '&content=' + e.currentTarget.dataset.content + '&headimg=' + e.currentTarget.dataset.headimg + '&nickname=' + e.currentTarget.dataset.nickname + '&picture=' + e.currentTarget.dataset.picture + '&fbrole=' + e.currentTarget.dataset.fbrole + '&followed=' + e.currentTarget.dataset.followed,
-      // });
     }
   },
 
@@ -781,8 +823,7 @@ teaSearchList:function(){
   focusOnClick:function(e){
     let that = this,
     use = that.data.use,
-    // token = use.token,
-    token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww",
+    token = use.token,
     uid = parseInt(e.currentTarget.dataset.uid),
     fbrole = e.currentTarget.dataset.fbrole,
     lgnLat = that.data.lgnLat,
@@ -797,6 +838,26 @@ teaSearchList:function(){
         }
       });
     }
+  },
+
+  /**
+   * 
+   * @param {*} e 
+   * 图片预览
+   */
+  previewImg:function(e){
+    let that = this,
+    index = e.currentTarget.dataset.numindex,
+    totalnum = e.currentTarget.dataset.totalnum,
+    src = e.currentTarget.dataset.src,
+    arr = [];
+    for(let i in totalnum){
+      arr.push(totalnum[i].specificImg);
+    }
+    wx.previewImage({
+      current: arr[index], //当前显示图片
+      urls: arr //所有图片
+    });
   },
 
 /**
@@ -858,6 +919,7 @@ teaSearchList:function(){
    */
   onLoad: function (options) {
     let that = this,use = app.globalData.userInfo;
+    that.setData({use:use});
     if(that.data.blockid === 0){
       // 首页
       let data = {},
@@ -936,21 +998,24 @@ teaSearchList:function(){
 
     }else if(that.data.blockid === 2){
       console.log('测试返回');
-      // let token = use === ''?'':use.token,
-      let token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww",
-      // size = 5,
-      // userId = parseInt(use.user.userId),
-      userId = 14,
+      let token = use === ''?'':use.token,
+      userId = parseInt(use.user.userId),
       page = 0;
-      o.FunGetLocation('gcj02',callback=>{
-        if(callback.errMsg === "getLocation:ok"){
-          let lgnLat = callback.longitude + ',' + callback.latitude;
-          o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
-          that.setData({lgnLat:lgnLat});
+      app.FunGetSeting(callback=>{
+        if(callback.authSetting['scope.userLocation'] !== undefined){
+          if(callback.authSetting['scope.userLocation']){
+            o.FunGetLocation('gcj02',callback=>{
+              console.log(callback,'返回数据');
+              let lgnLat = callback.longitude + ',' + callback.latitude;
+              o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+            });
+          }else{
+            let lgnLat = "";
+            o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+          }
         }else{
           let lgnLat = "";
           o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
-          that.setData({lgnLat:lgnLat});
         }
       });
       that.setData({userId: userId});
@@ -958,7 +1023,11 @@ teaSearchList:function(){
       // 个人中心数据加载
       if(use !== ""){
         let userData = {};
-        userData.headImg = o.down(u,use.user.headImg);
+        if(use.user.headImg.indexOf('https') !== -1){
+          userData.headImg = use.user.headImg;
+        }else{
+          userData.headImg = o.down(u,use.user.headImg);
+        }
         userData.nickName = use.user.nickName;
         that.setData(userData);
       }
@@ -998,14 +1067,20 @@ teaSearchList:function(){
     let that = this,use = that.data.use;
     if(that.data.blockid === 2){
       console.log('测试返回');
-      // let token = use === ''?'':use.token,
-      let token = "yueyou eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNTAxMTExMTExMSIsImF1dGgiOiIiLCJqdGkiOiI3MDYxNmI2NjQ5NmQ0Yzc4ODY1ODBiNWM4ZTBlN2I5MSJ9.nO8ieN2oCucBqdERTKCGMWhjFUJxDX7FdSPiNWdv9S4gY0MpAjR9NRRBbRqiVNW8oNqgDywoFmaeVZXO7FPoww",
-      // size = 5,
+      let token = use === ''?'':use.token,
       page = 0;
-      o.FunGetLocation('gcj02',callback=>{
-        if(callback.errMsg === "getLocation:ok"){
-          let lgnLat = callback.longitude + ',' + callback.latitude;
-          o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+      app.FunGetSeting(callback=>{
+        if(callback.authSetting['scope.userLocation'] !== undefined){
+          if(callback.authSetting['scope.userLocation']){
+            o.FunGetLocation('gcj02',callback=>{
+              console.log(callback,'返回数据');
+              let lgnLat = callback.longitude + ',' + callback.latitude;
+              o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+            });
+          }else{
+            let lgnLat = "";
+            o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+          }
         }else{
           let lgnLat = "";
           o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
