@@ -126,7 +126,7 @@
       </view>
 
       <!-- 标签 -->
-      <view class="resume-center-box">
+      <view catchtap="chooseClick" data-label="1" class="resume-center-box">
         <view class="resume-center-box-txt-bt">
           <view class="resume-center-box-txt-img"></view>
         <text decode="{{isTrue}}" space="{{isTrue}}" class="resume-center-box-txt">标&emsp;&emsp;签</text>
@@ -138,7 +138,7 @@
       </view>
 
       <!-- 自我评价 -->
-      <view class="resume-center-box resume-center-box-estimate">
+      <view catchtap="chooseClick" data-label="2" class="resume-center-box resume-center-box-estimate">
         <view class="resume-center-box-txt-bt">
           <view class="resume-center-box-txt-img"></view>
           <text class="resume-center-box-txt">自我评价</text>

@@ -1,7 +1,3 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "自我评价",
-  "backgroundTextStyle": "dark",
-  "navigationBarBackgroundColor": "#74cdce",
-  "backgroundColor":"#74cdce"
+  "usingComponents": {}
 }

@@ -1,2 +1,16 @@
 <!--teacherVersion/teaTags/teaTags.wxml-->
-<text>teacherVersion/teaTags/teaTags.wxml</text>
+<block wx:if="{{isChoole}}">
+  <view class="use-public-style">
+    <form bindsubmit="formSubmit">
+      <view class="use-tag">
+        <input type="text" value="{{}}" placeholder="" name="" />
+        <button class="submit-registered" form-type='submit'>添加</button>
+      </view>
+    </form>
+  </view>
+</block>
+<block wx:else>
+  <view class="use-public-style">
+  
+  </view>
+</block>

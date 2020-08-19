@@ -119,6 +119,16 @@ Page({
    */
 
   /**
+   * 用户点击标签或评论
+   * @param {*} options 
+   */
+  chooseClick:function(e){
+    wx.navigateTo({
+      url: '/teacherVersion/teaTags/teaTags?label=' + e.currentTarget.dataset.label,
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
