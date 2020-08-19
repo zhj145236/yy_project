@@ -7,14 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    url:o.urlCon()
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this,
+    width = 600;
+    that.setData({
+      ImgWidth:width + 'rpx',
+      ImgHeight:width * (500/900) + 'rpx'
+    });
   },
 
   /**

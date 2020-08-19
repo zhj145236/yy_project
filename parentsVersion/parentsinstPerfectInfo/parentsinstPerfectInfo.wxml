@@ -1,6 +1,50 @@
 <!--parentsVersion/parentsinstPerfectInfo/parentsinstPerfectInfo.wxml-->
-<view class="registered">
+<!-- <view class="registered">
   <view class="registered-txt">欢迎来到信息完善页，祝您使用愉快。</view>
+</view> -->
+
+<!-- 顶部 -->
+<view class="personal-center">
+  <view class="personal-center-box">
+    <view class="personal-center-box-left">
+      <view class="personal-center-box-left-img"><image src="{{headImg}}" /></view>
+      <view class="personal-center-box-left-info">
+        <view class="personal-center-box-left-info-nick">昵称：{{nickName}}</view>
+        <view class="personal-center-box-left-info-id">UID：{{id}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 上传图片 -->
+<view class="product-details">
+  <view class="product-details-img-upload">
+    <view class="product-details-img-upload-title">秀秀我的生活照</view>
+  </view>
+
+  <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+    <view class="product-details-img-upload-list">
+    <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+    <view>上传图片</view>
+    <view class="helpful-hints">友情提示：最多能上传6张图片。</view>
+    </view>
+  </view>
+
+  <view wx:if="{{tempFilePathsArrs.length !== 0}}" class="product-details-img-upload-box-external">
+    <block wx:for="{{tempFilePathsArrs}}" wx:key="uni-details">
+      <view class="product-details-img-upload-box">
+        <view class="product-details-img-upload-place-img">
+          <image mode="widthFix" src="{{item}}" />
+          <view class="mask-layer">
+            <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
+              <image src="/image/yl.png" />
+            </view>
+          </view>
+          <view catchtap="dealImg" data-nums="{{index}}" class="deal-img"><image src="/image/deal.png" /></view>
+        </view>
+      </view>
+    </block>
+  </view>
 </view>
 
 <form bindsubmit="formSubmit">
@@ -14,15 +58,64 @@
           <view class="perfect-info-box-con">
             <view class="perfect-info-box-con-left">
               <view class="perfect-info-box-con-left-img"><image src="{{itemCon.img}}" /></view>
-              <view wx:if="{{itemCon.type === 'czsjh'}}" class="perfect-info-box-con-left-inp">
-                <input placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" name="" value="13000000000" maxlength="11" placeholder="{{itemCon.con}}" />
+              <!-- 手机号 -->
+              <block wx:if="{{itemCon.type === 'czsjh'}}">
+                <view wx:if="{{callPhone !== ''}}" class="perfect-info-box-con-left-inp">
+                  <input placeholder-style="color:#c7c7c7;" name="callphone" disabled="true" type="number" value="{{callPhone}}" />
+                </view>
+                <view wx:else class="perfect-info-box-con-left-inp helpful-hints">您尚未填写手机号，请前往安全设置中心进行设置。</view>
+              </block>
+
+              <!-- 昵称 -->
+              <view wx:elif="{{itemCon.type === 'nc'}}" class="perfect-info-box-con-left-inp">
+                <input placeholder-style="color:#c7c7c7;"  type="text" bindblur="bindblurNickName" name="nickName" value="{{nickName}}" placeholder="{{itemCon.con}}" />
               </view>
+
+              <!-- 姓名 -->
+              <view wx:elif="{{itemCon.type === 'xm'}}" class="perfect-info-box-con-left-inp">
+                <input placeholder-style="color:#c7c7c7;"  type="text" bindblur="bindblurName" name="name" value="{{name}}" placeholder="{{itemCon.con}}" />
+              </view>
+
+              <!-- 性别 -->
+              <view wx:elif="{{itemCon.type === 'xb'}}" class="perfect-info-box-con-left-inp chang-width">
+                <radio-group class="radio-group-box" name="sex">
+                  <label class="radio-group-box-label radio-group-box-con"><view class="inp-sex"><image src="/image/sexnan.png" /></view><radio checked="{{checkedSexNan}}" color="#007bd0" value="男"/>男</label>
+                  <label class="radio-group-box-label radio-group-box-con"><view class="inp-sex"><image src="/image/sexnv.png" /></view><radio value="女" checked="{{checkedSexNv}}" color="#cd2a17"/>女</label>
+                  <label class="radio-group-box-label radio-group-box-con radio-group-box-con-bm"><view class="inp-sex"><image src="/image/sexbm.png" /></view><radio checked="{{checkedSexBm}}" value="保密" color="#707070"/>保密</label>
+                </radio-group>
+              </view>
+
+              <!-- 省市区 -->
+              <view wx:elif="{{itemCon.type === 'ssq'}}" class="perfect-info-box-con-left-inp">
+                 <picker mode="multiSelector" value="{{parentsInfoIndex}}" custom-item="选择省市区" bindchange="parentsInfoBindchange" bindcolumnchange="parentsInfoColumnChange" range="{{parentsInfoMultiArray}}">{{myLocation}}</picker>
+              </view>
+
+              <!-- 职业 -->
+              <view wx:elif="{{itemCon.type === 'gzzy'}}" class="perfect-info-box-con-left-inp">
+                <checkbox-group name="profession">
+                  <view class="profession-choole">
+                      <label class="weui-cell weui-check__label" wx:for="{{professionData}}" wx:key="{{item.value}}">
+                        <view class="weui-cell__hd">
+                          <checkbox value="{{item.value}}" checked="{{item.checked}}"/>
+                        </view>
+                        <view class="weui-cell__bd">{{item.name}}</view>
+                      </label>
+                  </view>
+                </checkbox-group>
+              </view>
+
+              <!-- 我的个签 -->
+              <view wx:elif="{{itemCon.type === 'qm'}}" class="perfect-info-box-con-left-inp">
+                <view class="course-info-box-inp textarea-inp">
+                  <textarea type="text" name="tag" maxlength="{{max}}" bindblur="bindblurTar" value="{{tag}}" placeholder="{{itemCon.con}}" />
+                </view>
+              </view>
+
+              <!-- 详细地址 -->
               <view wx:else class="perfect-info-box-con-left-inp">
-                <input placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" name="" value="" maxlength="11" placeholder="{{itemCon.con}}" />
+                <input placeholder-style="color:#c7c7c7;"  type="text" bindblur="bindblurAddress" name="address" value="{{address}}" placeholder="{{itemCon.con}}" />
               </view>
             </view>
-            <view wx:if="{{itemCon.type === 'czsjh'}}" class="perfect-info-box-con-right">{{itemCon.prompt}}</view>
-            <view wx:else class="perfect-info-box-con-right change-inp">{{itemCon.prompt}}</view>
           </view>
         </view>
       </block>

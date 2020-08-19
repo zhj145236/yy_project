@@ -25,6 +25,7 @@ Page({
     bottomInfo:datas.bottomInfo, // 动态信息底部
     teacherFun:datas.teacherFun, // 个人中心信息
     chooseCategory:['看家长','看机构'],
+    teaHomeAreaIndex:[0,0,0],
 
 
     blockid:0,
@@ -171,9 +172,9 @@ Page({
    * @param {*} options 
    * 招聘详情页
    */
-  recruitInfo:function(){
+  recruitInfo:function(e){
     wx.navigateTo({
-      url:'/teacherVersion/teacherRecruit/teacherRecruit',
+      url:'/teacherVersion/teacherRecruit/teacherRecruit?id=' + e.currentTarget.dataset.id,
     });
   },
 
@@ -186,10 +187,10 @@ Page({
  teaSalaryChange:function(e){
      let that = this,
      teaSalaryData = that.data.teaSalaryData[e.detail.value].value,
-     data = {'value':teaSalaryData};
-     console.log(that.data.teaSalaryData,'数据');
-     console.log(data,'薪资传提交数据');
-    //  o.funGoodTeacher(that,data,'app/plat/org/productList',0,5,'parentsInstitutionsCourseList','4');
+     page = 0,
+     size = 10;
+     // 机构招聘数据
+     o.FunRecruitList(that,'','',teaSalaryData,'',page,size,'insRecruitInfo');
    },
  /**
   * 
@@ -206,11 +207,11 @@ Page({
   */
     teaAgeChange:function(e){
       let that = this,
-      teaAgeData = that.data.teaAgeData[e.detail.value].value,
-      data = {'value':teaAgeData};
-      console.log(that.data.teaAgeData,'数据');
-      console.log(data,'薪资传提交数据');
-    //  o.funGoodTeacher(that,data,'app/plat/org/productList',0,5,'parentsInstitutionsCourseList','4');
+      workYear = that.data.teaAgeData[e.detail.value].value,
+      page = 0,
+      size = 10;
+      // 机构招聘数据
+      o.FunRecruitList(that,'',workYear,'','',page,size,'insRecruitInfo');
     },
   /**
   * 
@@ -227,12 +228,63 @@ Page({
   */
     learnChange:function(e){
       let that = this,
-      learnData = that.data.learnData[e.detail.value].value,
-      data = {'value':learnData};
-      console.log(that.data.learnData,'数据');
-      console.log(data,'薪资传提交数据');
-    //  o.funGoodTeacher(that,data,'app/plat/org/productList',0,5,'parentsInstitutionsCourseList','4');
+      educational = that.data.learnData[e.detail.value].value,
+      page = 0,
+      size = 10;
+      // 机构招聘数据
+      o.FunRecruitList(that,educational,'','','',page,size,'insRecruitInfo');
     },
+
+    /**
+   * 
+   * @param {*} e 
+   * 课程产品 省市区组件弹出数据 
+   * || ========================== 6/18 张 start
+   * 
+   */
+  teaHomeAreaChange:function(e){
+    // console.log(e.detail.value,'点击确定按钮的样式');
+    let that = this,
+    province = that.data.teaHomeAreaArray[0][e.detail.value[0]],
+    city = that.data.teaHomeAreaArray[1][e.detail.value[1]],
+    area = that.data.teaHomeAreaArray[2][e.detail.value[2]],
+    needDataArea = that.data.needDataArea;
+    console.log(needDataArea,'省市区');
+    for(let i in needDataArea){
+      if(province === needDataArea[i].name){
+        for(let s in needDataArea[i].child){
+          if(city === needDataArea[i].child[s].name){
+            for(let a in needDataArea[i].child[s].child){
+              if(area === needDataArea[i].child[s].child[a].name){
+                let countyCode = needDataArea[i].child[s].child[a].id,
+                page = 0,
+                size = 10;
+                // 机构招聘数据
+                o.FunRecruitList(that,'','','',countyCode,page,size,'insRecruitInfo');
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  teaHomeAreaColumnChange:function(e){
+    let that = this,
+    teaHomeAreaIndex = that.data.teaHomeAreaIndex,
+    teaHomeAreaArray = that.data.teaHomeAreaArray;
+    o.funThreeLevelLinkageChange(that,e,teaHomeAreaIndex,teaHomeAreaArray,that.data.needTotalCity,that.data.needMarkProvince,that.data.needMarkCity,that.data.needMarkArea);
+    that.setData({
+      teaHomeAreaArray:that.data.teaHomeAreaArray,
+      teaHomeAreaIndex:that.data.teaHomeAreaIndex
+    });
+  },
+  /**
+   * 
+   * @param {*} e 
+   * 课程产品 省市区组件弹出数据 
+   * || ========================== 6/18 张 end
+   * 
+   */
   /**
   * 
   * @param {*} e
@@ -319,7 +371,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this;
+    let that = this,use = app.globalData.userInfo;
+    that.setData({use:use});
+    // 获取设备的信息
+    o.getSystemInfo(callback=>{
+      that.setData({windowHeight:callback.windowHeight - 460 + 'px'});
+    })
     if(that.data.blockid === 0){
       let data = {};
       // 机构列表接口
@@ -327,34 +384,32 @@ Page({
     }else if(that.data.blockid === 1){
       console.log('附近动态');
     }else if(that.data.blockid === 2){
-      console.log('机构招聘');
+      let page = 0,size = 10;
       // 机构招聘 薪资接口数据
       o.funPriceSort(that,'app/com/dict/salary_range','teaSalaryArray','teaSalaryData');
       // 机构招聘 教龄接口数据
       o.funPriceSort(that,'app/com/dict/work_year','teaAgeArray','teaAgeData');
       // 机构招聘 学历接口数据
       o.funPriceSort(that,'app/com/dict/educational_limit','learnArray','learnData');
+      // 机构招聘 区域接口数据
+      o.funThreeLevelLinkage(that,'teaHomeAreaArray');
+      // 机构招聘数据
+      o.FunRecruitList(that,'','','','',page,size,'insRecruitInfo');
+      // (f,e,w,s,c,p,z)
     }else{
       // 个人中心数据加载
-      /**
-       * 判断用户是否授权
-       * 如果授权获取全局变量中的数据
-       * 否则加载默认数据
-       * 2020/6/5增 --- 张 showVendor用户授权判断
-       */
-      // if(app.globalData.userInfo !== ''){
-      //   let userInfo = app.globalData.userInfo;
-      //   that.setData({
-      //     userInfo:userInfo
-      //   });
-      // }else{
-      //   let userInfo = {};
-      //   userInfo.avatarUrl = '/image/dtimg.jpg';
-      //   userInfo.nickName = '游客登录';
-      //   that.setData({
-      //     userInfo:userInfo
-      //   });
-      // }
+      if(use !== ""){
+        let userData = {};
+        if(use.user.headImg.indexOf('https') !== -1){
+          userData.headImg = use.user.headImg;
+        }else if(use.user.headImg.indexOf('http') !== -1){
+          userData.headImg = use.user.headImg;
+        }else{
+          userData.headImg = o.down(o.urlCon(),use.user.headImg);
+        }
+        userData.nickName = use.user.nickName;
+        that.setData(userData);
+      }
     }
   },
 

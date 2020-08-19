@@ -481,3 +481,6 @@ page{
   width: 100%;
   margin: 20rpx 0;
 }
+.chang-color{
+  color: #f2b04a;
+}

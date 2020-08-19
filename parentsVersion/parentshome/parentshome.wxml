@@ -482,8 +482,8 @@
               <view class="dynamic-con-box-info">
                 <view class="dynamic-con-box-info-top">
                   <view class="dynamic-con-box-info-top-left">
-                    <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
-                    <view class="dynamic-con-box-info-top-left-id">UID:{{item.uid}}</view>
+                    <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}<view class="sex-img"><image src="{{item.sexImg}}" /></view></view>
+                    <view class="dynamic-con-box-info-top-left-id"><view class="dz-img"><image src="/image/dz.png" /></view>{{item.distanceDesc}}</view>
                   </view>
                   <block wx:if="{{item.uid !== userId}}">
                     <view catchtap="focusOnClick" data-followed="{{item.followed}}" data-uid="{{item.uid}}" data-fbrole="{{item.fbrole}}" class="dynamic-con-box-info-top-right">
@@ -521,7 +521,7 @@
                       <view class="set-mc">
                         <view class="set-mc-img"><image src="/image/play.png" /></view>
                       </view>
-                      <view class="duration-txt">{{duration}}</view>
+                      <!-- <view class="duration-txt">{{duration}}</view> -->
                     </view>
                   </view>
                 </view>
@@ -533,7 +533,7 @@
           <view class="dynamic-bom">
             <view class="dynamic-bom-box">
               <block wx:for="{{item.createBtnData}}" wx:key="uni-bom" wx:for-item="smallIcon">
-                <view data-followed="{{item.followed}}" data-id="{{item.id}}" data-uid="{{item.uid}}" data-nickName="{{item.membersName}}" data-hasadmire="{{item.hasAdmire}}" data-headImg="{{item.membersImg}}" data-fbrole="{{item.fbrole}}" data-content="{{item.releaseText}}" data-picture="{{item.picture}}" data-index="{{index}}" bindtap="smallIcon" class="dynamic-bom-box-con">
+                <view data-followed="{{item.followed}}" data-id="{{item.id}}" data-uid="{{item.uid}}" data-nickName="{{item.membersName}}" data-hasadmire="{{item.hasAdmire}}" data-headImg="{{item.membersImg}}" data-fbrole="{{item.fbrole}}" data-content="{{item.releaseText}}" data-picture="{{item.picture}}" data-index="{{index}}" data-duration="{{duration}}" data-video="{{item.video}}" bindtap="smallIcon" class="dynamic-bom-box-con">
                     <view class="dynamic-bom-box-con-img"><image src="{{smallIcon.icon}}" /></view>
                     <view class="dynamic-bom-box-con-text">{{smallIcon.con}}</view>
                 </view>
@@ -556,8 +556,8 @@
         <view class="personal-center-box-left-img"><image src="{{headImg}}" /></view>
         <view class="personal-center-box-left-info">
           <view class="personal-center-box-left-info-nick">昵称：{{nickName}}</view>
-          <view class="personal-center-box-left-info-id">头像：修改头像</view>
-          <view class="info-remind">消息提醒<view class="info-remind-num">12</view></view>
+          <view catchtap="customImg" class="personal-center-box-left-info-id">头像：修改头像</view>
+          <view catchtap="remindClick" class="info-remind">消息提醒<view wx:if="{{isShowNum === 0}}" class="remind-num">无</view><view wx:else class="info-remind-num">{{isShowNum}}</view></view>
         </view>
       </view>
       <view bindtap="backyy" class="personal-center-box-right">

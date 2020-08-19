@@ -45,3 +45,142 @@ page{
 .active{
   color: #74cdce;
 }
+/* 制作简历 */
+.resume-center{
+  width: 90%;
+  margin: 30rpx auto 0 auto;
+  background-color: #ffffff;
+  border-radius: 10rpx;
+  padding-bottom: 10rpx;
+}
+.resume-center-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction:row;
+  width: 90%;
+  margin: 20rpx auto;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 20rpx 0;
+}
+.resume-center-box-txt{
+  font-size: 28rpx;
+  color: #707070;
+}
+.resume-center-box-txt-bt{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction:row;
+}
+.resume-center-box-txt-img{
+  width: 35rpx;
+  height: 35rpx;
+}
+.resume-center-box-txt-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.resume-center-box-name{
+  width: 130rpx!important;
+  border: none!important;
+}
+.resume-center-box-con{
+  width: 260rpx;
+}
+.resume-center-box-con > input{
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 90%;
+  margin: auto;
+  color: #666666;
+  text-align: right;
+}
+.resume-center-box-sex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  border: none;
+  width: 200rpx;
+}
+.resume-center-box-sex-con{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.resume-center-box-tag{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  border:none;
+}
+.resume-center-box-tag-title{
+  color: #666;
+  font-size: 28rpx;
+  width: auto;
+  margin-right: 10rpx;
+}
+.resume-center-box-tag-img{
+  width: 36rpx;
+  height: 36rpx;
+}
+.resume-center-box-tag-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.resume-center-box-sex-con-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.resume-center-box-sex-con-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.resume-center-box-sex-con-txt{
+  font-size: 28rpx;
+  color: #666666;
+}
+.resume-center-box-address{
+  width: auto;
+  padding: 0 20rpx;
+  border: none;
+  font-size: 28rpx;
+  color: #666666;
+}
+.resume-center-box-tel{
+  width: 200rpx;
+  border: none;
+}
+.resume-center-box-email{
+  width: 350rpx;
+  border: none;
+}
+.resume-center-box-estimate{
+  border-bottom: none;
+}
+
+/* 底部总部信息 */
+.platform-info{
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #adadad;
+  width:56%;
+  margin: 100rpx auto 0 auto;
+}
+.platform-info > view{
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+/* 底部占位 */
+.position-bottom{
+  width: 100%;
+  height: 100rpx;
+}

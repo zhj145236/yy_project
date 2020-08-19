@@ -17,6 +17,18 @@ Page({
 
   /**
    * 
+   * @param {*} e
+   * 用户点击使用协议 
+   */
+  useDealClick:function(){
+    wx.navigateTo({
+      // url:'../serviceDeal/serviceDeal',
+      url:'/pages/serviceDeal/serviceDeal',
+    });
+  },
+
+  /**
+   * 
    * @param {*} options
    * 输入登录方式 
    */
@@ -96,7 +108,7 @@ Page({
    */
   bindblur:function(e){
     let that = this,validationPhone = /^1[3456789]\d{9}$/;
-    o.ridBlankSpace('phoneNum',that,e.detail.value);
+    o.ridBlankSpace('phoneNum',that,e.detail.value); // 去除空格
     if(that.data.phoneNum !== ''){
     // 当手机号输入框失去焦点时验证
     if(!validationPhone.test(that.data.phoneNum)){
@@ -133,7 +145,7 @@ Page({
         isShow:true,
       });
       o.timesFun(60,that,'isShow');
-      o.FunGetCode(phoneNum);
+      o.FunGetCode(phoneNum,"log");
     }
   },
 
@@ -165,6 +177,41 @@ Page({
   },
 
   /**
+   * 手机号验证
+   * @param {*} e 
+   */
+  bindblurSjh:function(e){
+    let that = this,validationPhone = /^1[3456789]\d{9}$/;
+    o.ridBlankSpace('val',that,e.detail.value); // 去除空格
+    if(that.data.val !== ''){
+      // 当手机号输入框失去焦点时验证
+      if(!validationPhone.test(that.data.val)){
+        o.funShowToast('手机号输入有误，请重新输入');
+        that.setData({
+          val:'',
+          isPhoneNum:false
+        });
+      }else{
+        that.setData({
+          val:that.data.val,
+          isPhoneNum:true
+        });
+      }
+    }else{
+      o.funShowToast('手机号不能为空');
+    }
+  },
+
+  /**
+   * 密码验证
+   * @param {*} e 
+   */
+  bindblurPwd:function(e){
+    let that = this;
+    o.ridBlankSpace('pasd',that,e.detail.value); // 去除空格
+  },
+
+  /**
    * 
    * @param {*} options
    * 输入账号密码登录 
@@ -175,10 +222,28 @@ Page({
     isPhone = that.data.isPhone,
     isCode = that.data.isCode,
     useType = that.data.useType,
+    checkboxEx = e.detail.value.checkbox[0],
+    isPhoneNum = that.data.isPhoneNum,
     role = that.data.role;
     switch(nums){
       case 0:
         console.log(e,'手机登录');
+        let val = e.detail.value.val,pasd = e.detail.value.pasd;
+        if(val === ""){
+          o.funShowToast('手机号不能为空');
+          return;
+        }else{
+          o.ridBlankSpace('val',that,val); // 去除空格
+        }
+        if(isPhoneNum){
+          if(pasd === ""){
+            o.funShowToast('密码不能为空');
+            return;
+          }else{
+            o.ridBlankSpace('pasd',that,pasd); // 去除空格
+          }
+        }
+        o.FunPhoneWorldLogin(val,pasd,role,useType);
         break;
       case 1:
         console.log(e,'验证码登录');
@@ -193,6 +258,12 @@ Page({
             return;
           }
         }
+        // 是否同意用户协议
+        if(checkboxEx === undefined){
+          o.funShowToast('使用悦优前，请务必认证阅读并同意《用户使用协议》');
+          return;
+        }
+
         if(isPhone && isCode){
           o.FunCodeLogin(phoneNum,verification,useType,role);
         }

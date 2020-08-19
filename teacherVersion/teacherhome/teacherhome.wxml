@@ -155,7 +155,27 @@
 <!-- 机构招聘 -->
 <block wx:if="{{blockid==2}}">
   <!-- 机构招聘 -->
-  <view class="condition-screen-con" style="{{useClick == 0?'display:block':'display:none'}}">
+  <!-- 搜索框部分 -->
+  <view class='synthesis-query'>
+    <form bindsubmit="formSubmit">
+        <view class="parents-search">
+          <view class='set'>
+            <view class="location-img-view">
+              <view class="img-view"><image class="add-img" src="../../image/teacherDw.png" mode="widthFix" /></view>
+              <view class="text-info">东莞</view>
+            </view>
+            <input name="searchGoods" class='search-inp' placeholder='综合查询' />
+          </view>
+          <button data-btnid="searchId" form-type='submit' class='search-icon search-icon-inp'>
+            <view class="search-icon-inp-img">
+              <image src="../../image/teachSearch.png" />
+            </view>
+          </button>
+        </view>
+    </form>
+  </view>
+
+  <view class="condition-screen-con">
     <view class="condition-screen-con-box">
       <!-- 薪资 -->
       <picker data-type="0" bindtap="teaRecruitClick" mode="selector" value="{{salaryIndex}}" custom-item="{{customItem}}" bindchange="teaSalaryChange" range="{{teaSalaryArray}}">
@@ -208,32 +228,22 @@
           <view class="diary-center-title-img"><image src="/image/downjtother2.png" /></view>
         </view>
       </view>
-      <block wx:for="{{insRecruitInfo}}" wx:key="uni-recruit">
-        <view bindtap="recruitInfo" class="recruit-con">
-          <view class="recruit-con-img"><image mode="widthFix" src="{{item.recruitImg}}" /></view>
-          <view class="recruit-con-des">
-            <view class="recruit-con-des-type">
-              <view class="recruit-con-des-type-title">{{item.mainTitle}}</view>
-              <view class="recruit-con-des-type-msg">
-                <view class="recruit-con-des-type-price">{{item.price}}</view>
-                <block wx:for="{{item.recruitInfo}}" wx:key="uni-con" wx:for-item="itemRecruit">
-                  <view class="recruit-con-des-type-data">
-                    <view class="recruit-con-des-type-data-img"><image src="{{itemRecruit.recruitIcon}}" /></view>
-                    <view class="recruit-con-des-type-data-text">{{itemRecruit.recruitInfo}}</view>
-                  </view>
-                </block>
-              </view>
+      <view wx:if="{{insRecruitInfo.length === 0}}" class="none-class" style="min-height:{{windowHeight}}"><view class="none-class-img"><image src="/image/kl.png" /></view>抱歉，小优暂未搜索到您需要的信息</view>
+      <block wx:else>
+        <block wx:for="{{insRecruitInfo}}" wx:key="uni-recruit">
+          <view class="position-recruit" data-id="{{item.id}}" catchtap="recruitInfo">
+            <view class="position-recruit-left">
+              <view class="position-recruit-left-title">{{item.title}}</view>
+              <view class="position-recruit-left-name">名称：{{item.orgName}}</view>
+              <view class="position-recruit-left-year">{{item.workYear}}</view>
             </view>
-            <view class="recruit-con-des-type-center">
-              <view class="recruit-con-des-type-center-title">{{item.recruitCenterTitle}}</view>
-              <view class="recruit-con-des-type-center-con">{{item.recruitCenterCon}}</view>
-            </view>
-            <view class="recruit-con-des-type-bom">
-              <view class="recruit-con-des-type-bom-title">{{item.recruitBomTitle}}</view>
-              <view class="recruit-con-des-type-bom-con">{{item.recruitBomCom}}</view>
+            <view class="position-recruit-right">
+              <view class="position-recruit-right-pirce">{{item.salary}}</view>
+              <view class="position-recruit-right-adder">{{item.address}}</view>
+              <view class="position-recruit-right-time">{{item.createTime}}</view>
             </view>
           </view>
-        </view>
+        </block>
       </block>
     </view>
   </view>
@@ -247,9 +257,9 @@
   <view class="personal-center">
     <view class="personal-center-box">
       <view class="personal-center-box-left">
-        <view class="personal-center-box-left-img"><image src="{{userInfo.avatarUrl}}" /></view>
+        <view class="personal-center-box-left-img"><image src="{{headImg}}" /></view>
         <view class="personal-center-box-left-info">
-          <view class="personal-center-box-left-info-nick">昵称：{{userInfo.nickName}}</view>
+          <view class="personal-center-box-left-info-nick">昵称：{{nickName}}</view>
           <view bindtap="perfectData" class="personal-center-box-left-info-id">资料：资料完善</view>
           <view class="info-remind">消息提醒<view class="info-remind-num">12</view></view>
         </view>

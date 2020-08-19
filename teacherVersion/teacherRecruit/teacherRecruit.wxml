@@ -2,22 +2,22 @@
 <view class="recruit-info">
   <view class="recruit-info-box">
     <view class="recruit-info-box-title">
-      <view class="recruit-info-box-title-left">招语文老师</view>
-      <view class="recruit-info-box-title-right">今天</view>
+      <view class="recruit-info-box-title-left">{{title}}</view>
+      <view class="recruit-info-box-title-right">{{createTime}}</view>
     </view>
-    <view class="recruit-info-box-price">5000-6000/月</view>
+    <view class="recruit-info-box-price">{{salary}}</view>
     <view class="recruit-info-box-btm">
       <view class="btm-box">
         <view class="btm-img"><image src="/image/rIcon.png" /></view>
-        <view class="btm-desc">招1人</view>
+        <view class="btm-desc">{{wantCount}}</view>
       </view>
       <view class="btm-box">
         <view class="btm-img"><image src="/image/bsm.png" /></view>
-        <view class="btm-desc">本科</view>
+        <view class="btm-desc">{{educational}}</view>
       </view>
       <view class="btm-box">
         <view class="btm-img"><image src="/image/sj.png" /></view>
-        <view class="btm-desc">2年</view>
+        <view class="btm-desc">{{workYear}}</view>
       </view>
     </view>
   </view>
@@ -39,6 +39,18 @@
           <view class="institution-info-box-welfare-desc">{{welfareItem}}</view>
         </block>
       </view>
+      <view class="institution-info-box-center">
+        <block wx:for="{{item.address}}" wx:for-item="addRess">
+          <view class="institution-info-box-icon"><image src="{{addRess.icon}}" /></view>
+          <view class="institution-info-box-desc">{{addRess.name}}</view>
+        </block>
+      </view>
+      <view class="institution-info-box-center">
+        <block wx:for="{{item.contact}}" wx:for-item="contact">
+          <view class="institution-info-box-icon"><image src="{{contact.icon}}" /></view>
+          <view class="institution-info-box-desc">{{contact.name}}</view>
+        </block>
+      </view>
     </block>
   </view>
 </view>
@@ -47,18 +59,25 @@
 <view class="position-desc">
   <view class="position-desc-box">
     <view class="position-desc-box-title">职位描述</view>
-    <view class="position-desc-box-con">{{descCon}}</view>
+    <view class="position-desc-box-con">{{jobDesc}}</view>
   </view>
 </view>
 
 <!-- 申请按钮 -->
 <view class="delivery-resume-box">
   <view class="delivery-resume">
-    <view class="delivery-resume-left">
-      <view class="delivery-resume-left-img"><image src="/image/sc2.png" /></view>
-      <view class="delivery-resume-left-desc">收藏</view>
+    <view catchtap="collectionClick" class="delivery-resume-left">
+      
+      <view class="delivery-resume-left-img">
+        <image wx:if="{{isShowIcon}}" src="/image/sc2.png" />
+        <image wx:else src="/image/sc2f.png" />
+      </view>
+      <view wx:if="{{isShowIcon}}" class="delivery-resume-left-desc">收藏</view>
+      <view wx:else class="delivery-resume-left-desc chang-color">已收藏</view>
+
+
     </view>
-    <view class="delivery-resume-right">
+    <view catchtap="deliveryClick" class="delivery-resume-right">
       <view class="delivery-resume-right-img"><image src="/image/tdjl.png" /></view>
       <view class="delivery-resume-right-desc">立即投递</view>
     </view>

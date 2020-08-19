@@ -13,7 +13,7 @@ Page({
   diaryClick:function(e){
     console.log(e,'返回数据');
     wx.navigateTo({
-      url: '/parentsVersion/parentsinstDiaryDetails/parentsinstDiaryDetails?time=' + e.currentTarget.dataset.time + '&content=' + e.currentTarget.dataset.content + '&weather=' + e.currentTarget.dataset.weather + '&feeling=' + e.currentTarget.dataset.feeling + '&picture=' + e.currentTarget.dataset.picture + '&video=' + e.currentTarget.dataset.video,
+      url: '/parentsVersion/parentsinstDiaryDetails/parentsinstDiaryDetails?time=' + e.currentTarget.dataset.time + '&content=' + e.currentTarget.dataset.content + '&weather=' + e.currentTarget.dataset.weather + '&feeling=' + e.currentTarget.dataset.feeling + '&picture=' + e.currentTarget.dataset.picture + '&video=' + e.currentTarget.dataset.video + '&id=' + e.currentTarget.dataset.id,
     })
   },
 
@@ -21,23 +21,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this,
-    use = app.globalData.userInfo,
-    token = use.token,
-    page = 0,
-    size = 10,
-    url = u + 'app/par/center/myDiary?page=' + page + '&size=' + size,
-    header = {"content-type":"application/json","Authorization":token},
-    data = {};
-    o.get(url,data,header,callback=>{
-      let data = callback.data.content;
-      console.log(callback,'返回的日记信息');
-      for(let i in data){
-        data[i].createTime = o.FunGetTime(data[i].createTime);
-      };
-      that.setData({diaryData:data});
-      console.log(data,'数据');
-    });
   },
 
   /**
@@ -51,7 +34,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this,
+    page = 0,
+    size = 10;
+    o.FunDynamicOrDiaryList(that,page,size,1,'diary',callback=>{
+      let data = callback.data.content;
+      console.log(callback,'返回的日记信息');
+      for(let i in data){
+        data[i].createTime = o.FunGetTime(data[i].createTime,'1');
+      };
+      that.setData({diaryData:data});
+    });
   },
 
   /**

@@ -12,8 +12,8 @@
           <form bindsubmit="formSubmit">
             <!-- 账号登录 -->
             <view wx:if="{{nums === 0}}" class="login-info-inp">
-              <view class="login-info-inp-account mar-btm"><input type="text" name="val" value="{{val}}" placeholder="请输入账号/手机号" /></view>
-              <view class="login-info-inp-account"><input type="text" value="{{pasd}}" name="pasd" placeholder="请输入密码" /></view>
+              <view class="login-info-inp-account mar-btm"><input type="text" bindblur="bindblurSjh" name="val" value="{{val}}" maxlength="11" placeholder="请输入账号/手机号" /></view>
+              <view class="login-info-inp-account"><input type="text" bindblur="bindblurPwd" value="{{pasd}}" name="pasd" password="true" placeholder="请输入密码" /></view>
             </view>
             <!-- 手机登录 -->
             <view wx:if="{{nums === 1}}" class="login-info-inp">
@@ -33,10 +33,15 @@
               </view>
             </view>
             <button class="login-sub" style="background:{{use.btnColor}}" form-type='submit'>{{use.useLogin}}</button>
+            <view class="use-deal">
+              <checkbox-group class="use-deal-box" name="checkbox">
+                <label class="lb"><checkbox checked class="cb" value="agree"/>我已阅读并同意</label><view class="use-deal-con" bindtap="useDealClick">《用户使用协议》</view>
+              </checkbox-group>
+            </view>
           </form>
-          <view class="login-info-inp-remind">
+          <view wx:if="{{nums === 0}}" class="login-info-inp-remind">
             <view class="login-info-inp-remind-forget">忘记密码？</view>
-            <view class="login-info-inp-remind-enroll">注册账号</view>
+            <view class="login-info-inp-remind-enroll">修改密码</view>
           </view>
         </view>
       </view>

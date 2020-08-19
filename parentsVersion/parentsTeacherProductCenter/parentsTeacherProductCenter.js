@@ -18,6 +18,7 @@ Page({
     interval: 3000,
     duration: 1000,
     isOrder: false,
+    isShowIcon:true,
 
     platformInspect:datas.platformInspect, // 平台核查数据
     teacherClassInfo:datas.teacherClassInfo, // 课程信息
@@ -32,11 +33,26 @@ Page({
    * 点击收藏课程 
    */
   collectionClick:function(){
-    wx.showToast({
-      title: '收藏成功',
-      icon: 'success',
-      duration: 2000
-    })
+    let that = this,
+    use = that.data.use,
+    type = 1; // 收藏类型（1教师课程）
+    console.log(app.globalData.userInfo,'全局变量数据');
+    console.log(that.data.id,'课程的组件id');
+    if(Object.keys(use).length !== 0){
+      if(that.data.isShowIcon){
+        o.FunCollect(that,that.data.id,type);
+      }else{
+        o.funShowToast('该课程您已收藏');
+      }
+    }else{
+      o.alert('提示','您尚未登录，请点击“ 确定 ”选择角色进行登录',res=>{
+        if(res.confirm){
+          wx.reLaunch({
+            url: '/pages/chooseRole/chooseRole'
+          })
+        }
+      });
+    }
   },
   /**
    * 
@@ -78,9 +94,22 @@ Page({
    * 家长拨打电话 
    */
   callTel:function(){
-    wx.makePhoneCall({
-      phoneNumber: this.data.tel //为昱升公司电话
-    })
+    let that = this,
+    use = that.data.use;
+    if(Object.keys(use).length !== 0){
+      wx.makePhoneCall({
+        phoneNumber: this.data.tel //为昱升公司电话
+      })
+    }else{
+      o.alert('提示','您尚未登录，请点击“ 确定 ”选择角色进行登录',res=>{
+        if(res.confirm){
+          wx.reLaunch({
+            url: '/pages/chooseRole/chooseRole'
+          })
+        }
+      });
+    }
+    
   },
 
   receiveCoupons:function(){
@@ -115,6 +144,7 @@ Page({
     o.get(url,data,header,callback=>{
       that.setData({tel:callback.data.tel});
     });
+    that.setData({id:id});
     console.log(id);
   },
 
@@ -129,7 +159,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this,
+    id = that.data.id,
+    use = app.globalData.userInfo;
+    if(Object.keys(use).length !== 0){
+      let token = use.token;
+      o.FunCollectStatus(that,id,'1',token,'isShowIcon');
+    }
+    that.setData({use:use});
   },
 
   /**

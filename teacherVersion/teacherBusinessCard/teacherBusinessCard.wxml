@@ -1,2 +1,4 @@
 <!--teacherVersion/teacherBusinessCard/teacherBusinessCard.wxml-->
-<text>个人名片</text>
+<view class="business-card" style="width:{{ImgWidth}};height:{{ImgHeight}}">
+  <image mode="aspectFill" src="{{url}}app/tea/center/businessCard" />
+</view>

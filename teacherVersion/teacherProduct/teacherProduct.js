@@ -1,6 +1,6 @@
 // teacherVersion/teacherProduct/teacherProduct.js
 const datas = require('../../utils/data.js');
-const app = getApp(), o = app.requirejs('core');
+const app = getApp(), o = app.requirejs('core'),u = o.urlCon();
 Page({
 
   /**
@@ -35,10 +35,22 @@ Page({
   },
 
   /**
+   * 进入课程详情
+   * @param {*} options 
+   */
+  classDetail:function(e){
+    console.log(e,'课程详情入口');
+    wx.navigateTo({
+      url:'/teacherVersion/teacherProductDetails/teacherProductDetails?id=' + e.currentTarget.dataset.id + '&tid=' + e.currentTarget.dataset.tid,
+    });
+  },
+
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this;
+    o.FunCourseList(that,'collectList');
   },
 
   /**

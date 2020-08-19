@@ -1,7 +1,7 @@
 <!--teacherVersion/teacherResume/teacherResume.wxml-->
 <!-- 顶部 -->
 <view class="registered">
-  <view class="registered-txt">欢迎来到优惠券管理中心，祝您使用愉快。</view>
+  <view class="registered-txt">欢迎来到简历中心，祝您使用愉快。</view>
 </view>
 <!-- 条件选择 -->
 <view class="coupons-use-situation">
@@ -12,9 +12,164 @@
   </view>
 </view>
 
-<!-- 内容 -->
-<form>
-  <view>
+<!-- 创建简历 -->
+<block wx:if="{{nums === 0}}">
+  <form bindsubmit="formSubmit">
+    <view class="resume-center" style="min-height:{{windowHeight}}">
+      <!-- 简历标题 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <view class="resume-center-box-txt">简历标题</view>
+        </view>
+        <view class="resume-center-box-con resume-center-box-title">
+          <input type="text" maxlength="7" placeholder="标题" value="{{resumeTitle}}" name="resumeTitle" />
+        </view>
+      </view>
 
-  </view>
-</form>
+      <!-- 真实姓名 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">姓&emsp;&emsp;名</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-name">
+          <input type="text" value="{{resumeName}}" name="resumeName" placeholder="姓名" />
+        </view>
+      </view>
+
+      <!-- 性别 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">姓&emsp;&emsp;别</text>
+        </view>
+        
+        <view class="resume-center-box-con resume-center-box-sex">
+          <view class="resume-center-box-sex-con" catchtap="sexClick" data-sextype="nan">
+            <view class="resume-center-box-sex-con-img"><image src="{{isShowSex?'/image/sexnan.png':'/image/sexbm.png'}}" /></view>
+            <view wx:if="{{isShowSex}}" class="resume-center-box-sex-con-txt" style="color:#007bd0;">男</view>
+            <view wx:else class="resume-center-box-sex-con-txt" style="color:#707070;">男</view>
+          </view>
+          <view class="resume-center-box-sex-con" catchtap="sexClick" data-sextype="nv">
+            <view class="resume-center-box-sex-con-img"><image src="{{!isShowSex?'/image/sexnv.png':'/image/sexbm.png'}}" /></view>
+            <view wx:if="{{!isShowSex}}" class="resume-center-box-sex-con-txt" style="color:#cd2a17;">女</view>
+            <view wx:else class="resume-center-box-sex-con-txt" style="color:#707070;">女</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 求职职位 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">职&emsp;&emsp;位</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-name">
+          <input type="text" value="{{resumeJob}}" name="resumeJob" placeholder="职位" />
+        </view>
+      </view>
+
+      <!-- 期望薪资 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">薪资(/节)</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-name">
+          <input type="number" value="{{resumeSalary}}" name="resumeSalary" placeholder="薪资" />
+        </view>
+      </view>
+
+      <!-- 联系电话 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">电&emsp;&emsp;话</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-tel">
+          <input type="number" value="{{resumeTel}}" name="resumeTel" placeholder="联系方式" />
+        </view>
+      </view>
+
+      <!-- 地点 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt">求职地点</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-address">
+          <picker mode="multiSelector" value="{{resumeIndex}}" custom-item="{{customItem}}" bindchange="resumeChagne" bindcolumnchange="resumeColumnChange" range="{{resumeAreaMultiArray}}">{{myLocation}}</picker>
+        </view>
+      </view>
+
+      <!-- 最高学历 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt">最高学历</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-address">
+          <picker mode="selector" value="{{recordIndex}}" custom-item="{{customItem}}" bindchange="recordChagne" bindcolumnchange="recordColumnChange" range="{{recordAreaMultiArray}}">{{myRecord}}</picker>
+        </view>
+      </view>
+
+      <!-- email -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"></view>
+          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">邮&emsp;&emsp;箱</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-email">
+          <input type="text" value="{{resumeEmail}}" name="resumeEmail" placeholder="邮箱" />
+        </view>
+      </view>
+
+      <!-- 标签 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"></view>
+        <text decode="{{isTrue}}" space="{{isTrue}}" class="resume-center-box-txt">标&emsp;&emsp;签</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-tag">
+          <view class="resume-center-box-tag-title">添加标签</view>
+          <view class="resume-center-box-tag-img"><image src="/image/jt.png" /></view>
+        </view>
+      </view>
+
+      <!-- 自我评价 -->
+      <view class="resume-center-box resume-center-box-estimate">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"></view>
+          <text class="resume-center-box-txt">自我评价</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-tag">
+          <view class="resume-center-box-tag-title">评价</view>
+          <view class="resume-center-box-tag-img"><image src="/image/jt.png" /></view>
+        </view>
+      </view>
+    </view>
+  </form>
+</block>
+<!-- 我的简历 -->
+<block wx:if="{{nums === 1}}">
+  <view class="resume-center" style="min-height:{{windowHeight}}">我的简历</view>
+</block>
+<!-- 我的投递 -->
+<block wx:if="{{nums === 2}}">
+  <view class="resume-center" style="min-height:{{windowHeight}}">我的投递</view>
+</block>
+<!-- 谁查看了我的简历 -->
+<block wx:if="{{nums === 3}}">
+  <view class="resume-center" style="min-height:{{windowHeight}}">谁查看了我的简历</view>
+</block>
+
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>
+

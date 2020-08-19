@@ -1,6 +1,6 @@
 <!--parentsVersion/parentsRegistered/parentsRegistered.wxml-->
 <view class="registered">
-  <view class="registered-txt">欢迎来到家长版注册中心，祝您使用愉快。</view>
+  <view class="registered-txt">欢迎来到安全中心，祝您使用愉快。</view>
 </view>
 
 <!-- 注册内容 -->
@@ -11,25 +11,29 @@
         <view class="registered-con-box-left">
           <view class="registered-con-box-img"><image src="{{item.icon}}" /></view>
           <view class="registered-con-box-inp">
-            <input wx:if="{{item.type === 'sjh'}}" placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" name="{{item.name}}" value="{{phoneNum}}" maxlength="11" placeholder="{{item.txt}}" />
+            <block wx:if="{{item.type === 'sjh'}}">
+              <input wx:if="{{isShowPhone}}" placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" disabled="true" name="{{item.name}}" value="{{phoneNum}}" maxlength="11" placeholder="{{item.txt}}" />
+              <input wx:else placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" name="{{item.name}}" value="{{phoneNum}}" maxlength="11" placeholder="{{item.txt}}" />
+            </block>
             <input wx:elif="{{item.type === 'mm'}}" placeholder-style="color:#c7c7c7;" class="change-inp" type="{{isShow?'password':'text'}}" bindblur="bindblurMm" name="{{item.name}}" value="{{passwordEx}}" placeholder="{{item.txt}}" />
             <input wx:else placeholder-style="color:#c7c7c7;" type="text" bindblur="bindblurYzm" name="{{item.name}}" value="{{verificationCode}}" placeholder="{{item.txt}}" />
           </view>
         </view>
         <!-- input 后 按钮 -->
-        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if="{{item.type === 'sjh'}}" class="registered-con-phone wx-btn" bindtap="mimaClick" data-index="{{index}}">{{item.show}}</button>
+        <!-- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if="{{item.type === 'sjh'}}" class="registered-con-phone wx-btn" bindtap="mimaClick" data-index="{{index}}">{{item.show}}</button> -->
+        <view wx:if="{{item.type === 'sjh'}}" class="no-border" bindtap="mimaClick" data-index="{{index}}"></view>
         <view wx:elif="{{item.type === 'mm'}}" bindtap="mimaClick" data-index="{{index}}" class="closed-img"><image src="{{isShow?item.show:item.hide}}" /></view>
         <view wx:else class="registered-con-phone" bindtap="mimaClick" data-index="{{index}}">{{isCountdown?times:item.show}}</view>
       </view>
     </block>
     <!-- 提交按钮 -->
-    <view class="remind-txt">注册前请仔细阅读用户使用协议</view>
-    <button class="submit-registered" form-type='submit'>注册并登录</button>
-    <view class="use-deal">
+    <!-- <view class="remind-txt">注册前请仔细阅读用户使用协议</view> -->
+    <button class="submit-registered" form-type='submit'>保存</button>
+    <!-- <view class="use-deal">
       <checkbox-group class="use-deal-box" name="checkbox">
         <label class="lb"><checkbox checked class="cb" value="agree"/>我已阅读并同意</label><view class="use-deal-con" bindtap="useDealClick">《用户使用协议》</view>
       </checkbox-group>
-    </view>
+    </view> -->
   </form>
 
 </view>

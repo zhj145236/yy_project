@@ -104,6 +104,11 @@ Page({
     }
   },
 
+  privateProgram:function(){
+    let that = this;
+    o.FunPrivateProgram();
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

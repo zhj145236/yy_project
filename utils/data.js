@@ -374,7 +374,7 @@ const personalFun = [
     id:1,
     centerImg:'/image/zc.png',
     backGroundColor:'#f2b04a',
-    centerCon:'我要注册',
+    centerCon:'安全设置',
     url:'/parentsRegistered/parentsRegistered',
   },{
     id:2,
@@ -669,52 +669,77 @@ const registeredInfo = [
 
 // 完善资料
 const perfectInfoData = [
+  // {
+  //   title:'重置手机号',
+  //   setCon:[
+  //     {
+  //       img:'/image/yzm.png',
+  //       con:'输入重置的手机号',
+  //       prompt:'发送验证码',
+  //       type:'czsjh',
+  //       bom:false,
+  //     },{
+  //       img:'/image/aqm.png',
+  //       con:'输入验证码',
+  //       prompt:'',
+  //       type:'yzm',
+  //       bom:true,
+  //     },
+  //   ],
+  // },{
+  //   title:'重置密码',
+  //   setCon:[
+  //     {
+  //       img:'/image/mm.png',
+  //       con:'请输入旧密码',
+  //       prompt:'',
+  //       type:'jczmm',
+  //       bom:false,
+  //     },{
+  //       img:'/image/xmm.png',
+  //       con:'请输入新密码',
+  //       prompt:'',
+  //       type:'xczmm',
+  //       bom:true,
+  //     },
+  //   ],
+  // },
   {
-    title:'重置手机号',
+    title:'基本信息',
     setCon:[
       {
         img:'/image/yzm.png',
-        con:'输入重置的手机号',
-        prompt:'发送验证码',
+        con:'手机号',
+        prompt:'',
         type:'czsjh',
         bom:false,
       },{
-        img:'/image/aqm.png',
-        con:'输入验证码',
+        img:'/image/nc.png',
+        con:'昵称',
         prompt:'',
-        type:'yzm',
-        bom:true,
-      },
-    ],
-  },{
-    title:'重置密码',
-    setCon:[
-      {
-        img:'/image/mm.png',
-        con:'请输入旧密码',
-        prompt:'',
-        type:'jczmm',
+        type:'nc',
         bom:false,
       },{
-        img:'/image/xmm.png',
-        con:'请输入新密码',
+        img:'/image/xm.png',
+        con:'姓名',
         prompt:'',
-        type:'xczmm',
-        bom:true,
-      },
-    ],
-  },{
-    title:'其他信息',
-    setCon:[
-      {
+        type:'xm',
+        bom:false,
+      },{
         img:'/image/xb.png',
         con:'性别',
         prompt:'',
         type:'xb',
         bom:false,
       },{
+        img:'/image/ssq.png',
+        con:'省市区',
+        prompt:'',
+        type:'ssq',
+        bom:false,
+      },{
         img:'/image/jtdz.png',
-        con:'现住地址',
+        con:'详细地址',
         prompt:'',
         type:'jtdz',
         bom:false,
@@ -726,7 +751,7 @@ const perfectInfoData = [
         bom:false,
       },{
         img:'/image/qm.png',
-        con:'我的个签',
+        con:'我的个签(100字以内)',
         prompt:'',
         type:'qm',
         bom:true,
@@ -741,64 +766,70 @@ const teacherFun = [
     id:1,
     centerImg:'/image/zc.png',
     backGroundColor:'#f2b04a',
-    centerCon:'我要注册',
+    centerCon:'安全中心',
     url:'/teacherRegistered/teacherRegistered',
   },{
     id:2,
+    centerImg:'/image/zc.png',
+    backGroundColor:'#f2b04a',
+    centerCon:'完善资料',
+    url:'/teacherRegistered/teacherRegistered',
+  },{
+    id:3,
     centerImg:'/image/info.png',
     backGroundColor:'#74cdce',
     centerCon:'优惠管理',
     url:'/teacherDiscounts/teacherDiscounts',
   },{
-    id:3,
+    id:4,
     centerImg:'/image/js.png',
     backGroundColor:'#51aa38',
     centerCon:'我的产品',
     url:'/teacherProduct/teacherProduct',
   },{
-    id:4,
+    id:5,
     centerImg:'/image/mp.png',
     backGroundColor:'#51aa38',
     centerCon:'个人名片',
     url:'/teacherBusinessCard/teacherBusinessCard',
   },{
-    id:5,
+    id:6,
     centerImg:'/image/jlzx.png',
     backGroundColor:'#f2b04a',
     centerCon:'简历中心',
     url:'/teacherResume/teacherResume',
   },{
-    id:6,
+    id:7,
     centerImg:'/image/dt.png',
     backGroundColor:'#74cdce',
     centerCon:'互动中心',
     url:'/teacherDynamic/teacherDynamic',
   },{
-    id:7,
+    id:8,
     centerImg:'/image/gljg.png',
     backGroundColor:'#f2b04a',
     centerCon:'我的收藏',
     url:'/teacherManagement/teacherManagement',
   },{
-    id:8,
+    id:9,
     centerImg:'/image/sq.png',
     backGroundColor:'#74cdce',
     centerCon:'微信授权',
     url:'',
   },{
-    id:9,
+    id:10,
     centerImg:'/image/bz.png',
     backGroundColor:'#51aa38',
     centerCon:'使用帮助',
     url:'/teacherHelp/teacherHelp',
   },{
-    id:10,
+    id:11,
     centerImg:'/image/sc.png',
     backGroundColor:'#74cdce',
     centerCon:'悦优留言',
     url:'/teacherAdvice/teacherAdvice',
   },{
-    id:11,
+    id:12,
     centerImg:'/image/fx.png',
     backGroundColor:'#51aa38',
     centerCon:'发现悦优',
@@ -950,6 +981,8 @@ const couponsDetails = [
 const infoAbstract = [
   {
     name:'虎门万达培训机构',
+    address:[{icon:'/image/jl.png',name:'虎门万达商业街7号门24单元2401室。'}],
+    contact:[{icon:'/image/lxr.png',name:'ZHANG'},{icon:'/image/lxdh.png',name:'130000000000'}],
     desc:['规模：5-10人','机构性质：艺术类培训机构'],
     welfare:['节日礼品','教学奖金','下午茶']
   },

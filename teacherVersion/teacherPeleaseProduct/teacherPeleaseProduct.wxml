@@ -30,13 +30,13 @@
       <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
         <view class="product-details-img-upload-box">
           <view class="product-details-img-upload-place-img">
-            <image mode="widthFix" src="{{item}}" />
+            <image mode="aspectFill" src="{{item}}" />
             <view class="mask-layer">
               <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
                 <image src="/image/yl.png" />
               </view>
             </view>
-            <view class="deal-img"><image src="/image/deal.png" /></view>
+            <view catchtap="dealImg" class="deal-img"><image src="/image/deal.png" /></view>
           </view>
         </view>
       </block>
@@ -53,23 +53,22 @@
       <view class="product-details-img-upload-list">
       <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
       <view>上传图片</view>
+      <view class="helpful-hints">友情提示：最多能上传1张图片。</view>
       </view>
     </view>
 
-    <view class="product-details-img-upload-box-external">
-      <block wx:for="{{productCover}}" wx:key="uni-details">
-        <view class="product-details-img-upload-box">
-          <view class="product-details-img-upload-place-img">
-            <image mode="widthFix" src="{{item}}" />
-            <view class="mask-layer">
-              <view class="mask-layer-img">
-                <image src="/image/yl.png" />
-              </view>
+    <view wx:if="{{isHideImg}}" class="product-details-img-upload-box-external">
+      <view class="product-details-img-upload-box">
+        <view class="product-details-img-upload-place-img" style="width:300rpx;height:300rpx">
+          <image mode="aspectFill" src="{{productCoverImg}}" />
+          <view catchtap="lookImg" data-lookindex="{{index}}" class="mask-layer">
+            <view class="mask-layer-img">
+              <image src="/image/yl.png" />
             </view>
-            <view class="deal-img"><image src="/image/deal.png" /></view>
           </view>
+          <view catchtap="dealClick" class="deal-img"><image src="/image/deal.png" /></view>
         </view>
-      </block>
+      </view>
     </view>
   </view>
 
@@ -90,25 +89,35 @@
       <view class="course-info-outside">
         <view class="course-info-box">
           <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
-          <view class="course-info-box-inp"><input type="text" value="" name="title" placeholder="请输入产品标题" /></view>
+          <view class="course-info-box-inp"><input type="text" value="{{classTitle}}" name="classTitle" placeholder="请输入课程标题" /></view>
         </view>
       </view>
     </view>
 
-    <!-- 产品标题 -->
+    <!-- 课程所属科目 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/kclb.png" /></view>
+          <view class="course-info-box-inp"><input type="text" value="{{classType}}" name="classType" placeholder="类别，如：语文、数学、英语等" /></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 产品描述 -->
     <view class="course-info">
       <view class="course-info-outside">
         <view class="course-info-box textarea-box">
           <view class="course-info-box-img"><image src="/image/desc.png" /></view>
           <view class="course-info-box-inp textarea-inp">
-            <textarea type="text" name="desc" value="" placeholder="课程简述,请保持在140字以内。" />
+            <textarea type="text" name="classDesc" value="{{classDesc}}" placeholder="课程简述,请保持在140字以内。" />
           </view>
         </view>
       </view>
     </view>
 
     <!-- 授课方式 -->
-    <view class="course-info">
+    <!-- <view class="course-info">
       <view class="course-info-outside">
         <view class="course-info-box">
           <view class="course-info-box-img"><image src="/image/type.png" /></view>
@@ -116,6 +125,31 @@
             <picker bindchange="bindPickerChange" value="{{typeIndex}}" range="{{array}}">
               <view class="picker">授课方式：{{array[typeIndex]}}</view>
             </picker>
+            <view class="picker">授课方式：一对一</view>
+          </view>
+          <view class="course-info-box">
+            <view class="course-info-box-img change-course-info"></view>
+            <view class="course-info-box-inp" style="padding:0;width:410rpx;">
+              <view class="helpful-hints num-helpful-hints">友情提示：该设置只能一对一，教师授课非盈利性质，只为有需要的学子提升自己。</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view> -->
+
+    <!-- 课程性质 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/type.png" /></view>
+          <view class="course-info-box-inp">
+            <input class="picker" type="text" value="授课方式：一对一" disabled="true" name="" />
+          </view>
+        </view>
+        <view class="course-info-box">
+          <view class="course-info-box-img change-course-info"></view>
+          <view class="course-info-box-inp" style="padding:0;width:100%;">
+            <view class="helpful-hints num-helpful-hints">友情提示：该设置只能为一对一，教师授课非盈利性质，只为有需要的学子提升自己。</view>
           </view>
         </view>
       </view>
@@ -125,29 +159,11 @@
     <view class="course-info">
       <view class="course-info-outside">
         <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/cd.png" /></view>
+          <view class="course-info-box-img"><image src="/image/kccd.png" /></view>
           <view class="course-info-box-inp">
             <picker bindchange="placeBindPickerChange" value="{{siteIndex}}" range="{{placeArray}}">
               <view class="picker">授课场地：{{placeArray[siteIndex]}}</view>
             </picker>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 可报名人数 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/bmrs.png" /></view>
-          <view class="course-info-box-inp">
-            <input type="text" value="" name="title" placeholder="输入课程接收人数" />
-          </view>
-        </view>
-        <view class="course-info-box">
-          <view class="course-info-box-img change-course-info"></view>
-          <view class="course-info-box-inp" style="padding:0;width:410rpx;">
-            <view class="helpful-hints num-helpful-hints">友情提示：可接收人数不能操过3人。</view>
           </view>
         </view>
       </view>
@@ -159,12 +175,32 @@
         <view class="course-info-box">
           <view class="course-info-box-img"><image src="/image/cd.png" /></view>
           <view class="course-info-box-inp">
-            <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+            <picker mode="multiSelector" bindchange="bindSetClassChange" bindcolumnchange="bindSetClassColumnChange" value="{{SetClassIndex}}" range="{{SetClassArray}}">
               <view class="picker">
-                授课级段：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+                授课级段：{{SetClassArray[0][SetClassIndex[0]]}}{{SetClassArray[1][SetClassIndex[1]]}}
               </view>
             </picker>
           </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 授课节数 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/jskcjs.png" /></view>
+          <view class="course-info-box-inp chang-style"><input type="number" value="{{sectionNum}}" bindblur="sectionBindblur" name="sectionNum" placeholder="授课节数" /><text>节</text></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 单价 -->
+    <view class="course-info">
+      <view class="course-info-outside">
+        <view class="course-info-box">
+          <view class="course-info-box-img"><image src="/image/dj.png" /></view>
+          <view class="course-info-box-inp chang-style"><input type="number" bindblur="singleBindblur" value="{{singlePrice}}" name="singlePrice" placeholder="课程单价" /><text>单价</text></view>
         </view>
       </view>
     </view>
@@ -174,29 +210,7 @@
       <view class="course-info-outside">
         <view class="course-info-box">
           <view class="course-info-box-img"><image src="/image/classPrice.png" /></view>
-          <view class="course-info-box-inp"><input type="text" value="" name="totalPrice" placeholder="课程总价" /></view>
-        </view>
-      </view>
-    </view>
-
-    
-
-    <!-- 单价 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/classPrice.png" /></view>
-          <view class="course-info-box-inp"><input type="text" value="" name="singlePrice" placeholder="课程单价" /></view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 授课节数 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
-          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="授课节数" /></view>
+          <view class="course-info-box-inp chang-style"><input type="number" disabled="true" value="{{sectionNum*singlePrice}}" name="totalPrice" placeholder="课程总价" /><text>元(总价)</text></view>
         </view>
       </view>
     </view>
@@ -205,17 +219,40 @@
     <view class="course-info">
       <view class="course-info-outside">
         <view class="course-info-box sign-up-time">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-img"><image src="/image/kssj.png" /></view>
           <view class="course-info-box-inp-view welfare-inp">
-            <view class="course-info-box-inp start-sign-up-time">
-              <picker mode="date" value="{{startDate}}" start="2020-06-01" end="2025-12-12" bindchange="startBindDateChange">
-                <view class="picker">报名开始日期: {{startDate}}</view>
-              </picker>
+            <view class="course-info-box-inp">
+              <view class="picker-title">报名开始日期：</view>
+              <view class="course-info-box-inp-box">
+                <view class="start-sign-up-time picker-chang-width">
+                  <picker mode="date" value="{{startDate}}" start="2020-06-01" end="2025-12-12" bindchange="startBindDateChange">
+                    <view class="picker">{{startDate}}</view>
+                  </picker>
+                </view>
+                <text class="course-info-box-inp-box-line">-</text>
+                <view class="start-sign-up-time picker-chang-width">
+                  <picker mode="time" value="{{startDateTime}}" start="00:00" end="23:59" bindchange="startBindDateTimeChange">
+                    <view class="picker">{{startDateTime}}</view>
+                  </picker>
+                </view>
+              </view>
             </view>
-            <view class="course-info-box-inp end-sign-up-time">
-              <picker mode="date" value="{{endDate}}" start="2020-06-01" end="2025-12-12" bindchange="endBindDateChange">
-                <view class="picker">报名结束日期: {{endDate}}</view>
-              </picker>
+
+            <view class="course-info-box-inp">
+              <view class="picker-title">报名结束日期: </view>
+              <view class="course-info-box-inp-box">
+                <view class="start-sign-up-time picker-chang-width">
+                  <picker mode="date" value="{{endDate}}" start="2020-06-01" end="2025-12-12" bindchange="endBindDateChange">
+                    <view class="picker">{{endDate}}</view>
+                  </picker>
+                </view>
+                <text class="course-info-box-inp-box-line">-</text>
+                <view class="start-sign-up-time picker-chang-width">
+                  <picker mode="time" value="{{endDateTime}}" start="00:00" end="23:59" bindchange="endDateTimeChange">
+                    <view class="picker">{{endDateTime}}</view>
+                  </picker>
+                </view>
+              </view>
             </view>
           </view>
         </view>
@@ -226,30 +263,43 @@
     <view class="course-info">
       <view class="course-info-outside">
         <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-img"><image src="/image/kcri.png" /></view>
           <view class="course-info-box-inp">
-            <picker mode="date" value="{{classesDate}}" start="2020-06-01" end="2025-12-12" bindchange="classesDateChange">
-              <view class="picker">开课日期: {{classesDate}}</view>
-            </picker>
+
+            <view class="picker-title">开课日期: </view>
+            <view class="course-info-box-inp-box">
+              <view class="start-sign-up-time picker-chang-width">
+                <picker mode="date" value="{{classesDate}}" start="2020-06-01" end="2025-12-12" bindchange="classesDateChange">
+                  <view class="picker">{{classesDate}}</view>
+                </picker>
+              </view>
+              <text class="course-info-box-inp-box-line">-</text>
+              <view class="start-sign-up-time picker-chang-width">
+                <picker mode="time" value="{{classesDateTime}}" start="00:00" end="23:59" bindchange="classesDateTimeChange">
+                  <view class="picker">{{classesDateTime}}</view>
+                </picker>
+              </view>
+            </view>
+
           </view>
         </view>
       </view>
     </view>
 
-    <!-- 开课时间 -->
+    <!-- 上课开始时间与上课结束时间 -->
     <view class="course-info">
       <view class="course-info-outside">
         <view class="course-info-box sign-up-time">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-img"><image src="/image/sksj.png" /></view>
           <view class="course-info-box-inp-view welfare-inp">
             <view class="course-info-box-inp start-sign-up-time">
-              <picker mode="time" value="{{startTime}}" start="09:01" end="21:01" bindchange="startBindTimeChange">
-                <view class="picker">上课开始时间: {{startTime}}</view>
+              <picker mode="time" value="{{ClassStartTime}}" start="09:01" end="21:01" bindchange="startBindTimeChange">
+                <view class="picker">上课开始时间: {{ClassStartTime}}</view>
               </picker>
             </view>
             <view class="course-info-box-inp end-sign-up-time">
-              <picker mode="time" value="{{endTime}}" start="09:01" end="21:01" bindchange="endBindTimeChange">
-                <view class="picker">上课结束时间: {{endTime}}</view>
+              <picker mode="time" value="{{ClassEndTime}}" start="09:01" end="21:01" bindchange="endBindTimeChange">
+                <view class="picker">上课结束时间: {{ClassEndTime}}</view>
               </picker>
             </view>
           </view>
@@ -261,16 +311,18 @@
     <view class="course-info">
       <view class="course-info-outside remove-bottom">
         <view class="course-info-box welfare-box">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
+          <view class="course-info-box-img"><image src="/image/fldy.png" /></view>
           <view class="course-info-box-inp welfare-inp">
-            <view class="welfare" style="display:none">
-              <input type="text" value="" name="sectionNum" placeholder="请输入课程福利" />
+            <view wx:if="{{isWelfare}}" class="welfare">
+              <input type="text" value="{{welfare}}" name="welfare" placeholder="请输入课程福利" />
             </view>
-            <view class="welfare-checkbox">
-              <label class="checkbox"><checkbox class="cb" value="cb" />含餐饮</label>
-              <label class="checkbox"><checkbox class="cb" value="cb" />含接送</label>
-              <label class="checkbox"><checkbox class="cb" value="cb" />其他</label>
-            </view>
+            <checkbox-group bindchange="checkboxChange" data-checked="{{checked}}">
+              <view class="welfare-checkbox">
+                <label class="checkbox"><checkbox class="cb" value="含餐饮" />含餐饮</label>
+                <label class="checkbox"><checkbox class="cb" value="含接送" />含接送</label>
+                <label class="checkbox"><checkbox class="cb" value="其他" checked="{{checked}}" />其他</label>
+              </view>
+            </checkbox-group>
           </view>
         </view>
       </view>
@@ -284,62 +336,144 @@
 
   <!-- 优惠券设置 -->
   <view class="product-details">
-    <view class="product-details-img-upload">
-      <view class="product-details-img-upload-title">设置课程优惠券</view>
-    </view>
-
-    <!-- 优惠券名称 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
-          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="优惠券名称" /></view>
+    <view class="product-details-img-upload" style="{{switch1Checked?'border-bottom: 2px solid #e7e7e7;padding-bottom:30rpx':''}}">
+      <view class="product-details-explain">
+        <view class="product-details-img-upload-title">设置课程优惠券</view>
+        <view class="helpful-hints">友情提示：可不设置优惠券。</view>
+      </view>
+      <view class="product__section__title">
+        <view class="product__section__desc">是否设置优惠券</view>
+        <switch class="product__section__switch" checked="{{switch1Checked}}" bindchange="switch1Change"/>
+      </view>
+      <view wx:if="{{switch1Checked}}">
+        <view class="product__section__title">
+          <view class="product__section__title" style="margin:0">
+            <view class="product__section__desc">通用券</view>
+            <switch class="product__section__switch" checked="{{switch2Checked}}" bindchange="switch2Change"/>
+          </view>
+          <view class="product__section__title" style="margin:0">
+            <view class="product__section__desc">单课程优惠券</view>
+            <switch class="product__section__switch" checked="{{switch3Checked}}" bindchange="switch3Change"/>
+          </view>
         </view>
+        <view class="helpful-hints" style="margin:0;">友情提示：通用券与单课程优惠券同时使用时将会进行叠加。</view>
       </view>
     </view>
 
-    <!-- 介绍 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
-          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="介绍" /></view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 金额 -->
-    <view class="course-info">
-      <view class="course-info-outside">
-        <view class="course-info-box">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
-          <view class="course-info-box-inp"><input type="text" value="" name="sectionNum" placeholder="金额(元)" /></view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 有效期 -->
-    <view class="course-info">
-      <view class="course-info-outside remove-bottom">
-        <view class="course-info-box sign-up-time">
-          <view class="course-info-box-img"><image src="/image/kcbt.png" /></view>
-          <view class="course-info-box-inp-view welfare-inp">
-            <view class="course-info-box-inp start-sign-up-time">
-              <picker mode="date" value="{{startCouponsDate}}" start="2020-06-01" end="2025-12-12" bindchange="startCouponsBindDateChange">
-                <view class="picker">有效日期：开始 {{startCouponsDate}}</view>
-              </picker>
+    <block wx:if="{{switch2Checked}}">
+      <block wx:for="{{couponsDetails}}" wx:key="uni-coupons">
+        <!-- 优惠券 -->
+        <view class="coupons-details">
+          <view class="coupons-details-box">
+            <view class="coupons-details-left">
+              <view class="coupons-details-left-top-digital">{{item.figure}}</view>
+              <view class="coupons-details-left-down">{{item.explain}}</view>
             </view>
-            <view class="course-info-box-inp end-sign-up-time">
-              <picker mode="date" value="{{endCouponsDate}}" start="2020-06-01" end="2025-12-12" bindchange="endCouponsBindDateChange">
-                <view class="picker">有效日期：结束 {{endCouponsDate}}</view>
-              </picker>
+            <view class="coupons-details-right">
+              <view class="coupons-details-right-header">
+                <view class="coupons-details-right-header-icon"><image src="/image/bq.png" /></view>
+                <view class="coupons-details-right-header-text">{{item.title}}</view>
+              </view>
+              <view class="coupons-details-right-con">
+                <view class="coupons-details-right-con-period-validity">{{item.time}}</view>
+                <view class="coupons-details-right-con-use">{{item.case}}</view>
+              </view>
+              <view bindtap="basicContent" class="coupons-details-right-info">
+                <view class="coupons-details-right-info-text">基本信息</view>
+                <view class="coupons-details-right-icon"><image src="/image/jtdown.png" /></view>
+              </view>
+            </view>
+          </view>
+          <!-- 基本内容 -->
+          <view class="basic-content" style="display:none;">
+            <block wx:for="{{item.basicInfo}}" wx:key="uni-basic" wx:for-item="basicItem">
+              <view class="basic-content-box">
+                <view wx:if="{{basicItem.type == 'name'}}" class="basic-name">姓名：{{basicItem.name}}</view>
+                <view wx:elif="{{basicItem.type == 'address'}}" class="basic-area">区域：{{basicItem.address}}</view>
+                <view wx:elif="{{basicItem.type == 'grade'}}" class="basic-grade">级段：{{basicItem.grade}}</view>
+                <view wx:else class="basic-quality">课程性质：{{basicItem.quality}}</view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </block>
+    
+
+    <block wx:if="{{switch3Checked}}">
+      <!-- 优惠券名称 -->
+      <view class="course-info">
+        <view class="course-info-outside">
+          <view class="course-info-box">
+            <view class="course-info-box-img"><image src="/image/yhqmc.png" /></view>
+            <view class="course-info-box-inp"><input type="text" value="{{couponsName}}" name="couponsName" placeholder="优惠券名称" /></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 介绍 -->
+      <view class="course-info">
+        <view class="course-info-outside">
+          <view class="course-info-box">
+            <view class="course-info-box-img"><image src="/image/yhqjs.png" /></view>
+            <view class="course-info-box-inp"><input type="text" value="{{couponsDesc}}" name="couponsDesc" placeholder="介绍" /></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 金额 -->
+      <view class="course-info">
+        <view class="course-info-outside">
+          <view class="course-info-box">
+            <view class="course-info-box-img"><image src="/image/yhqje.png" /></view>
+            <view class="course-info-box-inp chang-style"><input type="number" value="{{couponsSum}}" name="couponsSum" placeholder="优惠金额(元)" /><text>优惠金额（元）</text></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 有效期 -->
+      <view class="course-info">
+        <view class="course-info-outside remove-bottom">
+          <view class="course-info-box sign-up-time">
+            <view class="course-info-box-img"><image src="/image/yhqrq.png" /></view>
+            <view class="course-info-box-inp-view welfare-inp">
+              <view class="course-info-box-inp">
+                <view class="picker-title">有效日期：开始</view>
+                <view class="course-info-box-inp-box">
+                  <view class="start-sign-up-time picker-chang-width">
+                    <picker mode="date" value="{{startCouponsDate}}" start="2020-06-01" end="2025-12-12" bindchange="startCouponsBindDateChange">
+                      <view class="picker">{{startCouponsDate}}</view>
+                    </picker>
+                  </view>
+                  <text class="course-info-box-inp-box-line">-</text>
+                  <view class="start-sign-up-time picker-chang-width">
+                    <picker mode="time" value="{{startCouponsDateTime}}" start="00:00" end="23:59" bindchange="startCouponsDateTimeChange">
+                      <view class="picker">{{startCouponsDateTime}}</view>
+                    </picker>
+                  </view>
+                </view>
+              </view>
+              <view class="course-info-box-inp">
+                <view class="picker-title">有效日期：结束</view>
+                <view class="course-info-box-inp-box">
+                  <view class="start-sign-up-time picker-chang-width">
+                    <picker mode="date" value="{{endCouponsDate}}" start="2020-06-01" end="2025-12-12" bindchange="endCouponsBindDateChange">
+                      <view class="picker">{{endCouponsDate}}</view>
+                    </picker>
+                  </view>
+                  <text class="course-info-box-inp-box-line">-</text>
+                  <view class="start-sign-up-time picker-chang-width">
+                    <picker mode="time" value="{{endCouponsDateTime}}" start="00:00" end="23:59" bindchange="endCouponsDateTimeChange">
+                      <view class="picker">{{endCouponsDateTime}}</view>
+                    </picker>
+                  </view>
+                </view>
+              </view>
             </view>
           </view>
         </view>
       </view>
-    </view>
-
-
+    </block>
   </view>
 
 <!-- 提交 -->

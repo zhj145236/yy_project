@@ -161,8 +161,12 @@
     <view class="call-tel-text">联系教师</view>
   </view>
   <view class="collection-course" bindtap="collectionClick">
-    <view class="collection-course-img"><image src="/image/sc2.png" /></view>
-    <view class="collection-course-img-text">课程收藏</view>
+    <view class="collection-course-img">
+      <image wx:if="{{isShowIcon}}" src="/image/sc2.png" />
+      <image wx:else src="/image/sc2f.png" />
+    </view>
+    <view wx:if="{{isShowIcon}}" class="collection-course-img-text">课程收藏</view>
+    <view wx:else class="collection-course-img-text chang-color">已收藏</view>
   </view>
   <view class="order-course" bindtap="orderClick">课程预约</view>
 </view>

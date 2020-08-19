@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "使用帮助",
+  "navigationBarTitleText": "我的收藏",
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark",
   "navigationBarBackgroundColor": "#f2b04a",

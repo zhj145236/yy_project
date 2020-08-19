@@ -75,7 +75,7 @@
 
 <!-- 点击进入私有程序 -->
 <view class="private-private">
-  <view class="private-private-box">进入您的私有程序</view>
+  <view bindtap="privateProgram" class="private-private-box">进入您的私有程序</view>
 </view>
 
 <!-- 平台信息 -->

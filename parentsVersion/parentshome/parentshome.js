@@ -789,30 +789,40 @@ teaSearchList:function(){
    * 评论/点赞等点击事件
    */
   smallIcon:function(e){
-    console.log(e,'数据');
     let that = this,
     needIndex = e.currentTarget.dataset.index,
-    lgnLat = that.data.lgnLat,
-    page = 0,
     use = app.globalData.userInfo,
     token = use.token,
-    pid = e.currentTarget.dataset.id;
+    pid = parseInt(e.currentTarget.dataset.id),
+    needData = encodeURIComponent(JSON.stringify(e.currentTarget.dataset));
     if(needIndex === 0){
       if(e.currentTarget.dataset.hasadmire){
         o.funShowToast('您已为该动态点赞过，无需重复点赞');
       }else{
+        console.log(that.data.dynamicInfo);
         o.FunClickPraise(pid,e.currentTarget.dataset.fbrole,token,callback=>{
           if(callback.statusCode === 200){
             console.log(callback,'点赞数据');
+            let dynamicInfo = that.data.dynamicInfo;
+            for(let i in dynamicInfo){
+              if(parseInt(dynamicInfo[i].id) === pid){
+                let createBtnData = dynamicInfo[i].createBtnData;
+                dynamicInfo[i].hasAdmire = true;
+                createBtnData[0].con += 1;
+                createBtnData[0].icon = '/image/yz.png';
+                break;
+              }
+            }
+            that.setData({dynamicInfo:dynamicInfo});
             o.funShowToast('点赞成功 +1');
-            o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
           }
         });
       }
     }
     if(needIndex === 1){
+      console.log(needData,'数据');
       wx.navigateTo({
-        url:'/parentsVersion/parentsReview/parentsReview?pid=' + pid + '&token=' + token + '&uid=' + e.currentTarget.dataset.uid + '&content=' + e.currentTarget.dataset.content + '&headimg=' + e.currentTarget.dataset.headimg + '&nickname=' + e.currentTarget.dataset.nickname + '&picture=' + e.currentTarget.dataset.picture + '&fbrole=' + e.currentTarget.dataset.fbrole + '&followed=' + e.currentTarget.dataset.followed,
+        url:'/parentsVersion/parentsReview/parentsReview?needData=' + needData,
       });
     }
   },
@@ -833,8 +843,14 @@ teaSearchList:function(){
     }else{
       o.FunFocusOn(uid,fbrole,token,callback=>{
         if(callback.statusCode === 200){
+          let dynamicInfo = that.data.dynamicInfo;
+          for(let i in dynamicInfo){
+            if(dynamicInfo[i].uid === uid){
+              dynamicInfo[i].followed = true;
+            }
+          }
+          that.setData({dynamicInfo:dynamicInfo});
           o.funShowToast('关注成功');
-          o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
         }
       });
     }
@@ -867,6 +883,35 @@ teaSearchList:function(){
 /**
  * 个人中心数据点击事件数据请求============================================== start
  */
+
+ /**
+  * 修改头像
+  * @param {*} e 
+  */
+ customImg:function(){
+  wx.chooseImage({
+    count: 1,
+    sizeType: ['original', 'compressed'],
+    sourceType: ['album', 'camera'],
+    success (res) {
+      // tempFilePath可以作为img标签的src属性显示图片
+      const tempFilePaths = res.tempFilePaths
+      wx.navigateTo({
+        url: '/pages/cutFace/cutFace?src=' + tempFilePaths,
+      })
+    }
+  })
+ },
+
+ /**
+  * 进入消息列表
+  * @param {*} e 
+  */
+ remindClick:function(){
+  wx.navigateTo({
+    url: '/pages/remind/remind?type=' + 'par',
+  })
+ },
 
   /**
    * 
@@ -1025,31 +1070,16 @@ teaSearchList:function(){
         let userData = {};
         if(use.user.headImg.indexOf('https') !== -1){
           userData.headImg = use.user.headImg;
+        }else if(use.user.headImg.indexOf('http') !== -1){
+          userData.headImg = use.user.headImg;
         }else{
           userData.headImg = o.down(u,use.user.headImg);
         }
         userData.nickName = use.user.nickName;
         that.setData(userData);
       }
-      /**
-       * 判断用户是否授权
-       * 如果授权获取全局变量中的数据
-       * 否则加载默认数据
-       * 2020/6/5增 --- 张 showVendor用户授权判断
-       */
-      // if(app.globalData.userInfo !== ''){
-      //   let userInfo = app.globalData.userInfo;
-      //   that.setData({
-      //     userInfo:userInfo
-      //   });
-      // }else{
-      //   let userInfo = {};
-      //   userInfo.avatarUrl = '/image/dtimg.jpg';
-      //   userInfo.nickName = '游客登录';
-      //   that.setData({
-      //     userInfo:userInfo
-      //   });
-      // }
+      // 获取用户未读消息数量
+      o.FunUnreadNoticeCount(that,'isShowNum');
     }
   },
 
@@ -1086,6 +1116,21 @@ teaSearchList:function(){
           o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
         }
       });
+    }else if(that.data.blockid === 3){
+      console.log(use,'用户数据');
+      // 个人中心数据加载
+      if(use !== ""){
+        let userData = {};
+        if(use.user.headImg.indexOf('https') !== -1){
+          userData.headImg = use.user.headImg;
+        }else if(use.user.headImg.indexOf('http') !== -1){
+          userData.headImg = use.user.headImg;
+        }else{
+          userData.headImg = o.down(u,use.user.headImg);
+        }
+        userData.nickName = use.user.nickName;
+        that.setData(userData);
+      }
     }
   },
 

@@ -106,40 +106,43 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
     let that = this,
+    needData = JSON.parse(decodeURIComponent(options.needData)),
     arr = [],
     use = app.globalData.userInfo,
     userId = parseInt(use.user.userId),
     token = use.token;
+    console.log(needData,'需要的数据');
     // 获取留言列表
-    o.FunLeaveMessageList(that,parseInt(options.pid),options.fbrole,token,'LeaveMessageList');
-    if(options.picture !== 'null'){
-      if(options.picture.indexOf(',') === -1){
-        arr.push(o.down(o.urlCon(),options.picture))
+    o.FunLeaveMessageList(that,parseInt(needData.id),needData.fbrole,token,'LeaveMessageList');
+    if(needData.picture !== ''){
+      if(needData.picture.indexOf(',') === -1){
+        arr.push(o.down(o.urlCon(),needData.picture))
       }else{
-        let pictureArr = options.picture.split(',');
+        let pictureArr = needData.picture.split(',');
         for(let i in pictureArr){
           arr.push(o.down(o.urlCon(),pictureArr[i]));   
         }
       }
     }
-    if(parseInt(use.user.userId) === parseInt(options.uid)){
+    if(parseInt(use.user.userId) === parseInt(needData.uid)){
       that.setData({isShow:false,isBtmShow:true});
     }else{
       that.setData({isShow:true,isBtmShow:false});
     }
+    console.log(arr,'数组数据');
     that.setData({
-      content:options.content,
-      headimg:options.headimg,
-      nickname:options.nickname,
-      uid:parseInt(options.uid), 
-      pid:parseInt(options.pid),
-      fbrole:options.fbrole,
+      content:needData.content,
+      headimg:needData.headimg,
+      nickname:needData.nickname,
+      uid:parseInt(needData.uid), 
+      pid:parseInt(needData.id),
+      fbrole:needData.fbrole,
       dynamicImg:arr,
       use:use,
-      followed:options.followed,
+      followed:needData.followed,
       userId:userId,
+      video:needData.video
     });
   },
 

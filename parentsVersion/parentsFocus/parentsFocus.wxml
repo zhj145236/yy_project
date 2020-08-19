@@ -13,52 +13,216 @@
 </view>
 
 <!-- 好友动态内容 -->
-<view class="near-teacher">
-  <view class="near-teacher-out">
-    <view class="near-teacher-inner">
-      <!-- count --> 
-      <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic">
-        <view class="dynamic-con">
-          <view class="dynamic-con-box">
-            <!-- 会员图像 -->
-            <view class="dynamic-con-box-img"><image src="{{item.membersImg}}" /></view>
-            <!-- 会员内容 -->
-            <view class="dynamic-con-box-info">
-              <view class="dynamic-con-box-info-top">
-                <view class="dynamic-con-box-info-top-left">
-                  <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
-                  <view class="dynamic-con-box-info-top-left-id">ID:{{item.membersId}}</view>
-                </view>
-                <view class="dynamic-con-box-info-top-right my-focus">已被15人关注</view>
-              </view>
-              <!-- 动态中间内容 -->
-              <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
-              <!-- 动态图像 -->
-              <view class="dynamic-con-box-info-img">
-                <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
-                  <view class="dynamic-con-for-img">
-                    <image src="{{dynamicImg.specificImg}}" />
+<view wx:if="{{nums === 0}}" class="near-teacher">
+  <view class="near-teacher">
+    <view class="near-teacher-out">
+      <view class="near-teacher-inner">
+        <view wx:if="{{dynamicInfo.length === 0}}" class="none-class" style="min-height:{{windowHeight}}"><view class="none-class-img"><image src="/image/kl.png" /></view>暂无好友动态</view>
+        <!-- count --> 
+        <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic" wx:for-item="item">
+          <view class="dynamic-con">
+            <view class="dynamic-con-box">
+              <!-- 会员图像 -->
+              <view class="dynamic-con-box-img"><image src="{{item.membersImg}}" /></view>
+              <!-- 会员内容 -->
+              <view class="dynamic-con-box-info">
+                <view class="dynamic-con-box-info-top">
+                  <view class="dynamic-con-box-info-top-left">
+                    <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
+                    <view class="dynamic-con-box-info-top-left-id">UID:{{item.uid}}</view>
                   </view>
-                </block>
+                  <block wx:if="{{item.uid !== userId}}">
+                    <view catchtap="focusOnClick" data-followed="{{item.followed}}" data-uid="{{item.uid}}" data-fbrole="{{item.fbrole}}" class="dynamic-con-box-info-top-right">
+                      <block wx:if="{{item.followed}}">
+                        <view class="dynamic-con-box-info-top-right-attention has-focus">已关注</view>
+                      </block>
+                      <block wx:else>
+                        <view class="dynamic-con-box-info-top-right-img"><image src="/image/jh.png" /></view>
+                        <view class="dynamic-con-box-info-top-right-attention">关注</view>
+                      </block>
+                    </view>
+                  </block>
+                  <block wx:else>
+                    <view class="dynamic-con-box-info-top-right my-dynamic">
+                        <view class="dynamic-con-box-info-top-right-img"><image src="/image/zjpar.png" /></view>
+                        <view class="dynamic-con-box-info-top-right-attention my-set-dynamic">我的动态</view>
+                    </view>
+                  </block>
+                </view>
+                <!-- 动态中间内容 -->
+                <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
+                <!-- 动态图像 -->
+                <view class="dynamic-con-box-info-img">
+                  <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
+                    <view catchtap="previewImg" data-totalnum="{{item.releaseImg}}" data-src="{{dynamicImg.specificImg}}" data-numindex="{{index}}" class="dynamic-con-for-img">
+                      <image mode="aspectFill" src="{{dynamicImg.specificImg}}" />
+                    </view>
+                  </block>
+                </view>
+                <!-- 动态视频 -->
+                <view wx:if="{{item.video !== null}}" class='banner-swiper'>
+                  <view class='banner-swiper-video'>
+                    <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
+                      <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{item.video}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+                      <view class="set-mc">
+                        <view class="set-mc-img"><image src="/image/play.png" /></view>
+                      </view>
+                      <!-- <view class="duration-txt">{{duration}}</view> -->
+                    </view>
+                  </view>
+                </view>
+
               </view>
             </view>
           </view>
-        </view>
-        <!-- 底部 -->
-        <view class="dynamic-bom">
-          <view class="dynamic-bom-box">
-            <block wx:for="{{bottomInfo}}" wx:key="uni-bom" wx:for-item="smallIcon">
-              <view data-id="{{item.id}}" data-index="{{index}}" bindtap="smallIcon" class="dynamic-bom-box-con">
-                <view class="dynamic-bom-box-con-img"><image src="{{smallIcon.icon}}" /></view>
-                <view class="dynamic-bom-box-con-text">{{smallIcon.con}}</view>
-              </view>
-            </block>
+          <!-- 底部 -->
+          <view class="dynamic-bom">
+            <view class="dynamic-bom-box">
+              <block wx:for="{{item.createBtnData}}" wx:key="uni-bom" wx:for-item="smallIcon">
+                <view data-followed="{{item.followed}}" data-id="{{item.id}}" data-uid="{{item.uid}}" data-nickName="{{item.membersName}}" data-hasadmire="{{item.hasAdmire}}" data-headImg="{{item.membersImg}}" data-fbrole="{{item.fbrole}}" data-content="{{item.releaseText}}" data-picture="{{item.picture}}" data-index="{{index}}" data-duration="{{duration}}" data-video="{{item.video}}" bindtap="smallIcon" class="dynamic-bom-box-con">
+                    <view class="dynamic-bom-box-con-img"><image src="{{smallIcon.icon}}" /></view>
+                    <view class="dynamic-bom-box-con-text">{{smallIcon.con}}</view>
+                </view>
+              </block>
+            </view>
           </view>
-        </view>
-      </block>
+        </block>
+      </view>
     </view>
   </view>
 </view>
+
+<!-- 我的动态 -->
+<view wx:elif="{{nums === 1}}" class="near-teacher">
+  <view class="near-teacher">
+    <view class="near-teacher-out">
+      <view class="near-teacher-inner">
+        <view wx:if="{{myDynamic.length === 0}}" class="none-class" style="min-height:{{windowHeight}}"><view class="none-class-img"><image src="/image/kl.png" /></view>暂无好友动态</view>
+        <!-- count --> 
+        <block wx:for="{{myDynamic}}" wx:key="uni-dynamic" wx:for-item="item">
+          <view class="dynamic-con">
+            <view class="dynamic-con-box">
+              <!-- 会员图像 -->
+              <view class="dynamic-con-box-img"><image src="{{item.membersImg}}" /></view>
+              <!-- 会员内容 -->
+              <view class="dynamic-con-box-info">
+                <view class="dynamic-con-box-info-top">
+                  <view class="dynamic-con-box-info-top-left">
+                    <view class="dynamic-con-box-info-top-left-nick">{{item.membersName}}</view>
+                    <view class="dynamic-con-box-info-top-left-id">UID:{{item.uid}}</view>
+                  </view>
+                  <block wx:if="{{item.uid !== userId}}">
+                    <view catchtap="focusOnClick" data-followed="{{item.followed}}" data-uid="{{item.uid}}" data-fbrole="{{item.fbrole}}" class="dynamic-con-box-info-top-right">
+                      <block wx:if="{{item.followed}}">
+                        <view class="dynamic-con-box-info-top-right-attention has-focus">已关注</view>
+                      </block>
+                      <block wx:else>
+                        <view class="dynamic-con-box-info-top-right-img"><image src="/image/jh.png" /></view>
+                        <view class="dynamic-con-box-info-top-right-attention">关注</view>
+                      </block>
+                    </view>
+                  </block>
+                  <block wx:else>
+                    <view class="dynamic-con-box-info-top-right my-dynamic">
+                        <view class="dynamic-con-box-info-top-right-img"><image src="/image/zjpar.png" /></view>
+                        <view class="dynamic-con-box-info-top-right-attention my-set-dynamic">我的动态</view>
+                    </view>
+                  </block>
+                </view>
+                <!-- 动态中间内容 -->
+                <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
+                <!-- 动态图像 -->
+                <view class="dynamic-con-box-info-img">
+                  <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
+                    <view catchtap="previewImg" data-totalnum="{{item.releaseImg}}" data-src="{{dynamicImg.specificImg}}" data-numindex="{{index}}" class="dynamic-con-for-img">
+                      <image mode="aspectFill" src="{{dynamicImg.specificImg}}" />
+                    </view>
+                  </block>
+                </view>
+                <!-- 动态视频 -->
+                <view wx:if="{{item.video !== null}}" class='banner-swiper'>
+                  <view class='banner-swiper-video'>
+                    <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
+                      <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{item.video}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+                      <view class="set-mc">
+                        <view class="set-mc-img"><image src="/image/play.png" /></view>
+                      </view>
+                      <!-- <view class="duration-txt">{{duration}}</view> -->
+                    </view>
+                  </view>
+                </view>
+
+              </view>
+            </view>
+          </view>
+          <!-- 底部 -->
+          <view class="dynamic-bom">
+            <view class="dynamic-bom-box">
+              <block wx:for="{{item.createBtnData}}" wx:key="uni-bom" wx:for-item="smallIcon">
+                <view data-followed="{{item.followed}}" data-id="{{item.id}}" data-uid="{{item.uid}}" data-nickName="{{item.membersName}}" data-hasadmire="{{item.hasAdmire}}" data-headImg="{{item.membersImg}}" data-fbrole="{{item.fbrole}}" data-content="{{item.releaseText}}" data-picture="{{item.picture}}" data-index="{{index}}" data-duration="{{duration}}" data-video="{{item.video}}" bindtap="smallIcon" class="dynamic-bom-box-con">
+                    <view class="dynamic-bom-box-con-img"><image src="{{smallIcon.icon}}" /></view>
+                    <view class="dynamic-bom-box-con-text">{{smallIcon.con}}</view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 我的关注 -->
+<view wx:elif="{{nums === 2}}" class="focus-info">
+  <view wx:if="{{isShowTitle}}" class="none-class" style="min-height:{{windowHeight}}"><view class="none-class-img"><image src="/image/kl.png" /></view>您暂未关注任何角色</view>
+  <block wx:for="{{focusData}}" wx:key="uni-focus">
+    <view class="focus-info-box-out">
+      <view class="focus-info-box">
+        <view class="focus-info-box-left">
+          <view class="focus-info-box-left-img"><image src="{{item.headImg}}" /></view>
+          <view class="focus-info-box-left-desc">
+            <view class="focus-info-box-left-nickname">昵称：{{item.nickName}}</view>
+            <view class="focus-info-box-left-uid">UID：{{item.followedId}}</view>
+            <view class="focus-info-box-left-role">角色：{{item.role}}</view>
+          </view>
+        </view>
+        <view catchtap="unFollow" data-followedid="{{item.followedId}}" data-nickname="{{item.nickName}}" data-delimdex="{{index}}" class="focus-info-box-right">取消关注</view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<!-- 谁关注了我 -->
+<view wx:else class="focus-info">
+  <view wx:if="{{isWhoFocus}}" class="none-class" style="min-height:{{windowHeight}}"><view class="none-class-img"><image src="/image/kl.png" /></view>您暂未获得关注</view>
+  <block wx:for="{{whoFocusData}}" wx:key="uni-focus">
+    <view class="focus-info-box-out">
+      <view class="focus-info-box">
+        <view class="focus-info-box-left">
+          <view class="focus-info-box-left-img"><image src="{{item.headImg}}" /></view>
+          <view class="focus-info-box-left-desc">
+            <view class="focus-info-box-left-nickname">昵称：{{item.nickName}}</view>
+            <view class="focus-info-box-left-uid">UID：{{item.followedId}}</view>
+            <view class="focus-info-box-left-role">角色：{{item.role}}</view>
+          </view>
+        </view>
+        
+        <view catchtap="focusOnClick" data-followed="{{item.followed}}" data-uid="{{item.followedId}}" data-fbrole="{{item.role}}" data-gzindex="{{index}}" class="focus-info-box-right add-focus">
+          <block wx:if="{{item.followed}}">
+            <view class="add-focus-desc has-focus">已关注</view>
+          </block>
+          <block wx:else>
+            <view class="add-focus-img">
+              <image src="/image/jh.png" />
+            </view>
+            <view class="add-focus-desc">关注</view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
 <!-- 平台信息 -->
 <view class="platform-info">
   <view>平台总部：东莞市昱升科技有限公司</view>

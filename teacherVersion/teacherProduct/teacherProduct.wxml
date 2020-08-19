@@ -1,27 +1,24 @@
 <!--teacherVersion/teacherProduct/teacherProduct.wxml-->
-
 <!-- 顶部 -->
 <view class="registered">
-  <view class="registered-txt">欢迎来到产品中心，祝您工作愉快。</view>
+  <view class="registered-txt">欢迎来到收藏中心，祝您生活愉快。</view>
+  <view class="registered-prompt">温馨提示：长按能够删除已发布的课程 ~呦~!!!</view>
 </view>
-
 <!-- 内容 -->
-<view bindlongtap="longPress" bindtap="detailsClick" class="collection-content">
-  <view class="collection-content-left"><image mode="heightFix" src="/image/jgzp.png" /></view>
-  <view class="collection-content-right">
-    <view class="collection-content-title common-style">10人奥数团课</view>
-    <view class="collection-content-section common-style">18节</view>
-    <view class="collection-content-grade common-style">三年级</view>
-    <view class="collection-content-price common-style">1800元</view>
-  </view>
-</view>
-
-<view bindlongtap="longPress" class="collection-content">
-  <view class="collection-content-left"><image mode="heightFix" src="/image/jgzp.png" /></view>
-  <view class="collection-content-right">
-    <view class="collection-content-title common-style">10人奥数团课</view>
-    <view class="collection-content-section common-style">18节</view>
-    <view class="collection-content-grade common-style">三年级</view>
-    <view class="collection-content-price common-style">1800元</view>
-  </view>
-</view>
+<view wx:if="{{collectList.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>您暂未收藏任何课程</view>
+<block wx:else>
+  <block wx:for="{{collectList}}" wx:key="uni-collect">
+    <view data-id="{{item.id}}" data-tid="{{item.tid}}" catchtap="classDetail" data-dealindex="{{index}}" bindlongtap="longPress" class="collection-content">
+      <view class="collection-content-box">
+        <view class="collection-content-left"><image mode="aspectFill" src="{{item.banner}}" /></view>
+        <view class="collection-content-right">
+          <view class="collection-content-title common-style">{{item.title}}</view>
+          <view class="collection-content-section common-style">课程节数：{{item.setCount}}节</view>
+          <view class="collection-content-grade common-style">教授范围：{{item.teachObj}}</view>
+          <view class="collection-content-price common-style">总价：{{item.price}}元</view>
+          <view class="collection-create-time common-style">课程创建时间：{{item.createTime}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</block>

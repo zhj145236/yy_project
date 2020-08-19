@@ -42,7 +42,7 @@
         <view class="course-info-box textarea-box">
           <view class="course-info-box-img"><image src="/image/sx.png" /></view>
           <view class="course-info-box-inp textarea-inp">
-            <textarea type="text" name="desc" value="" placeholder="日记正文内容" />
+            <textarea type="text" name="desc" maxlength="{{max}}" value="" placeholder="日记正文内容，编辑字数不能超过300字" />
           </view>
         </view>
       </view>
@@ -77,6 +77,7 @@
             <view class="set-mc-img"><image src="/image/play.png" /></view>
           </view>
           <view class="duration-txt">{{duration}}</view>
+          <view catchtap="dealVideo" class="deal-img"><image src="/image/deal.png" /></view>
         </view>
       </view>
     </view>
@@ -100,13 +101,13 @@
       <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
         <view class="product-details-img-upload-box">
           <view class="product-details-img-upload-place-img">
-            <image mode="widthFix" src="{{item}}" />
+            <image mode="aspectFill" src="{{item}}" />
             <view class="mask-layer">
               <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
                 <image src="/image/yl.png" />
               </view>
             </view>
-            <view class="deal-img"><image src="/image/deal.png" /></view>
+            <view catchtap="dealImg" data-nums="{{index}}" class="deal-img"><image src="/image/deal.png" /></view>
           </view>
         </view>
       </block>

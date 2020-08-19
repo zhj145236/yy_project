@@ -39,13 +39,27 @@
             <!-- 动态中间内容 -->
             <view class="dynamic-con-box-info-center">{{content}}</view>
             <!-- 动态图像 -->
-            <view class="dynamic-con-box-info-img">
+            <view wx:if="{{dynamicImg.length !== 0}}" class="dynamic-con-box-info-img">
               <block wx:for="{{dynamicImg}}" wx:key="" wx:for-item="item">
                 <view class="dynamic-con-for-img">
                   <image src="{{item}}" />
                 </view>
               </block>
             </view>
+
+            <!-- 动态视频 -->
+            <view wx:if="{{video !== 'null'}}" class='banner-swiper'>
+              <view class='banner-swiper-video'>
+                <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
+                  <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{video}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+                  <view class="set-mc">
+                    <view class="set-mc-img"><image src="/image/play.png" /></view>
+                  </view>
+                  <!-- <view class="duration-txt">{{duration}}</view> -->
+                </view>
+              </view>
+            </view>
+
           </view>
         </view>
       </view>
@@ -88,7 +102,7 @@
         </view>
       </block>
     </block>
-    <block wx:if="{{isShow}}">
+    <!-- <block wx:if="{{isShow}}"> -->
       <!-- 头部 -->
       <view class="info-abstract-box-top">
         <view class="info-abstract-box-top-message">给他/她</view>
@@ -103,7 +117,7 @@
           </view>
         </form>
       </view>
-    </block>
+    <!-- </block> -->
   </view>
 </view>
 <!-- 回复框 -->

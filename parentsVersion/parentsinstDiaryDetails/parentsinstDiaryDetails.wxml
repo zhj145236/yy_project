@@ -1,2 +1,67 @@
 <!--parentsVersion/parentsinstDiaryDetails/parentsinstDiaryDetails.wxml-->
-<text>日记详情</text>
+<!-- 顶部 -->
+<view class="registered">
+  <view class="registered-txt">欢迎来到日记详情</view>
+</view>
+<!-- 时间 -->
+<view class="diary-box">
+  <view class="diary-box-con">
+    <view class="diary-box-con-img"><image src="/image/time.png" /></view>
+    <view class='diary-box-con-txt'>{{time}}</view>
+  </view>
+</view>
+<!-- 天气 -->
+<view class="diary-box">
+  <view class="diary-box-con">
+    <view class="diary-box-con-img"><image src="/image/rjtq.png" /></view>
+    <view class='diary-box-con-txt'>{{weather}}</view>
+  </view>
+</view>
+<!-- 心情 -->
+<view class="diary-box">
+  <view class="diary-box-con">
+    <view class="diary-box-con-img"><image src="/image/rjbq.png" /></view>
+    <view class='diary-box-con-txt'>{{feeling}}</view>
+  </view>
+</view>
+<!-- 内容 -->
+<view class="diary-box">
+  <view class="diary-box-con">
+    <view class="course-info-box-inp">
+      <textarea disabled="true" type="text" value="{{content}}" placeholder="日记正文内容" />
+    </view>
+  </view>
+</view>
+
+<!-- 图片 -->
+<view wx:if="{{picture.length !== 0}}" class="product-details-img-upload-box-external">
+  <block wx:for="{{picture}}" wx:key="uni-details">
+    <view class="product-details-img-upload-box">
+      <view class="product-details-img-upload-place-img">
+        <image mode="aspectFill" src="{{item}}" />
+        <view class="mask-layer">
+          <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
+            <image src="/image/yl.png" />
+          </view>
+        </view>
+        <!-- <view data-nums="{{index}}" catchtap="dealImg" class="deal-img"><image src="/image/deal.png" /></view> -->
+      </view>
+    </view>
+  </block>
+</view>
+
+<!-- 视频容器 -->
+<view wx:if="{{video !== ''}}" class='banner-swiper'>
+  <view class='banner-swiper-video'>
+    <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
+      <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{video}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+      <view class="set-mc">
+        <view class="set-mc-img"><image src="/image/play.png" /></view>
+      </view>
+      <!-- <view catchtap="dealVideo" class="deal-img"><image src="/image/deal.png" /></view> -->
+    </view>
+  </view>
+</view>
+
+<!-- 删除自己的动态或日志 -->
+<view bindtap="dealDiary" data-id="{{id}}" class="deal-diary">删除日记</view>

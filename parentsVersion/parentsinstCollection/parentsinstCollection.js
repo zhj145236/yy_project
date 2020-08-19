@@ -16,9 +16,15 @@ Page({
    * 长按事件 
    */
   longPress:function(e){
+    let that = this,
+    id = e.currentTarget.dataset.id,
+    collectList = that.data.collectList,
+    dealindex = e.currentTarget.dataset.dealindex;
+    console.log(e.currentTarget.dataset.id,'取消收藏的id');
     o.alert('移除课程','请确定是否移除收藏的课程',callback=>{
       if(callback.confirm){
         console.log('用户确认取消收藏该课程');
+        o.FunUnCollect(that,id,dealindex,collectList,'collectList');
       }
     });
   },
@@ -27,6 +33,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this,
+    page = 0;
+    o.FunMyCollect(that,page,"collectList");
   },
 
   /**

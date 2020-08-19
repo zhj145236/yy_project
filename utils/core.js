@@ -4,8 +4,9 @@ module.exports = {
   /**
    * 将时间戳转换成时分秒
    * @param {*} t time 需要传入的时间戳
+   * @param {*} l 需要获取时间的方式 "1" 年月日 时分秒 "2"  年月日
    */
-    FunGetTime:function(t){
+    FunGetTime:function(t,l){
       let date = new Date(t),
       Y = date.getFullYear() + '-',
       M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
@@ -13,10 +14,13 @@ module.exports = {
       h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':',
       m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':',
       s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds()),
+      strDatens = Y+M+D;
       strDate = Y+M+D+h+m+s;
-      // console.log(strDate,'时间格式');
-      return strDate;
-      // f.setData({[b]:strDate});
+      if(l === "1"){
+        return strDate;
+      }else{
+        return strDatens;
+      }
     },
     /**
      * 获取设备信息
@@ -24,7 +28,7 @@ module.exports = {
     getSystemInfo:function(t){
         wx.getSystemInfo({
           success: (res) => {
-              t(res);
+            return typeof t == "function" && t(res);
           },
         })
     },
@@ -262,7 +266,7 @@ module.exports = {
   },
 
   /**
-   * 
+   * POST
    * @param {*} u url地址
    * @param {*} d 发送给地址的数据
    * @param {*} h 请求头
@@ -274,46 +278,26 @@ module.exports = {
         data:d,
         method:'POST',
         header:h,
-        success:function(res){
+        success:(res)=>{
             let s = res.statusCode;
             if(s === 401){
-                wx.showToast({
-                    title: '未登录/无权限',
-                    icon:'none',
-                    mask:true,
-                    duration: 1500
-                });
+              this.funShowToast('未登录/无权限');
             }else if(s === 500){
-                wx.showToast({
-                    title: '服务器开小差了,请稍后再试',
-                    icon:'none',
-                    mask:true,
-                    duration: 1500
-                }); 
+              this.funShowToast('服务器开小差了,请稍后再试');
             }else if(s === 400){
-              wx.showToast({
-                title: res.data.message,
-                icon:'none',
-                mask:true,
-                duration: 1500
-              }); 
+              this.funShowToast(res.data.message);
             }else{
                 return typeof c == "function" && c(res);
             }
         },
-        fail:function(res){
-          wx.showToast({
-            title: '系统正在升级中,请稍后再试',
-            icon:'none',
-            mask:true,
-            duration: 1500
-          }); 
+        fail:(res)=>{
+          this.funShowToast('系统正在升级中,请稍后再试');
         }
       })
   },
 
   /**
-   * 
+   * GET
    * @param {*} u 请求的地址
    * @param {*} d 发送的数据
    * @param {*} h 请求头
@@ -325,42 +309,84 @@ module.exports = {
         data:d,
         method:'GET',
         header:h,
-        success:function(res){
+        success:(res)=>{
             let s = res.statusCode;
             if(s === 401){
-                wx.showToast({
-                    title: '未登录/无权限',
-                    icon:'none',
-                    mask:true,
-                    duration: 1500
-                }); 
+              this.funShowToast('未登录/无权限');
             }else if(s === 500){
-                wx.showToast({
-                    title: '系统异常,请稍后再试',
-                    icon:'none',
-                    mask:true,
-                    duration: 2000
-                }); 
+              this.funShowToast('服务器开小差了,请稍后再试');
             }else if(s === 400){
-              wx.showToast({
-                title: res.data.message,
-                icon:'none',
-                mask:true,
-                duration: 1500
-              }); 
+              this.funShowToast(res.data.message);
             }else{
                 return typeof c == "function" && c(res);
             }
         },
-        fail:function(){
-          wx.showToast({
-            title: '系统正在升级中,请稍后再试',
-            icon:'none',
-            mask:true,
-            duration: 1500
-        }); 
+        fail:(res)=>{
+          this.funShowToast('系统正在升级中,请稍后再试');
         }
     })
+  },
+
+  /**
+   * DELETE
+   * @param {*} u url地址
+   * @param {*} d 发送给地址的数据
+   * @param {*} h 请求头
+   * @param {*} c 返回的数据
+   */
+  delete:function(u,d,h,c){
+      wx.request({
+        url: u,
+        data:d,
+        method:'DELETE',
+        header:h,
+        success:(res)=>{
+            let s = res.statusCode;
+            if(s === 401){
+              this.funShowToast('未登录/无权限');
+            }else if(s === 500){
+              this.funShowToast('服务器开小差了,请稍后再试');
+            }else if(s === 400){
+              this.funShowToast(res.data.message);
+            }else{
+                return typeof c == "function" && c(res);
+            }
+        },
+        fail:(res)=>{
+          this.funShowToast('系统正在升级中,请稍后再试');
+        }
+      })
+  },
+
+  /**
+   * PUT
+   * @param {*} u url地址
+   * @param {*} d 发送给地址的数据
+   * @param {*} h 请求头
+   * @param {*} c 返回的数据
+   */
+  put:function(u,d,h,c){
+      wx.request({
+        url: u,
+        data:d,
+        method:'PUT',
+        header:h,
+        success:(res)=>{
+            let s = res.statusCode;
+            if(s === 401){
+              this.funShowToast('未登录/无权限');
+            }else if(s === 500){
+              this.funShowToast('服务器开小差了,请稍后再试');
+            }else if(s === 400){
+              this.funShowToast(res.data.message);
+            }else{
+                return typeof c == "function" && c(res);
+            }
+        },
+        fail:(res)=>{
+          this.funShowToast('系统正在升级中,请稍后再试');
+        }
+      })
   },
 
   /**
@@ -457,6 +483,7 @@ module.exports = {
         }
         a.push(o);
       }
+      console.log(a,'课程数据');
       f.setData({[c]:a});
     });
   },
@@ -762,7 +789,139 @@ module.exports = {
   },
 
   /**
+   * 手机号密码登录
+   * @param {*} u userName 账号 
+   * @param {*} p password 密码
+   * @param {*} r role 场景
+   * @param {*} t userType
+   */
+  FunPhoneWorldLogin:function(u,p,r,t){
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        console.log(JSON.parse(decodeURIComponent(res.data)),'微信缓存用户数据');
+        getApp().globalData.userInfo = JSON.parse(decodeURIComponent(res.data));
+        switch(parseInt(t)){
+          case 0:
+            wx.reLaunch({
+              url: '/parentsVersion/parentshome/parentshome'
+            });
+            break;
+          case 1:
+            wx.reLaunch({
+              url: '/teacherVersion/teacherhome/teacherhome'
+            });
+            break;
+          case 2:
+            wx.reLaunch({
+              url: '/institutionVersion/institutionshome/institutionshome'
+            });
+            break;
+        }
+      },
+      fail:(res)=>{
+        wx.login({
+          success:(res)=>{
+            let codes = res.code;
+            url = this.urlCon() + 'app/login1?userName=' + u + '&password=' + p + '&code=' + codes + '&role=' + r,
+            data = '',
+            header = {"content-type":"application/x-www-form-urlencoded"};
+            this.post(url,data,header,callback=>{
+              console.log(callback,'用户数据');
+              if(callback.statusCode === 200){
+                let s = callback.data;
+                getApp().globalData.userInfo = s;
+                wx.setStorage({
+                  key:"userInfo",
+                  data:encodeURIComponent(JSON.stringify(s))
+                })
+                switch(parseInt(t)){
+                  case 0:
+                    wx.reLaunch({
+                      url: '/parentsVersion/parentshome/parentshome'
+                    });
+                    break;
+                  case 1:
+                    wx.reLaunch({
+                      url: '/teacherVersion/teacherhome/teacherhome'
+                    });
+                    break;
+                  case 2:
+                    wx.reLaunch({
+                      url: '/institutionVersion/institutionshome/institutionshome'
+                    });
+                    break;
+                }
+              }
+            });
+          }
+        })
+      }
+    })
+    // wx.login({
+    //   success:(res)=>{
+    //     let codes = res.code;
+    //     url = this.urlCon() + 'app/login3?role=' + r,
+    //     data = {code:codes,encryptedData:e,iv:i},
+    //     header = {"content-type":"application/x-www-form-urlencoded"};
+    //     this.post(url,data,header,callback=>{
+    //       console.log(callback,'用户数据');
+    //       if(callback.statusCode === 200){
+    //         let s = callback.data;
+    //         getApp().globalData.userInfo = s;
+    //         switch(parseInt(u)){
+    //           case 0:
+    //             wx.reLaunch({
+    //               url: '/parentsVersion/parentshome/parentshome'
+    //             });
+    //             break;
+    //           case 1:
+    //             wx.reLaunch({
+    //               url: '/teacherVersion/teacherhome/teacherhome'
+    //             });
+    //             break;
+    //           case 2:
+    //             wx.reLaunch({
+    //               url: '/institutionVersion/institutionshome/institutionshome'
+    //             });
+    //             break;
+    //         }
+    //       }
+    //     });
+    //   }
+    // })
+  },
+
+
+  /**
+   * 设置手机号及密码
+   * @param {*} s 手机号
+   * @param {*} y 验证码
+   * @param {*} m 密码
+   */
+  FunSetInfo:function(s,y,m){
+    let url = this.urlCon() + 'app/resetPassword?tel=' + s + '&yzm=' + y + '&newPassword=' + m,
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded"};
+    this.put(url,data,header,res=>{
+      console.log(res,'返回信息');
+      if(res.statusCode === 200){
+        this.funShowToast('设置成功');
+        setTimeout(function(){
+          wx.navigateBack({
+            delta: 1
+          })
+        },1500);
+      }
+    });
+  },
+
+  /**
    * 微信登录
+   * @param {*} e 
+   * @param {*} u 
+   * @param {*} i 
+   * @param {*} r 
    */
   FunWxLogin:function(e,u,i,r){
     wx.getStorage({
@@ -827,15 +986,53 @@ module.exports = {
         })
       }
     })
+    
+    // wx.login({
+    //   success:(res)=>{
+    //     let codes = res.code;
+    //     url = this.urlCon() + 'app/login3?role=' + r,
+    //     data = {code:codes,encryptedData:e,iv:i},
+    //     header = {"content-type":"application/x-www-form-urlencoded"};
+    //     this.post(url,data,header,callback=>{
+    //       console.log(callback,'用户数据');
+    //       if(callback.statusCode === 200){
+    //         let s = callback.data;
+    //         getApp().globalData.userInfo = s;
+    //         switch(parseInt(u)){
+    //           case 0:
+    //             wx.reLaunch({
+    //               url: '/parentsVersion/parentshome/parentshome'
+    //             });
+    //             break;
+    //           case 1:
+    //             wx.reLaunch({
+    //               url: '/teacherVersion/teacherhome/teacherhome'
+    //             });
+    //             break;
+    //           case 2:
+    //             wx.reLaunch({
+    //               url: '/institutionVersion/institutionshome/institutionshome'
+    //             });
+    //             break;
+    //         }
+    //       }
+    //     });
+    //   }
+    // })
   },
 
   /**
    * 获取手机验证码
    */
-  FunGetCode:function(p){
-    let url = this.urlCon() + 'app/sendCode?tel=' + p,
-    data = {},
-    header = {"content-type":"application/json"};
+  FunGetCode:function(p,i){
+    let data = {},
+    header = {"content-type":"application/json"},
+    url = '';
+    if(i === "log"){
+      url = this.urlCon() + 'app/sendCode?tel=' + p;
+    }else{
+      url = this.urlCon() + 'app/sendCode?tel=' + p + '&scene=resetPassword';
+    }
     this.post(url,data,header,callback=>{
       console.log(callback,'返回数据');
       this.funShowToast('验证码为：' + callback.data);
@@ -914,6 +1111,41 @@ module.exports = {
         })
       }
     })
+    // wx.login({
+    //   success: (res) => {
+    //     let code = res.code,
+    //     url  = this.urlCon() + 'app/login2?tel=' + p + '&yzm=' + c + '&code=' + code + '&role=' + r,
+    //     data = {},
+    //     header = {"content-type":"application/x-www-form-urlencoded"};
+    //     this.post(url,data,header,callback=>{
+    //       console.log(callback,'返回用户数据');
+    //       if(callback.statusCode === 200){
+    //         let s = callback.data;
+    //         getApp().globalData.userInfo = s;
+    //         switch(parseInt(u)){
+    //           case 0:
+    //             wx.reLaunch({
+    //               url: '/parentsVersion/parentshome/parentshome'
+    //             });
+    //             break;
+    //           case 1:
+    //             wx.reLaunch({
+    //               url: '/teacherVersion/teacherhome/teacherhome'
+    //             });
+    //             break;
+    //           case 2:
+    //             wx.reLaunch({
+    //               url: '/institutionVersion/institutionshome/institutionshome'
+    //             });
+    //             break;
+    //         }
+    //       }
+    //     });
+    //   },
+    //   fail:function(res){
+    //     console.log(res,'返回错误信息');
+    //   },
+    // })
   },
 
   /**
@@ -949,17 +1181,31 @@ module.exports = {
                 }
               }
             }
+
+            if(res[i].headImg.indexOf('https') !== -1){
+              o.membersImg = res[i].headImg;
+            }else if(res[i].headImg.indexOf('http') !== -1){
+              o.membersImg = res[i].headImg;
+            }else{
+              o.membersImg = this.down(this.urlCon(),res[i].headImg);
+            }
+            if(res[i].sex === '男'){
+              o.sexImg = '/image/sexnan.png';
+            }else if(res[i].sex === '女'){
+              o.sexImg = '/image/sexnv.png';
+            }else{
+              o.sexImg = '/image/sexbm.png';
+            }
             o.releaseImg = Sarr;
             o.uid = res[i].uid;
+            o.distanceDesc = res[i].distanceDesc === ''?'保密':res[i].distanceDesc;
             o.id = res[i].id;
-            o.membersImg = this.down(this.urlCon(),res[i].headImg);
             o.membersName = res[i].nickName;
             o.releaseText = res[i].content;
             o.createBtnData = [
               {icon:res[i].hasAdmire?'/image/yz.png':'/image/z.png',con:res[i].like},
               {icon:'/image/xx.png',con:res[i].commentCount},
-              {icon:'/image/sj.png',con:res[i].publishDesc},
-              {icon:'/image/jl.png',con:res[i].distanceDesc}
+              {icon:'/image/sj.png',con:res[i].publishDesc}
             ];
             o.picture = res[i].picture;
             o.fbrole = res[i].role;
@@ -1098,10 +1344,11 @@ module.exports = {
    * @param {*} z number 最多上传几张图片
    * @param {*} s sizeType 上传的图片为压缩图还是原图
    * @param {*} c sourceType 图片是从相册选取还是使用相机
+   * @param {*} j tempFilePathsArrs 放置图片的容器
    * @param {*} d 承载页面渲染的容器
    * @param {*} e 回调函数
    */
-  FunchooseImage:function(f,a,z,s,c,d,e){
+  FunchooseImage:function(f,a,z,s,c,j,d,e){
     let b = parseInt(z) - a.length, // b 用户还能上传的图片数量 如果为0 则用户能够上传的图片已经到达了最大限制 
     arr = a;   
     if(b === 0){
@@ -1114,10 +1361,24 @@ module.exports = {
         success: (res) => {
           // tempFilePath可以作为img标签的src属性显示图片
           let tempFilePaths = res.tempFilePaths;
-          for(let i in tempFilePaths){
-            arr.push(tempFilePaths[i]);
+          if(j === undefined){
+            for(let i in tempFilePaths){
+              arr.push(tempFilePaths[i]);
+            }
+            f.setData({[d]:arr});
+          }else{
+            if(j.length === 0){
+              for(let i in tempFilePaths){
+                arr.push(tempFilePaths[i]);
+              }
+              f.setData({[d]:arr});
+            }else{
+              for(let i in tempFilePaths){
+                j.push(tempFilePaths[i]);
+              }
+              f.setData({[d]:j});
+            }
           }
-          f.setData({[d]:arr});
           return typeof e == "function" && e(res);
         },
         fail: (res) => {},
@@ -1147,6 +1408,78 @@ module.exports = {
         return typeof e == "function" && e(res);
       },
       complete: (res) => {},
+    });
+  },
+
+  /**
+   * 用户自定义上传图像封装
+   * @param {*} u 图像路径
+   */
+  FunCustomImg:function(u,e){
+    let use = getApp().globalData.userInfo,
+    token = use.token;
+    wx.uploadFile({
+      url:this.urlCon() + 'api/users/updateAvatar',
+      header:{"content-type":"application/x-www-form-urlencoded","Authorization":token},
+      filePath: u,
+      name: 'file',
+      success: (res) =>{
+        return typeof e == "function" && e(res);
+      },
+      fail: (res) => {
+        return typeof e == "function" && e(res);
+      },
+      complete: (res) => {},
+    });
+  },
+
+  /**
+   * 删除图片封装
+   * @param {*} f this 指向
+   * @param {*} d data 传入的路径
+   * @param {*} p 需要返回的展示数据
+   * @param {*} n 需要删除的图片路径下标
+   */
+  FunDealImg:function(f,d,p,b,n,j,a){
+    let url = this.urlCon() + 'api/pictures/url',
+    use = getApp().globalData.userInfo,
+    token = use.token,
+    header = {"content-type":"application/json","Authorization":token};
+    if(b !== ''){
+      this.delete(url,d,header,callback=>{
+        if(callback.statusCode === 200){
+          p.splice(n,1);
+          b.splice(n,1);
+          f.setData({[j]:p,[a]:b});
+        }
+      });
+    }else{
+      this.delete(url,d,header,callback=>{
+        if(callback.statusCode === 200){
+          p.splice(n,1);
+          f.setData({[j]:p});
+        }
+      });
+    }
+  },
+
+  /**
+   * 删除视频函数封装
+   * @param {*} f this 指向
+   * @param {*} i id 需要删除视频的id
+   * @param {*} t 需要删除视频的路径
+   * @param {*} s 返回是否显示视频容器
+   */
+  FunDealVideo:function(f,i,t,s){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'api/qiNiuContent/' + i,
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.delete(url,data,header,callback=>{
+      if(callback.statusCode === 200){
+        f.setData({[t]:'',[s]:false});
+      }
     });
   },
 
@@ -1220,7 +1553,7 @@ module.exports = {
    * @param {*} a videoUrl 需要保存的视频地址
    * @param {*} i isUploadImg 
    */
-  FunUploadVideo:function(f,t,d,m,p,n,e,v,u,a,i){
+  FunUploadVideo:function(f,t,d,m,p,n,e,v,u,a,i,z){
     let use = getApp().globalData.userInfo,
     token = use.token;
     this.alert('友情提示','为了更友好的体验，请上传60秒内的短视频',callback=>{
@@ -1264,7 +1597,11 @@ module.exports = {
               name: 'file',
               success: (res) =>{
                 console.log(res,'视频返回路径');
-                f.setData({[a]:JSON.parse(decodeURIComponent(res.data)).data[0],[i]:false});
+                f.setData({
+                  [a]:JSON.parse(decodeURIComponent(res.data)).data[0],
+                  [i]:false,
+                  [z]:JSON.parse(decodeURIComponent(res.data)).id
+                });
               },
               fail: (res) => {},
               complete: (res) => {},
@@ -1273,6 +1610,749 @@ module.exports = {
         })
       }
     });
+  },
+
+  /**
+   * 删除日记/动态函数封装
+   * @param {*} i id 需要删除内容的id
+   */
+  FunContent:function(i){
+    this.alert('提示','请确定您是否要删除该日记',callback=>{
+      if(callback.confirm){
+        let url = this.urlCon() + 'app/plat/center/deleteMyDynamic?id=' + i,
+        data = '',
+        use = getApp().globalData.userInfo,
+        token = use.token,
+        header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+        this.delete(url,data,header,callback=>{
+          if(callback.statusCode === 200){
+            this.funShowToast('删除成功');
+            setTimeout(function(){
+              wx.navigateBack({
+                delta: 1
+              })
+            },2000);
+          }
+        });
+      }
+    });
+  },
+
+  /**
+   * 获取家长日记或动态数据的封装函数
+   * @param {*} p page 第几页
+   * @param {*} s size 每页的数量
+   * @param {*} i isPrivate 数获取日记的数据还是动态的数据 0 动态数据 1 日记数据
+   * @param {*} t type 获取数据的类型 dynamic 动态 diary 日记
+   * @param {*} e callback 回调函数
+   */
+  FunDynamicOrDiaryList:function(f,p,s,i,t,e){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    header = {"content-type":"application/json","Authorization":token},
+    data = {},
+    url = this.urlCon() + 'app/par/center/myDiary?isPrivate=' + i + '&page=' + p + '&size=' + s;
+    if(t === 'diary'){
+      // 获取日记
+      this.get(url,data,header,res=>{
+        return typeof e == "function" && e(res);
+      });
+    }else{
+      // 获取动态
+      this.get(url,data,header,callback=>{
+        let res = callback.data,Darr = [];
+        console.log(callback,'自己的动态');
+        if(res !== ""){
+          for(let i in res){
+            let o = {},Sarr = [];
+            if(res[i].picture !== '' && res[i].picture !== null){
+              if(res[i].picture.indexOf(',') === -1){
+                let y = {};
+                y.specificImg = this.down(this.urlCon(),res[i].picture);
+                Sarr.push(y);
+              }else{
+                let conImg = res[i].picture.split(',');
+                for(let z in conImg){
+                  let y = {};
+                  y.specificImg = this.down(this.urlCon(),conImg[z]);
+                  Sarr.push(y);
+                }
+              }
+            }
+            if(res[i].headImg.indexOf('https') !== -1){
+              o.membersImg = res[i].headImg;
+            }else if(res[i].headImg.indexOf('http') !== -1){
+              o.membersImg = res[i].headImg;
+            }else{
+              o.membersImg = this.down(this.urlCon(),res[i].headImg);
+            }
+            o.releaseImg = Sarr;
+            o.uid = res[i].uid;
+            o.id = res[i].id;
+            o.membersName = res[i].nickName;
+            o.releaseText = res[i].content;
+            o.createBtnData = [
+              {icon:res[i].hasAdmire?'/image/yz.png':'/image/z.png',con:res[i].like},
+              {icon:'/image/xx.png',con:res[i].commentCount},
+              {icon:'/image/sj.png',con:res[i].publishDesc},
+              {icon:'/image/jl.png',con:res[i].distanceDesc === ''?'保密':res[i].distanceDesc}
+            ];
+            o.picture = res[i].picture;
+            o.fbrole = res[i].role;
+            o.followed = res[i].followed;
+            o.hasAdmire = res[i].hasAdmire;
+            o.video = res[i].video;
+            Darr.push(o);
+          }
+          console.log(Darr,'组合数据');
+          f.setData({[e]:Darr});
+        }
+      });
+    }
+  },
+
+  /**
+   * 我关注的人
+   * @param {*} e 回调函数
+   */
+  FunMyFocus:function(f,d,n){
+    let url = this.urlCon() + 'app/plat/center/myfollow',
+    use = getApp().globalData.userInfo,
+    token = use.token,
+    data = '',
+    header = {"content-type":"application/json","Authorization":token};
+    this.get(url,data,header,res=>{
+      let z = res.data;
+      if(z.length === 0){
+        f.setData({[n]:true});
+      }else{
+        for(let i in z){
+          if(z[i].headImg.indexOf('https') !== -1){
+            z[i].headImg = z[i].headImg;
+          }else if(z[i].headImg.indexOf('http') !== -1){
+            z[i].headImg = z[i].headImg;
+          }else{
+            z[i].headImg = this.down(this.urlCon(),z[i].headImg);
+          }
+          if(z[i].role === 'par'){
+            z[i].role = '家长';
+          }else if(z[i].role === 'tea'){
+            z[i].role = '教师';
+          }else{
+            z[i].role = '机构';
+          }
+        }
+        f.setData({[d]:z,[n]:false});
+      }
+    });
+  },
+
+  /**
+   * 取消关注
+   * @param {*} i followedId 被取消关注的id
+   */
+  FunUnFollow:function(f,i,n,a,e){
+    let url = this.urlCon() + 'app/par/center/unFollowed?followedId=' + i,
+    use = getApp().globalData.userInfo,
+    token = use.token,
+    data = '',
+    header = {"content-type":"application/json","Authorization":token};
+    this.post(url,data,header,callback=>{
+      console.log(callback,'取消关注的返回数据');
+      if(callback.statusCode === 200){
+        this.funShowToast('您已取消关注');
+        setTimeout(function(){
+          a.splice(n,1);
+          console.log(a,'数组的值');
+          if(a.length === 0){
+            f.setData({isShowTitle:true});
+          }else{
+            f.setData({isShowTitle:false});
+          }
+          f.setData({[e]:a});
+        },1500);
+      }
+    });
+  },
+
+  /**
+   * 谁关注了我
+   * @param {*} e 
+   */
+  FunWhoFocus:function(f,d,n){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/plat/center/followedMe',
+    data = '',
+    header = {"content-type":"application/json","Authorization":token};
+    this.get(url,data,header,res=>{
+      let z = res.data;
+      if(z.length === 0){
+        f.setData({[n]:true});
+      }else{
+        for(let i in z){
+          if(z[i].headImg.indexOf('https') !== -1){
+            z[i].headImg = z[i].headImg;
+          }else if(z[i].headImg.indexOf('http') !== -1){
+            z[i].headImg = z[i].headImg;
+          }else{
+            z[i].headImg = this.down(this.urlCon(),z[i].headImg);
+          }
+          if(z[i].role === 'par'){
+            z[i].role = '家长';
+          }else if(z[i].role === 'tea'){
+            z[i].role = '教师';
+          }else{
+            z[i].role = '机构';
+          }
+        }
+        console.log(z,'111');
+        f.setData({[d]:z,[n]:false});
+      }
+    });
+  },
+  
+  /**
+   * 返回用户信息数据
+   */
+  FunCallbackUseInfo:function(f,u,c){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/par/center/me',
+    data = '',
+    needArr = [],
+    setA = [],
+    header = {"content-type":"application/json","Authorization":token};
+    this.get(url,data,header,callback=>{
+      console.log(callback,'返回数据');
+      if(callback.statusCode === 200){
+        let d = callback.data;
+        console.log(d.headImg,'图像');
+        if(d.headImg.indexOf('https') !== -1){
+          u.headImg = d.headImg;
+        }else if(d.headImg.indexOf('http') !== -1){
+          u.headImg = d.headImg;
+        }else{
+          u.headImg = this.down(this.urlCon(),d.headImg);
+        }
+        // 生活照片
+        if(d.lifePicture !== '' && d.lifePicture !== null){
+          if(d.lifePicture.indexOf(',') === -1){
+            needArr.push(this.down(this.urlCon(),d.lifePicture));
+            u.tempFilePathsArrs = needArr;
+            setA.push(d.lifePicture);
+            u.needUrl = setA;
+          }else{
+            let needImg = d.lifePicture.split(',');
+            for(let i in needImg){
+              needArr.push(this.down(this.urlCon(),needImg[i]));
+              setA.push(needImg[i]);
+            }
+            u.tempFilePathsArrs = needArr;
+            u.needUrl = setA;
+          }
+        }else{
+          u.tempFilePathsArrs = [];
+        }
+        // 手机号
+        if(d.callPhone !== '' && d.callPhone !== null){
+          u.callPhone = d.callPhone;
+        }else{
+          u.callPhone = '';
+        }
+        // 姓名
+        if(d.name !== '' && d.name !== null){
+          u.name = d.name;
+        }else{
+          u.name = '';
+        }
+        // 性别
+        if(d.sex !== '' && d.sex !== null){
+          if(d.sex === '男'){
+            u.checkedSexNan = true;
+            u.checkedSexNv = false;
+            u.checkedSexBm = false;
+          }else if(d.sex === '女'){
+            u.checkedSexNan = false;
+            u.checkedSexNv = true;
+            u.checkedSexBm = false;
+          }else{
+            u.checkedSexNan = false;
+            u.checkedSexNv = false;
+            u.checkedSexBm = true;
+          }
+        }
+        // 详细地址
+        if(d.locationDesc !== '' && d.locationDesc !== null){
+          u.address = d.locationDesc;
+        }else{
+          u.address = '';
+        }
+        // 个性签名
+        if(d.motto !== '' && d.motto !== null){
+          u.tag = d.motto;
+        }else{
+          u.tag = '';
+        }
+        // 省市区code返回
+        if(d.provinceCode !== '' && d.provinceCode !== null){ // 省
+          if(d.cityCode !== '' && d.cityCode !== null){ // 市
+            if(d.countyCode !== '' && d.countyCode !== null){ // 区
+              this.FunConversion(d.provinceCode,d.cityCode,d.countyCode,res=>{
+                if(res.statusCode === 200){
+                  myLocation = res.data[0] + ' ' + res.data[1] + ' ' + res.data[2];
+                  f.setData({myLocation:myLocation});
+                }
+              });
+            }
+          }
+        }else{
+          f.setData({myLocation:'广东省 东莞市 厚街镇'});
+        }
+        u.id = d.id;
+        u.nickName = d.nickName;
+        u.nImg = d.headImg;
+        f.setData(u);
+        return typeof c == "function" && c(callback);
+      }
+    });
+  },
+
+  /**
+   * 完善信息提交
+   */
+  FunPerfectInfo:function(e){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    data = e,
+    url = this.urlCon() + 'app/par/center/applyInfo',
+    header = {"content-type":"application/json","Authorization":token};
+    this.post(url,data,header,callback=>{
+      console.log(callback,'返回数据');
+      if(callback.statusCode === 200){
+        this.funShowToast('已完成提交');
+        setTimeout(function(){
+          wx.navigateBack({
+            delta: 1
+          })
+        },2000);
+      }
+    });
+  },
+
+  /**
+   * 好友动态
+   */
+  FunFollowerDynamic:function(f,p,s,d){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    data = '',
+    url = this.urlCon() + 'app/par/center/followerDynamic?page=' + p + '&size=' + s,
+    header = {"content-type":"application/json","Authorization":token};
+    this.get(url,data,header,callback=>{
+      console.log(callback,'好友动态返回数据');
+      if(callback.statusCode === 200){
+        let res = callback.data,Darr = [];
+        console.log(res.length,'好友动态');
+        if(res !== ""){
+          for(let i in res){
+            let o = {},Sarr = [];
+            if(res[i].picture !== ''){
+              if(res[i].picture.indexOf(',') === -1){
+                let y = {};
+                y.specificImg = this.down(this.urlCon(),res[i].picture);
+                Sarr.push(y);
+              }else{
+                let conImg = res[i].picture.split(',');
+                for(let z in conImg){
+                  let y = {};
+                  y.specificImg = this.down(this.urlCon(),conImg[z]);
+                  Sarr.push(y);
+                }
+              }
+            }
+            if(res[i].headImg.indexOf('https') !== -1){
+              o.membersImg = res[i].headImg;
+            }else if(res[i].headImg.indexOf('http') !== -1){
+              o.membersImg = res[i].headImg;
+            }else{
+              o.membersImg = this.down(this.urlCon(),res[i].headImg);
+            }
+            o.releaseImg = Sarr;
+            o.uid = res[i].uid;
+            o.id = res[i].id;
+            o.membersName = res[i].nickName;
+            o.releaseText = res[i].content;
+            o.createBtnData = [
+              {icon:res[i].hasAdmire?'/image/yz.png':'/image/z.png',con:res[i].like},
+              {icon:'/image/xx.png',con:res[i].commentCount},
+              {icon:'/image/sj.png',con:res[i].publishDesc},
+              {icon:'/image/jl.png',con:res[i].distanceDesc === ''?'保密':res[i].distanceDesc}
+            ];
+            o.picture = res[i].picture;
+            o.fbrole = res[i].role;
+            o.followed = res[i].followed;
+            o.hasAdmire = res[i].hasAdmire;
+            o.video = res[i].video;
+            Darr.push(o);
+          }
+          console.log(Darr,'组合数据');
+          f.setData({[d]:Darr});
+        }
+      }
+    });
+  },
+
+  /**
+   * 用户未读消息数据
+   * @param {*} f this 指向
+   * @param {*} n 未读消息的数量
+   */
+  FunUnreadNoticeCount:function(f,n){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    data = '',
+    url = this.urlCon() + 'app/plat/center/unreadNoticeCount',
+    header = {"content-type":"application/json","Authorization":token};
+    this.get(url,data,header,callback=>{
+      let numData = callback.data;
+      f.setData({[n]:numData});
+    });
+  },
+
+  /**
+   * 用户全部的消息列表
+   * @param {*} f this 指向
+   * @param {*} i 消息数据
+   */
+  FunNoticeList:function(f,i){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    data = '',
+    url = this.urlCon() + 'app/plat/center/noticeList',
+    header = {"content-type":"application/json","Authorization":token};
+    this.get(url,data,header,callback=>{
+      console.log(callback.data,'数量');
+      let data = callback.data;
+      f.setData({[i]:data});
+    });
+  },
+
+  /**
+   * 省市区将code转换成字符串
+   */
+  FunConversion:function(p,c,q,e){
+    let url = this.urlCon() + 'app/com/resolveArea?provinceCode=' + p + '&cityCode=' + c + '&countyCode=' + q,
+    data = '',
+    header = {"content-type":"application/json"};
+    this.get(url,data,header,callback=>{
+      if(callback.statusCode === 200){
+        return typeof e == "function" && e(callback);
+      }
+    });
+  },
+
+  /**
+   * 点击收藏
+   * @param {*} i collectId 收藏类型的组件id
+   * @param {*} t type 收藏类型（1：教师课程 2：培训机构课程 3：教师主页 4：培训机构主页 5：家长主页 6：文章 7：职位）
+   */
+  FunCollect:function(f,i,t){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    data = {"collectId":i,"type":t},
+    url = this.urlCon() + 'app/com/collect',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.post(url,data,header,res=>{
+      if(res.statusCode === 200){
+        this.funShowToast('收藏成功');
+        f.setData({isShowIcon:false});
+      }
+    });
+  },
+
+  /**
+   * 我的收藏列表
+   * @param {*} f this 指向
+   * @param {*} p page
+   */
+  FunMyCollect:function(f,p,d){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/com/myCollect?page=' + p,
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,res=>{
+      let needData = res.data;
+      console.log(needData);
+      for(let i in needData){
+        if(needData[i].pic1 !== null){
+          needData[i].pic1 = this.down(this.urlCon(),needData[i].pic1);
+        }else{
+          needData[i].pic1 = '/image/noimg.png';
+        }
+      }
+      console.log(needData,'收藏数据');
+      f.setData({[d]:needData});
+    });
+  },
+
+  /**
+   * 查看有无收藏过此内容
+   * @param {*} f this 指向
+   * @param {*} i id 对应收藏该数据的id
+   * @param {*} t type 收藏数据的类型
+   * @param {*} k token 用户的token
+   * @param {*} d 需要使用的数据
+   */
+  FunCollectStatus:function(f,i,t,k,d){
+    let url = this.urlCon() + 'app/com/collectStatus',
+    data = {"collectId":i,"type":t},
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":k};
+    this.get(url,data,header,res=>{
+      console.log(res,'数据');
+      if(res.statusCode === 200){
+        if(res.data === ""){
+          f.setData({[d]:true});
+        }else{
+          f.setData({[d]:false});
+        }
+      }
+    });
+  },
+
+  /**
+   * 取消收藏接口
+   * @param {*} f this 指向
+   * @param {*} i id 组件id
+   * @param {*} n index 需要取消的是数组中的哪个数据
+   * @param {*} a arr 收藏的数组数据
+   * @param {*} e 返回取消收藏后的数据
+   */
+  FunUnCollect:function(f,i,n,a,e){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/com/unCollect?id=' + i,
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.post(url,data,header,res=>{
+      this.funShowToast('您已经取消了对该课程收藏');
+      if(res.statusCode === 200){
+        setTimeout(function(){
+          a.splice(n,1);
+          f.setData({[e]:a});
+        },1500);
+      }
+    });
+  },
+
+  /**
+   * 进入我的私有程序
+   */ 
+  FunPrivateProgram:function(){
+    let use = getApp().globalData.userInfo;
+    if(Object.keys(use).length !== 0){
+      let userType = use.user.role;
+      switch(userType){
+        case 'par':
+          wx.reLaunch({
+            url: '/parentsVersion/parentshome/parentshome'
+          });
+          break;
+        case 'tea':
+          wx.reLaunch({
+            url: '/teacherVersion/teacherhome/teacherhome'
+          });
+          break;
+        case 'org':
+          wx.reLaunch({
+            url: '/institutionVersion/institutionshome/institutionshome'
+          });
+          break;
+      }
+    }else{
+      this.alert('提示','您尚未登录或登录已失效，请点击“确定”前往角色选取页面选择对应角色进行登录',res=>{
+        if(res.confirm){
+          wx.reLaunch({
+            url:'/pages/chooseRole/chooseRole'
+          });
+        }
+      });
+    }
+  },
+
+  /**
+   * 招聘信息列表
+   * @param {*} f this 指向
+   * @param {*} e educational 学历
+   * @param {*} w workYear 教龄
+   * @param {*} s salary 薪资范围
+   * @param {*} c countyCode 区域
+   * @param {*} p page 
+   * @param {*} z size
+   * @param {*} z 返回的数据进行页面渲染
+   */
+  FunRecruitList:function(f,e,w,s,c,p,z,d){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/recruit/list?page=' + p + '&size=' + z,
+    data = {"educational":e,"workYear":w,"salary":s,"countyCode":c},
+    header = {"content-type":"application/json","Authorization":token};
+    this.post(url,data,header,res=>{
+      let needData = res.data.content;
+      console.log(needData,'招聘列表数据');
+      for(let i in needData){
+        needData[i].createTime = this.FunGetTime(needData[i].createTime,'2');
+        needData[i].address = needData[i].city + '-' + needData[i].county;
+        needData[i].workYear === null?needData[i].workYear = '不限':needData[i].workYear = needData[i].workYear;
+      }
+      console.log(needData,'招聘列表信息');
+      f.setData({[d]:needData});
+    });
+  },
+
+  /**
+   * 招聘信息详情页
+   * @param {*} f THIS
+   * i 组件id
+   * a 需要渲染的数据
+   */
+  FunRecruitDetail:function(f,i){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/recruit/detail?id=' + i,
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,res=>{
+      console.log(res,'信息详情');
+      if(res.statusCode === 200){
+        let o = {},d = res.data;
+        o.title = d.title;
+        o.createTime = this.FunGetTime(d.createTime,'2');
+        o.salary = d.salary + '/月';
+        o.wantCount = '招' + d.wantCount + '人';
+        o.workYear = d.workYear;
+        o.educational = d.educational;
+        o.infoAbstract = [
+          {
+            "name":d.orgName,
+            "address":[{"icon":'/image/jl.png',"name":d.province + '-' + d.city + '-' + d.county + '-' + d.location === null?'':d.location}],
+            "contact":[
+              {"icon":'/image/lxr.png',"name":d.linkPeople},
+              {"icon":'/image/lxdh.png',"name":d.callPhone}
+            ],
+            desc:['规模：5-10人','机构性质：艺术类培训机构'],
+            welfare:d.perk === null?['节日礼品','教学奖金','下午茶']:d.perk
+          }
+        ];
+
+        o.jobDesc = d.jobDesc;
+        console.log(o,'需要展示的数据');
+        f.setData(o);
+      }
+    });
+  },
+
+  /**
+   * 投递简历
+   * @param {*} f this
+   * @param {*} i id
+   */
+  FunCenterPostResume:function(f,i){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/postResume?id=' + i,
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.post(url,data,header,res=>{
+      console.log(res,'申请职位');
+    });
+  },
+
+  /**
+   * 教师新增课程
+   * @param {*} i id
+   */
+  FunSaveCourse:function(d){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/saveCourse',
+    data = d,
+    header = {"content-type":"application/json","Authorization":token};
+    this.post(url,data,header,res=>{
+      console.log(res,'返回数据');
+    });
+  },
+
+  /**
+   * 教师版的产品（课程）列表
+   * @param {*} f this 指向
+   * @param {*} e 返回进行渲染的数据
+   */
+  FunCourseList:function(f,e){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/courseList',
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,res=>{
+      if(res.statusCode === 200){
+        let d = res.data;
+        console.log(d,'课程列表数据');
+        for(let i in d){
+          if(d[i].banner !== null){
+            d[i].banner = this.down(this.urlCon(),d[i].banner);
+          }else{
+            d[i].banner = '/image/noimg.png';
+          }
+          d[i].createTime = this.FunGetTime(d[i].createTime,2);
+        }
+        f.setData({[e]:res.data});
+      }
+    });
+  },
+
+  /**
+   * 获取课程数据
+   * @param {*} f this 指向
+   * @param {*} d 需要传入接口的数据
+   */
+  FunSaveCourse:function(f,d){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/saveCourse',
+    data = d,
+    header = {"content-type":"application/json","Authorization":token};
+    this.post(url,data,header,res=>{
+      console.log(res,'返回课程数据');
+    });
+  },
+
+  /**
+   * 获取简历信息
+   * @param {*} f this 指向
+   */
+  FunResume:function(f){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/resume',
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,res=>{
+      console.log(res,'简历信息');
+      if(res.statusCode === 200){
+        let d = res.data;
+        if(d.id !== null){
+          console.log('显示出简历信息，同时隐藏制作简历的表单');
+        }else{
+          let a = {};
+          a.myLocation = '厚街镇';
+          f.setData(a);
+          console.log('显示出制作简历的表单');
+        }
+      }
+    });
+
   },
   
   

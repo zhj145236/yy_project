@@ -313,3 +313,50 @@ button::after{
   width: 100%;
   height: 100%;
 }
+
+/* 动态视频 */
+.banner-swiper-video{
+  width:100%;
+  margin: 30rpx auto 0 auto;
+  height: 380rpx;
+}
+.banner-video{
+  width:190rpx;
+  height: 380rpx;
+  /* margin-left: 40rpx; */
+  position: relative;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+.set-mc{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+}
+.set-mc-img{
+  width: 80rpx;
+  height: 80rpx;
+  margin: auto;
+}
+.set-mc-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.duration-txt{
+  position: absolute;
+  right: 30rpx;
+  bottom: 20rpx;
+  color: #fff;
+  font-size: 28rpx;
+}
+.myVideo{
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx;
+}

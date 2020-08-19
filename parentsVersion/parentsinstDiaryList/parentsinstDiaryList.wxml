@@ -6,7 +6,7 @@
 <!--资质信息 -->
 <view wx:if="{{diaryData.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>您尚未书写日记</view>
 <block wx:for="{{diaryData}}" wx:key="uni-diary">
-  <view catchtap="diaryClick" data-time="{{item.createTime}}" data-content="{{item.content}}" data-weather="{{item.weather}}" data-feeling="{{item.feeling}}" data-picture="{{item.picture}}" data-video="{{item.video}}" class="diary-list">
+  <view catchtap="diaryClick" data-time="{{item.createTime}}" data-id="{{item.id}}" data-content="{{item.content}}" data-weather="{{item.weather}}" data-feeling="{{item.feeling}}" data-picture="{{item.picture}}" data-video="{{item.video}}" class="diary-list">
     <view class="diary-list-con">
       <view class="diary-list-left">
         <view class="diary-list-desc">{{item.content}}</view>

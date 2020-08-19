@@ -40,14 +40,17 @@ page{
   padding: 20rpx 0;
 }
 .product-details-img-upload-title{
-  width: 90%;
-  margin: auto;
+  
   color: #707070;
 }
 .product-details-img-upload{
-  width: 100%;
-  border-bottom: 2px solid #e7e7e7;
-  padding: 20rpx 0 30rpx 0;
+  width: 90%;
+  margin: 0 auto 30rpx auto;
+}
+.product-details-explain{
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
   font-size: 28rpx;
 }
 .product-details-img-upload-list-box{
@@ -186,10 +189,30 @@ page{
   padding: 16rpx 0;
   width: 400rpx;
 }
+.picker-title{
+  color: #707070;
+  margin-bottom: 20rpx;
+}
+.chang-style{
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+}
+.chang-style > input{
+  width: 140rpx!important;
+  border: 1px solid #f4f4f4;
+  margin: 0 10rpx 0 0!important;
+  padding: 10rpx 0 10rpx 10rpx;
+  border-radius: 10rpx;
+}
+.chang-style > text{
+  color: #707070;
+}
 /* 课程描述 */
 .course-info-box-inp > input{
-  width: 360rpx;
+  width: 400rpx;
   margin: auto;
+  color:#707070;
 }
 .textarea-box{
   align-items: flex-start;
@@ -218,6 +241,18 @@ page{
 }
 .change-course-info{
   background-color: white;
+}
+.product__section__title{
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  font-size: 28rpx;
+  color: #707070;
+  margin-top:30rpx;
+}
+.product__section__switch{
+  transform: scale(0.7,0.7);
+  vertical-align: middle;
 }
 
 /* 完成 */
@@ -249,7 +284,27 @@ page{
 .start-sign-up-time,.end-sign-up-time,.welfare{
   border:1px solid #f4f4f4;
   margin-bottom: 10rpx;
-  width: 460rpx;
+}
+.picker-chang-width{
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin: 0;
+  border-radius: 10rpx;
+}
+.course-info-box-inp-box{
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+  margin-bottom:10rpx;
+}
+.course-info-box-inp-box-line{
+  color: #707070;
+  margin: 0 10rpx;
+  display: block;
+  height: 60rpx;
+  line-height: 60rpx;
 }
 .welfare{
   border:1px solid #f4f4f4;
@@ -270,6 +325,118 @@ page{
 }
 .remove-bottom{
   border-bottom: none;
+}
+/* 优惠券 */
+.coupons-details{
+  width: 90%;
+  background: #fff;
+  border-radius: 10rpx;
+  border-top: 8rpx solod #4EB9FF;
+  margin: 0 auto 30rpx auto;
+  padding: 30rpx 0;
+  box-shadow: 2px 4px 6px #d2d2d2;
+}
+.coupons-details-box{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  align-items: center;
+}
+.coupons-details-left{
+  width: 120rpx;
+  text-align: center;
+}
+.coupons-details-left-top-digital{
+  font-size: 60rpx;
+  font-weight: 600;
+  color: #4EB9FF;
+}
+.coupons-details-left-down{
+  font-size: 28rpx;
+  color: #4EB9FF;
+}
+.coupons-details-right{
+  width: 460rpx;
+}
+.coupons-details-right-header{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:flex-start;
+  align-items: center;
+}
+.coupons-details-right-header-icon{
+  width: 50rpx;
+  height: 50rpx;
+}
+.coupons-details-right-header-icon > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.coupons-details-right-header-text{
+  color: #707070;
+  margin-left: 10rpx;
+}
+.coupons-details-right-con{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  align-items: center;
+  border-bottom: 2rpx dashed #a4a4a4;
+  padding: 30rpx 0;
+}
+.coupons-details-right-con-period-validity{
+  font-size: 26rpx;
+  color: #a4a4a4;
+}
+.coupons-details-right-con-use{
+  width: 150rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  border-radius: 100rpx;
+  background: #4EB9FF;
+  color: #fff;
+  text-align: center;
+}
+.coupons-details-right-info{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  align-items: center;
+  padding: 20rpx 0;
+}
+.coupons-details-right-info-text{
+  font-size: 28rpx;
+  color: #a4a4a4;
+}
+.coupons-details-right-icon{
+  width: 35rpx;
+  height: 35rpx;
+}
+.coupons-details-right-icon > image{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* 基本内容 */
+.basic-content{
+  padding: 20rpx 0;
+  border-top: 1px solid #d2d2d2;
+  color: #a4a4a4;
+  font-size: 26rpx;
+  width: 90%;
+  margin:20rpx auto 0 auto;
+}
+.basic-name,.basic-area,.basic-grade,.basic-quality{
+  height: 40rpx;
+  line-height: 40rpx;
 }
 
 /* 底部总部信息 */

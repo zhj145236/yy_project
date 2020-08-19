@@ -9,6 +9,7 @@ Page({
   data: {
     publicData:[{name:true,value:'不公开',checked:true},{name:false,value:'公开',checked:false}],
     instructions:'注意：如果选择“公开”，那么悦优将以“动态”的形式在平台进行展示。如果您选择“不公开”，悦优将会以“日记”的形式进行保存，除了您个人以外不会对其他的任何人进行展示。',
+    max:300,
     newArr:[],
     needUrl:[], // 提交图片的容器数组
     // videoUrl:'', // 提交视频的容器字段
@@ -45,8 +46,9 @@ Page({
    */
   uploadImg:function(){
     let that = this,needUrl = that.data.needUrl;
+    tempFilePathsArr = that.data.tempFilePathsArr;
     if(that.data.isUploadImg){
-      o.FunchooseImage(that,that.data.newArr,6,['compressed'],['album', 'camera'],'tempFilePathsArr',callback=>{
+      o.FunchooseImage(that,that.data.newArr,6,['compressed'],['album', 'camera'],tempFilePathsArr,'tempFilePathsArr',callback=>{
         let tempFilePaths = callback.tempFilePaths,
         len = tempFilePaths.length,
         use = that.data.use,
@@ -69,17 +71,52 @@ Page({
   },
 
   /**
+   * 删除图片
+   * @param {*} e 
+   */
+  dealImg:function(e){
+    o.alert('提示','请确定您是否要删除该图片',callback=>{
+      if(callback.confirm){
+        let that = this,
+        nums = e.currentTarget.dataset.nums,
+        needUrl = that.data.needUrl,
+        tempFilePathsArr = that.data.tempFilePathsArr,
+        data = [needUrl[nums]];
+        o.FunDealImg(that,data,tempFilePathsArr,needUrl,nums,'tempFilePathsArr','needUrl');
+      }
+    });
+  },
+
+  /**
    * 视频上传
    */
   uploadVideo:function(){
     let that = this;
     if(that.data.isUploadVedio){
-      o.FunUploadVideo(that,['album','camera'],60,'back',true,'duration','tempFilePathVideo','isShowVideo','api/localStorage/video','videoUrl','isUploadImg');
+      o.FunUploadVideo(that,['album','camera'],60,'back',true,'duration','tempFilePathVideo','isShowVideo','api/localStorage/video','videoUrl','isUploadImg','videoId');
     }else{
       o.funShowToast('您已经上传了图片，无法继续上传视频');
     }
   },
 
+  /**
+   * 删除视频
+   * @param {*} e 
+   */
+  dealVideo:function(e){
+    o.alert('提示','请确定您是否要删除该视频',callback=>{
+      if(callback.confirm){
+        let that = this,
+        videoid = that.data.videoId;
+        o.FunDealVideo(that,videoid,'tempFilePathVideo','isShowVideo');
+      }
+    });
+  },
+
+  /**
+   * 视频跳转
+   * @param {*} e 
+   */
   enterVedio:function(e){
     wx.navigateTo({
       url:'/pages/video/video?src=' + e.currentTarget.dataset.src,
@@ -199,7 +236,7 @@ Page({
         if(callback.authSetting['scope.userLocation']){
           o.FunChooseLocation(data=>{
             let lngLat = data.longitude + ',' + data.latitude;
-            // console.log(data.address,'返回数据1');
+            console.log(data.address,'返回数据1');
             that.setData({address:data.address,lngLat:lngLat});
           });
         }else{
@@ -242,6 +279,7 @@ Page({
     weatherValue = that.data.weatherValue, // 当天的天气
     moodValue = that.data.moodValue, // 现在的心情
     poosImg = '', // 需要上传的图片格式重新整理
+    address = that.data.address, // 详细地址
     use = that.data.use,
     token = use.token;
     if(needUrl.length !== 0){
@@ -259,7 +297,7 @@ Page({
       o.funShowToast('动态/日记不能为空');
       return;
     }
-    console.log(needUrl,'上传的图片路径');
+    // console.log(needUrl,'上传的图片路径');
     // console.log(content,'上传的内容');
     // console.log(poosImg,'上传的图片路径');
     // console.log(privateShow,'上传的是否公开字段');
@@ -267,7 +305,6 @@ Page({
     // console.log(lngLat,'上传的经纬度');
     // console.log(weatherValue,'上传的天气');
     // console.log(moodValue,'上传的心情');
-    return;
     const needDatas = {
       "content":content,
       "picture":poosImg,
@@ -275,7 +312,8 @@ Page({
       "weather":weatherValue,
       "feeling":moodValue,
       "privateShow":privateShow,
-      "lngLat":lngLat
+      "lngLat":lngLat,
+      "locationDesc":address,
     },
     url = o.urlCon() + 'app/par/center/createDiary',
     data = needDatas,

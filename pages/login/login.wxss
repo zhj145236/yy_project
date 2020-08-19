@@ -86,6 +86,7 @@ button::after{
   align-items:center;
   color: #707070;
   font-size: 26rpx;
+  margin-top: 10rpx;
 }
 .login-info-box-bottom-txt{
   display: flex;
@@ -158,4 +159,35 @@ button::after{
   border-radius: 10rpx;
   font-size: 26rpx;
   width: 340rpx;
+}
+
+.use-deal{
+  width: 100%;
+  margin: auto;
+}
+.use-deal-box{
+  display: flex;
+  align-items: center;
+  flex-direction:row;
+  justify-content:flex-start;
+  font-size: 26rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.lb{
+  display: flex;
+  align-items: center;
+  flex-direction:row;
+  justify-content:flex-start;
+  color: #c7c7c7;
+}
+.cb{
+  transform: scale(0.8,0.8);
+  display: block;
+}
+.use-deal-con{
+  font-size: 26rpx;
+  color: #cd2a17;
+  margin-left: 20rpx;
+  font-weight: 600;
 }

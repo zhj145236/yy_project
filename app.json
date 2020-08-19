@@ -24,7 +24,9 @@
     "pages/bulletinBoard/bulletinBoard",
     "pages/helpCenter/helpCenter",
     "pages/ysAbstract/ysAbstract",
-    "pages/nearTeacherMap/nearTeacherMap"
+    "pages/nearTeacherMap/nearTeacherMap",
+    "pages/cutFace/cutFace",
+    "pages/remind/remind"
   ],
 
   "subpackages":[
@@ -71,6 +73,8 @@
         "teacherFound/teacherFound",
         "teacherBusinessCard/teacherBusinessCard",
         "teacherResume/teacherResume",
+        "teaTags/teaTags",
+        "teaEvaluate/teaEvaluate",
         "teacherDynamic/teacherDynamic",
         "TeacherNearInstitutionMap/TeacherNearInstitutionMap",
         "teacherInstitutionDetail/teacherInstitutionDetail",

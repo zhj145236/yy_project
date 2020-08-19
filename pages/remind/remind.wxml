@@ -1,0 +1,23 @@
+<!-- 消息列表 -->
+<block wx:if="{{infoData.length === 0}}">
+  <view class="my-sxtx">
+    <text>暂无提醒事项</text>
+  </view>
+</block>
+<block wx:else>
+  <view class="policy-datas-cont">
+    <block wx:for="{{remindDatas}}" wx:key="">
+      <view bindtap="remindList" data-siveid="{{siveid}}" data-isloadreadtx="{{item.readTime}}" data-roleid="{{roleid}}" data-items="{{item}}" class="policy-list-out">
+        <view data-id="{{item.id}}" class="policy-list">
+          <view class="policy-datas-cont-title">
+            <text>{{item.title}}</text>
+          </view>
+          <view class="policy-datas-cont-toview">
+            <text class="no-read-policy" wx:if="{{item.readTime === null}}">未读</text>
+            <text class="look-policy">查看</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</block>
