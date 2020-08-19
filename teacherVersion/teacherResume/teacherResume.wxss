@@ -165,6 +165,19 @@ page{
 .resume-center-box-estimate{
   border-bottom: none;
 }
+/* 完成 */
+.submit-registered{
+  border: none;
+  background: #74cdce;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin:30rpx auto;
+  width: 90%;
+}
 
 /* 底部总部信息 */
 .platform-info{

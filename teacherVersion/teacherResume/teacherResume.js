@@ -14,12 +14,16 @@ Page({
     isShowSex:true,
     isTrue:true,
     parentsInfoIndex:[0,0,0],
-    county:11201, // 默认 厚街镇
+    county:11201, // 默认 厚街镇 // 求职地点
     recordIndex:0,
-    myRecord:'本科',
-    resumeTel:'130xxxxxxxx',
-    resumeJob:'语文',
-    resumeSalary:'80',
+    myRecord:'本科', // 最高学历
+    resumeTel:'130xxxxxxxx', // 电话
+    resumeJob:'语文', // 求职职位
+    resumeSalary:'80', // 每节价格
+    descNums:0,
+    tagNums:0, // 标签数量
+    estimateNums:0, // 评价字数
+    workYear:3, // 工作年限
   },
 
   /**
@@ -123,9 +127,39 @@ Page({
    * @param {*} options 
    */
   chooseClick:function(e){
-    wx.navigateTo({
-      url: '/teacherVersion/teaTags/teaTags?label=' + e.currentTarget.dataset.label,
-    })
+    let that = this,
+    useTagInfo = that.data.useTagInfo === undefined?'':that.data.useTagInfo,
+    textareaValue = that.data.textareaValue === undefined?'':that.data.textareaValue,
+    jobExperience = that.data.jobExperience === undefined?'':that.data.jobExperience;
+    
+    if(e.currentTarget.dataset.label === '1'){
+      wx.navigateTo({
+        url: '/teacherVersion/teaTags/teaTags?label=' + e.currentTarget.dataset.label + '&useTagInfo=' + useTagInfo,
+      })
+    }else if(e.currentTarget.dataset.label === '2'){
+      wx.navigateTo({
+        url: '/teacherVersion/teaTags/teaTags?label=' + e.currentTarget.dataset.label + '&textareaValue=' + textareaValue,
+      })
+    }else{
+      wx.navigateTo({
+        url: '/teacherVersion/teaTags/teaTags?label=' + e.currentTarget.dataset.label + '&jobExperience=' + jobExperience,
+      })
+    }
+  },
+
+  /**
+   * 提交数据
+   * @param {*} options 
+   */
+  formSubmit:function(e){
+    let that = this,
+    title = '', // 简历标题
+    name = '', // 真实姓名
+    workYear = '', // 工作年限
+    sex = '', // 性别
+    countyCode = '', // 区代码
+    jobExperience = ''; // 工作经历描述
+    console.log(e,'需要提交的数据');
   },
 
   /**
@@ -156,21 +190,48 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this,
+    pages = getCurrentPages(), // 创建页面栈
+    currentPage = pages[pages.length - 1]; // 当前页面
+    if(currentPage.__data__.useTagInfo !== undefined){
+      let useTagInfo = currentPage.__data__.useTagInfo; // 用户添加的标签
+      if(useTagInfo.length !== 0){
+        console.log(currentPage.__data__.useTagInfo,'用户的标签数据');
+        that.setData({useTagInfo:useTagInfo,tagNums:useTagInfo.length});
+      }else{
+        that.setData({tagNums:0});
+      }
+    }
+    if(currentPage.__data__.textareaValue !== undefined){
+      let textareaValue = currentPage.__data__.textareaValue; // 用户添加的标签
+      if(textareaValue !== ""){
+        that.setData({textareaValue:textareaValue,estimateNums:textareaValue.length});
+      }else{
+        that.setData({estimateNums:0});
+      }
+    }
+    if(currentPage.__data__.dexcTextarea !== undefined){
+      let jobExperience = currentPage.__data__.dexcTextarea; // 用户添加的标签
+      if(jobExperience !== ""){
+        that.setData({jobExperience:jobExperience,descNums:jobExperience.length});
+      }else{
+        that.setData({descNums:0});
+      }
+    }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('页面隐藏了');
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    console.log('页面卸载了');
   },
 
   /**

@@ -59,6 +59,17 @@
         </view>
       </view>
 
+      <!-- 工作年限 -->
+      <view class="resume-center-box">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
+          <text class="resume-center-box-txt">工作年限</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-name">
+          <input type="text" value="{{workYear}}" name="workYear" placeholder="年限" />
+        </view>
+      </view>
+
       <!-- 求职职位 -->
       <view class="resume-center-box">
         <view class="resume-center-box-txt-bt">
@@ -132,7 +143,19 @@
         <text decode="{{isTrue}}" space="{{isTrue}}" class="resume-center-box-txt">标&emsp;&emsp;签</text>
         </view>
         <view class="resume-center-box-con resume-center-box-tag">
-          <view class="resume-center-box-tag-title">添加标签</view>
+          <view class="resume-center-box-tag-title">已添加{{tagNums}}个标签</view>
+          <view class="resume-center-box-tag-img"><image src="/image/jt.png" /></view>
+        </view>
+      </view>
+
+      <!-- 工作经历描述 -->
+      <view catchtap="chooseClick" data-label="3" class="resume-center-box resume-center-box-estimate">
+        <view class="resume-center-box-txt-bt">
+          <view class="resume-center-box-txt-img"></view>
+          <text class="resume-center-box-txt">经历描述</text>
+        </view>
+        <view class="resume-center-box-con resume-center-box-tag">
+          <view class="resume-center-box-tag-title">已填写{{descNums}}字</view>
           <view class="resume-center-box-tag-img"><image src="/image/jt.png" /></view>
         </view>
       </view>
@@ -144,11 +167,13 @@
           <text class="resume-center-box-txt">自我评价</text>
         </view>
         <view class="resume-center-box-con resume-center-box-tag">
-          <view class="resume-center-box-tag-title">评价</view>
+          <view class="resume-center-box-tag-title">已填写{{estimateNums}}字</view>
           <view class="resume-center-box-tag-img"><image src="/image/jt.png" /></view>
         </view>
       </view>
     </view>
+    <!-- 提交 -->
+    <button class="submit-registered" form-type='submit'>完成</button>
   </form>
 </block>
 <!-- 我的简历 -->

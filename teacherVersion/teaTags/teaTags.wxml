@@ -1,16 +1,95 @@
 <!--teacherVersion/teaTags/teaTags.wxml-->
-<block wx:if="{{isChoole}}">
+<block wx:if="{{label === '1'}}">
   <view class="use-public-style">
     <form bindsubmit="formSubmit">
       <view class="use-tag">
-        <input type="text" value="{{}}" placeholder="" name="" />
-        <button class="submit-registered" form-type='submit'>添加</button>
+        <input type="text" maxlength="10" value="{{addTag}}" placeholder="限10个中文字" name="addTag" />
+        <view class="use-tag-btn">
+          <button class="submit-registered" form-type='submit'>添加</button>
+        </view>
       </view>
     </form>
+  </view>
+  <view class="use-tag-record">
+    <view class="use-tag-record-box">
+      <view class="helpful-hints">友情提示：最多能只能添加10个标签。</view>
+      <view class="use-tag-record-box-top">
+        <view class="use-tag-record-box-icon"><image src="/image/bq.png" /></view>
+        <text class="use-tag-record-box-title">已添加</text>
+        <text class="use-tag-record-box-num">{{useTagInfo.length === 0?'0':useTagInfo.length}}/10</text>
+      </view>
+      <block wx:if="{{useTagInfo.length === 0}}">
+        <view class="add-tag-no">尚未添加标签</view>
+      </block>
+      <block wx:for="{{useTagInfo}}" wx:key="uni-tag">
+        <view class="use-tag-record-box-con">
+          <text class="use-tag-record-box-con-txt">{{item}}</text>
+          <view catchtap="dealTag" data-dealindex="{{index}}" class="use-tag-record-box-con-deal">删除</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</block>
+<block wx:elif="{{label === '2'}}">
+  <view class="use-public-style">
+    <!-- 内容 -->
+    <view class="use-public-style-top">
+      <form bindsubmit="evaluateFormSubmit">
+        <view class="evaluate-textarea-box">
+          <view class="evaluate-textarea-box-out">
+            <textarea maxlength="200" bindinput="evaluateBindinput" value="{{textareaValue}}" class="evaluate-textarea" placeholder="自我评价，限200字" auto-height name="textarea"/>
+          </view>
+          <view class="evaluate-textarea-box-bom">
+            <view class="evaluate-textarea-box-bom-pro">{{currentWordNumber}}/200</view>
+            <view class="evaluate-textarea-box-bom-sub">
+              <button class="submit-registered submit-change" form-type="submit">提交</button>
+            </view>
+          </view>
+        </view>
+      </form>
+    </view>
+  </view>
+  <!-- 示例 -->
+  <view class="evaluate-sample">
+    <view class="evaluate-sample-box">
+      <view class="evaluate-sample-box-title">示例</view>
+      <view class="evaluate-sample-box-con">本人具有丰富的授课经验，备课认真仔细，善于抓住重难点，并能够深入解析，善于带动课堂氛围，将学生在不知觉中带入到课堂氛围里。本人善于沟通，与学生沟通了解孩子的内心世界，并及时与家长反馈出孩子的近况，做到家满意。</view>
+    </view>
   </view>
 </block>
 <block wx:else>
   <view class="use-public-style">
-  
+    <!-- 内容 -->
+    <view class="use-public-style-top">
+      <form bindsubmit="jobExperienceFormSubmit">
+        <view class="evaluate-textarea-box">
+          <view class="evaluate-textarea-box-out">
+            <textarea maxlength="200" bindinput="evaluateBindinput" value="{{dexcTextarea}}" class="evaluate-textarea" placeholder="工作经历描述，限200字" auto-height name="dexcTextarea"/>
+          </view>
+          <view class="evaluate-textarea-box-bom">
+            <view class="evaluate-textarea-box-bom-pro">{{descNums}}/200</view>
+            <view class="evaluate-textarea-box-bom-sub">
+              <button class="submit-registered submit-change" form-type="submit">提交</button>
+            </view>
+          </view>
+        </view>
+      </form>
+    </view>
+  </view>
+  <!-- 示例 -->
+  <view class="evaluate-sample">
+    <view class="evaluate-sample-box">
+      <view class="evaluate-sample-box-title">示例</view>
+      <view class="evaluate-sample-box-con">本人在XXX学校任职XXX职位，归属XXX部门，在工作中遇到问题的同时也在不断的提升自己，工作中我不仅仅学到如何更好的传授知识，更懂得了如何与同事相处、与家长沟通、与上级交流、与学生互动。</view>
+    </view>
   </view>
 </block>
+
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>
