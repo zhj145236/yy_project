@@ -90,7 +90,7 @@
       <block wx:for="{{LeaveMessageList}}">
         <view class="leave-word-box pad-btn" bindtap="ReplyMessge" data-replyid="{{item.replyId}}" data-id="{{item.id}}" data-nickname1="{{item.nickName1}}">
           <view class="leave-word-box-info">
-            <view class="leave-word-info-name">{{item.nickName1}}</view>
+            <view class="leave-word-info-name">{{item.nickName1}}：</view>
             <view class="leave-word-info-con">{{item.comment}}</view>
             <view wx:if="{{item.nickName2 !== ''}}" class="leave-word-info-name">
               <text class="leave-word-info-name-parents">{{item.nickName2}}</text>

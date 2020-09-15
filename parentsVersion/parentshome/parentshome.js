@@ -754,7 +754,7 @@ teaSearchList:function(){
           o.FunChooseLocation(data=>{
             let lgnLat = data.longitude + ',' + data.latitude;
             console.log(data,'返回数据1');
-            o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+            o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
             that.setData({foundData:data.address});
           });
         }else{
@@ -764,7 +764,7 @@ teaSearchList:function(){
                 o.FunChooseLocation(data=>{
                   console.log(data,'返回数据2');
                   let lgnLat = data.longitude + ',' + data.latitude;
-                  o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+                  o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
                   that.setData({foundData:data.address});
                 });
               }
@@ -1052,15 +1052,15 @@ teaSearchList:function(){
             o.FunGetLocation('gcj02',callback=>{
               console.log(callback,'返回数据');
               let lgnLat = callback.longitude + ',' + callback.latitude;
-              o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+              o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
             });
           }else{
             let lgnLat = "";
-            o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+            o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
           }
         }else{
           let lgnLat = "";
-          o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+          o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
         }
       });
       that.setData({userId: userId});
@@ -1105,15 +1105,15 @@ teaSearchList:function(){
             o.FunGetLocation('gcj02',callback=>{
               console.log(callback,'返回数据');
               let lgnLat = callback.longitude + ',' + callback.latitude;
-              o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+              o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
             });
           }else{
             let lgnLat = "";
-            o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+            o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
           }
         }else{
           let lgnLat = "";
-          o.FunDynamic(that,lgnLat,page,token,'dynamicInfo');
+          o.FunDynamic('app/par/dynamic',that,lgnLat,page,token,'dynamicInfo');
         }
       });
     }else if(that.data.blockid === 3){

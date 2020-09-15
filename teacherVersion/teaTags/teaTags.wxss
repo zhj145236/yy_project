@@ -138,6 +138,7 @@ button::after{
 }
 .evaluate-textarea-box-out{
   border-bottom: 1px solid #f4f4f4;
+  padding-bottom: 20rpx;
 }
 .evaluate-textarea{
   width: 90%;

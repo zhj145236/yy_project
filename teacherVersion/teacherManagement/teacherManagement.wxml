@@ -1,39 +1,98 @@
 <!--teacherVersion/teacherManagement/teacherManagement.wxml-->
 <!-- 顶部 -->
-<view class="registered">
-  <view class="registered-txt">欢迎来到收藏页面，祝您工作愉快。</view>
-</view>
-<view class="diary-center">
-  <view class="diary-center-box">
-    <block wx:for="{{recruitInfo}}" wx:key="uni-recruit">
-      <view class="recruit-con">
-        <view class="recruit-con-img"><image mode="widthFix" src="{{item.recruitImg}}" /></view>
-        <view class="recruit-con-des">
-          <view class="recruit-con-des-type">
-            <view class="recruit-con-des-type-title">{{item.mainTitle}}</view>
-            <view class="recruit-con-des-type-msg">
-              <view class="recruit-con-des-type-price">{{item.price}}</view>
-              <block wx:for="{{item.recruitInfo}}" wx:key="uni-con" wx:for-item="itemRecruit">
-                <view class="recruit-con-des-type-data">
-                  <view class="recruit-con-des-type-data-img"><image src="{{itemRecruit.recruitIcon}}" /></view>
-                  <view class="recruit-con-des-type-data-text">{{itemRecruit.recruitInfo}}</view>
-                </view>
-              </block>
+<!-- 机构招聘 -->
+  <!-- 搜索框部分 -->
+  <view class='synthesis-query'>
+    <form bindsubmit="formSubmit">
+        <view class="parents-search">
+          <view class='set'>
+            <view class="location-img-view">
+              <view class="img-view"><image class="add-img" src="../../image/teacherDw.png" mode="widthFix" /></view>
+              <view class="text-info">东莞</view>
             </view>
+            <input name="searchGoods" class='search-inp' placeholder='综合查询' />
           </view>
-          <view class="recruit-con-des-type-center">
-            <view class="recruit-con-des-type-center-title">{{item.recruitCenterTitle}}</view>
-            <view class="recruit-con-des-type-center-con">{{item.recruitCenterCon}}</view>
-          </view>
-          <view class="recruit-con-des-type-bom">
-            <view class="recruit-con-des-type-bom-title">{{item.recruitBomTitle}}</view>
-            <view class="recruit-con-des-type-bom-con">{{item.recruitBomCom}}</view>
+          <button data-btnid="searchId" form-type='submit' class='search-icon search-icon-inp'>
+            <view class="search-icon-inp-img">
+              <image src="../../image/teachSearch.png" />
+            </view>
+          </button>
+        </view>
+    </form>
+  </view>
+
+  <view class="condition-screen-con">
+    <view class="condition-screen-con-box">
+      <!-- 薪资 -->
+      <picker data-type="0" bindtap="teaRecruitClick" mode="selector" value="{{salaryIndex}}" custom-item="{{customItem}}" bindchange="teaSalaryChange" range="{{teaSalaryArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 0?'active':''}}">
+          <view class="condition-screen-con-box-one-con">薪资</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teaRecruitType == 0?'/image/downjtother.png':'/image/downjt.png'}}" />
           </view>
         </view>
-      </view>
-    </block>
+      </picker>
+
+      <!-- 教龄 -->
+      <picker data-type="1" bindtap="teaRecruitClick" mode="selector" value="{{teaAgeIndex}}" custom-item="{{customItem}}" bindchange="teaAgeChange" range="{{teaAgeArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 1?'active':''}}">
+          <view class="condition-screen-con-box-one-con">教龄</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teaRecruitType == 1?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+
+      <!-- 学历 -->
+      <picker data-type="2" bindtap="teaRecruitClick" mode="selector" value="{{learnIndex}}" custom-item="{{customItem}}" bindchange="learnChange" range="{{learnArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 2?'active':''}}">
+          <view class="condition-screen-con-box-one-con">学历</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teaRecruitType == 2?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+
+      <!-- 区域 -->
+      <picker data-type="3" bindtap="teaRecruitClick" mode="multiSelector" value="{{teaHomeAreaIndex}}" custom-item="{{customItem}}" bindchange="teaHomeAreaChange" bindcolumnchange="teaHomeAreaColumnChange" range="{{teaHomeAreaArray}}">
+        <view class="condition-screen-con-box-one {{teaRecruitType == 3?'active':''}}">
+          <view class="condition-screen-con-box-one-con">区域</view>
+          <view class="condition-screen-con-box-one-img">
+            <image src="{{teaRecruitType == 3?'/image/downjtother.png':'/image/downjt.png'}}" />
+          </view>
+        </view>
+      </picker>
+    </view>
   </view>
-</view>
+
+  <view class="diary-center">
+    <view class="diary-center-box">
+      <view class="diary-center-title">
+        <view class="diary-center-title-left">机构招聘</view>
+        <view bindtap="moreRecruit" class="diary-center-title-rigth">
+          <view class="diary-center-title-more">更多</view>
+          <view class="diary-center-title-img"><image src="/image/downjtother2.png" /></view>
+        </view>
+      </view>
+      <view wx:if="{{insRecruitInfo.length === 0}}" class="none-class" style="min-height:{{windowHeight}}"><view class="none-class-img"><image src="/image/kl.png" /></view>抱歉，小优暂未搜索到您需要的信息</view>
+      <block wx:else>
+        <block wx:for="{{insRecruitInfo}}" wx:key="uni-recruit">
+          <view class="position-recruit" data-id="{{item.id}}" catchtap="recruitInfo">
+            <view class="position-recruit-left">
+              <view class="position-recruit-left-title">{{item.title}}</view>
+              <view class="position-recruit-left-name">名称：{{item.orgName}}</view>
+              <view class="position-recruit-left-year">{{item.workYear}}</view>
+            </view>
+            <view class="position-recruit-right">
+              <view class="position-recruit-right-pirce">{{item.salary}}</view>
+              <view class="position-recruit-right-adder">{{item.address}}</view>
+              <view class="position-recruit-right-time">{{item.createTime}}</view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
 
 <!-- 平台信息 -->
 <view class="platform-info">

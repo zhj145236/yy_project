@@ -49,7 +49,7 @@
 
     <!-- 选择类目 -->
     <view class="choose-category">
-      <block wx:for="{{chooseCategory}}" wx:key="uni-category">
+      <block wx:for="{{chooseCategory}}" wx:key="uniquer">
         <view data-index="{{index}}" class="choose-category-teacher {{useClick == index?'addBck':''}}" bindtap="categoryClick">{{item}}</view>
       </block>
     </view>
@@ -167,7 +167,7 @@
         </view>
       </view>
       <!-- count -->
-      <block  wx:for="{{nearTeacherDatas}}" wx:key="">
+      <block  wx:for="{{nearTeacherDatas}}" wx:key="uniquer">
         <view bindtap="teacherInfo" data-id="{{item.id}}" class="near-teacher-count">
           <view class="near-teacher-count-out">
             <view class="near-teacher-count-left">
@@ -211,7 +211,7 @@
         </view>
       </view>
       <!-- count -->
-      <block  wx:for="{{TeacherProductDatas}}" wx:key="">
+      <block  wx:for="{{TeacherProductDatas}}" wx:key="uniquer">
         <view bindtap="detailInfo" data-id="{{item.id}}" class="near-teacher-count">
           <view class="near-teacher-count-out">
             <view class="near-teacher-count-left">

@@ -52,13 +52,13 @@
           <view class="login-info-box-bottom-txt-line"></view>
         </view>
         <view class="login-info-box-bottom-icon">
-          <block wx:for="{{inpLoginWay}}" wx:key="uni-inp">
+          <block wx:for="{{inpLoginWay}}" wx:key="uniinp">
             <view bindtap="inpLoginWay" style="background:{{use.iconColor}};" data-index="{{index}}" class="login-info-box-bottom-icon-wx">
               <view class="login-info-box-bottom-icon-wx-img"><image src="{{item.img}}" /></view>
               <view class="login-info-box-bottom-icon-wx-txt">{{item.txt}}</view>
             </view>
           </block>
-          <block wx:for="{{impowerLoginWay}}" wx:key="uni-impower">
+          <block wx:for="{{impowerLoginWay}}" wx:key="uniimpower">
             <button wx:if="{{item.type == 'wx'}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap="impowerLoginWay" style="background:{{use.iconColor}};" data-index="{{index}}" class="login-info-box-bottom-icon-wx login-type-btn">
               <view class="login-info-box-bottom-icon-wx-img"><image src="{{item.img}}" /></view>
               <view class="login-info-box-bottom-icon-wx-txt">{{item.txt}}</view>

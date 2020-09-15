@@ -47,7 +47,7 @@
 
       <!-- 选择类目 -->
       <view class="choose-category">
-        <block wx:for="{{chooseClass}}" wx:key="uni-category">
+        <block wx:for="{{chooseClass}}" wx:key="unicategory">
           <view data-index="{{index}}" class="choose-category-teacher {{useClick == index?'addBck':''}}" bindtap="categoryClick">{{item}}</view>
         </block>
       </view>
@@ -164,7 +164,7 @@
           </view>
         </view>
         <!-- count -->
-        <block  wx:for="{{ParentsTeacherProductDatas}}" wx:key="">
+        <block  wx:for="{{ParentsTeacherProductDatas}}" wx:key="unique">
           <view bindtap="teacherInfo" data-id="{{item.id}}" class="near-teacher-count">
             <view class="near-teacher-count-out">
               <view class="near-teacher-count-left">
@@ -210,7 +210,7 @@
           </view>
         </view>
         <!-- count -->
-        <block  wx:for="{{parentsInstitutionsCourseList}}" wx:key="">
+        <block  wx:for="{{parentsInstitutionsCourseList}}" wx:key="unique">
           <view bindtap="institutionInfo" data-id="{{item.id}}" class="near-teacher-count">
             <view class="near-teacher-count-out">
               <view class="near-teacher-count-left">
@@ -283,7 +283,7 @@
 
       <!-- 选择类目 -->
       <view class="choose-category">
-        <block wx:for="{{chooseCategory}}" wx:key="uni-category">
+        <block wx:for="{{chooseCategory}}" wx:key="unicategory">
           <view data-index="{{index}}" class="choose-category-teacher {{useChooleClick == index?'addBck':''}}" bindtap="userChooleClick">{{item}}</view>
         </block>
       </view>
@@ -390,7 +390,7 @@
           </view>
         </view>
         <!-- count -->
-        <block  wx:for="{{partentsNearTeacherDatas}}" wx:key="">
+        <block  wx:for="{{partentsNearTeacherDatas}}" wx:key="unique">
           <view bindtap="teaDetails" data-id="{{item.id}}" class="near-teacher-count">
             <view class="near-teacher-count-out">
               <view class="near-teacher-count-left">
@@ -435,7 +435,7 @@
           </view>
         </view>
         <!-- count -->
-        <block  wx:for="{{partentsGoodInstitutions}}" wx:key="">
+        <block  wx:for="{{partentsGoodInstitutions}}" wx:key="unique">
           <view bindtap="insDetails" data-id="{{item.id}}" class="near-teacher-count">
             <view class="near-teacher-count-out">
               <view class="near-teacher-count-left">
@@ -473,7 +473,7 @@
     <view class="near-teacher-out">
       <view class="near-teacher-inner">
         <!-- count --> 
-        <block wx:for="{{dynamicInfo}}" wx:key="uni-dynamic" wx:for-item="item">
+        <block wx:for="{{dynamicInfo}}" wx:key="unidynamic" wx:for-item="item">
           <view class="dynamic-con">
             <view class="dynamic-con-box">
               <!-- 会员图像 -->
@@ -506,15 +506,15 @@
                 <!-- 动态中间内容 -->
                 <view class="dynamic-con-box-info-center">{{item.releaseText}}</view>
                 <!-- 动态图像 -->
-                <view class="dynamic-con-box-info-img">
-                  <block wx:for="{{item.releaseImg}}" wx:key="uni-img" wx:for-item="dynamicImg">
+                <view class="dynamic-con-box-info-img" wx:if="{{!item.video}}">
+                  <block wx:for="{{item.releaseImg}}" wx:key="uniimg" wx:for-item="dynamicImg">
                     <view catchtap="previewImg" data-totalnum="{{item.releaseImg}}" data-src="{{dynamicImg.specificImg}}" data-numindex="{{index}}" class="dynamic-con-for-img">
                       <image mode="aspectFill" src="{{dynamicImg.specificImg}}" />
                     </view>
                   </block>
                 </view>
                 <!-- 动态视频 -->
-                <view wx:if="{{item.video !== null}}" class='banner-swiper'>
+                <view wx:if="{{item.video}}" class='banner-swiper'>
                   <view class='banner-swiper-video'>
                     <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
                       <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{item.video}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
@@ -532,8 +532,8 @@
           <!-- 底部 -->
           <view class="dynamic-bom">
             <view class="dynamic-bom-box">
-              <block wx:for="{{item.createBtnData}}" wx:key="uni-bom" wx:for-item="smallIcon">
-                <view data-followed="{{item.followed}}" data-id="{{item.id}}" data-uid="{{item.uid}}" data-nickName="{{item.membersName}}" data-hasadmire="{{item.hasAdmire}}" data-headImg="{{item.membersImg}}" data-fbrole="{{item.fbrole}}" data-content="{{item.releaseText}}" data-picture="{{item.picture}}" data-index="{{index}}" data-duration="{{duration}}" data-video="{{item.video}}" bindtap="smallIcon" class="dynamic-bom-box-con">
+              <block wx:for="{{item.createBtnData}}" wx:key="unibom" wx:for-item="smallIcon">
+                <view data-followed="{{item.followed}}" data-id="{{item.id}}" wx:if="{{smallIcon.icon}}" data-uid="{{item.uid}}" data-nickName="{{item.membersName}}" data-hasadmire="{{item.hasAdmire}}" data-headImg="{{item.membersImg}}" data-fbrole="{{item.fbrole}}" data-content="{{item.releaseText}}" data-picture="{{item.picture}}" data-index="{{index}}" data-duration="{{duration}}" data-video="{{item.video}}" bindtap="smallIcon" class="dynamic-bom-box-con">
                     <view class="dynamic-bom-box-con-img"><image src="{{smallIcon.icon}}" /></view>
                     <view class="dynamic-bom-box-con-text">{{smallIcon.con}}</view>
                 </view>
@@ -579,7 +579,7 @@
   <!-- 内容 -->
   <view class="personal-fun">
     <view class="personal-fun-box">
-      <block wx:for="{{personalFun}}" wx:key="uno-fun">
+      <block wx:for="{{personalFun}}" wx:key="unofun">
         <view class="personal-fun-box-out">
           <view style="background:{{item.backGroundColor}};" data-id="{{item.id}}" data-index="{{index}}" bindtap="funClick" class="personal-fun-box-con">
             <view class="personal-fun-box-con-img"><image src="{{item.centerImg}}" /></view>

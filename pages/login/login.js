@@ -225,6 +225,7 @@ Page({
     checkboxEx = e.detail.value.checkbox[0],
     isPhoneNum = that.data.isPhoneNum,
     role = that.data.role;
+    console.log(nums,'点击登陆');
     switch(nums){
       case 0:
         console.log(e,'手机登录');
@@ -249,7 +250,7 @@ Page({
         console.log(e,'验证码登录');
         let phoneNum = e.detail.value.phoneNum,verification = e.detail.value.verification;
         if(phoneNum === ""){
-          o.funShowToast('手机号不能位空');
+          o.funShowToast('手机号不能为空');
           return;
         }
         if(isPhone){

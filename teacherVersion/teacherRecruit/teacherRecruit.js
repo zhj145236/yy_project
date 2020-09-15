@@ -18,7 +18,7 @@ Page({
   deliveryClick:function(){
     let that = this,
     id = that.data.id;
-    o.FunCenterPostResume(that,id);
+    o.FunCenterPostResume(id);
   },
 
   /**
@@ -54,8 +54,9 @@ Page({
     use = app.globalData.userInfo;
     if(Object.keys(use).length !== 0){
       let token = use.token;
-      o.FunCollectStatus(that,id,'7',token,'isShowIcon');
+      o.FunCollectStatus(that,id,'7',token,'isShowIcon'); // 查看简历是否已经收藏
     }
+    // 招聘详情
     o.FunRecruitDetail(that,id);
     that.setData({use:use});
   },

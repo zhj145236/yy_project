@@ -1,0 +1,95 @@
+<!--teacherVersion/teaCertificate/teaCertificate.wxml-->
+<!-- 顶部 -->
+<view class="personal-center">
+  <view class="personal-center-box">
+    <view class="personal-center-box-left">
+      <view class="personal-center-box-left-img"><image src="{{headImg}}" /></view>
+      <view class="personal-center-box-left-info">
+        <view class="personal-center-box-left-info-nick">昵称：{{nickName}}</view>
+        <view class="personal-center-box-left-info-id">UID：{{uid}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<!-- 上传图片 -->
+<view class="product-details">
+  <view class="product-details-img-upload">
+    <view class="product-details-img-upload-top-box">
+      <view class="product-details-img-upload-title">证书资料上传</view>
+      <view class="helpful-hints">温馨提示：上传证书的方式可以为图片或证书编号。</view>
+    </view>
+  </view>
+  
+  <view class="course-info-box-inp">
+    <picker bindchange="placeBindPickerChange" value="{{siteIndex}}" range="{{placeArray}}">
+      <view class="picker">证书类型：{{showPlaceData}}</view>
+    </picker>
+  </view>
+
+  <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+    <view class="product-details-img-upload-list">
+      <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+      <view>上传证书</view>
+    </view>
+  </view>
+
+  <view wx:if="{{tempFilePathsArrs.length !== 0}}" class="product-details-img-upload-box-external">
+    <block wx:for="{{tempFilePathsArrs}}" wx:key="uni-details">
+      <view class="product-details-img-upload-box">
+        <view class="product-details-img-upload-place-img">
+          <image mode="aspectFill" src="{{item}}" />
+          <view class="mask-layer">
+            <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
+              <image src="/image/yl.png" />
+            </view>
+          </view>
+          <view catchtap="dealImg" data-nums="{{index}}" class="deal-img"><image src="/image/deal.png" /></view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <block wx:if="{{isShowData}}">
+    <form bindsubmit="formSubmit">
+      <view class="course-info">
+        <view class="course-info-outside">
+          <view class="course-info-box">
+            <view class="course-info-box-img"><image src="/image/zsbh.png" /></view>
+            <view class="course-info-box-inp chang-style"><input type="text" value="{{cerNo}}" name="cerNo" placeholder="证书编号" /><text></text></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="course-info">
+        <view class="course-info-outside">
+          <view class="course-info-box">
+            <view class="course-info-box-img"><image src="/image/csny.png" /></view>
+            <view class="course-info-box-inp chang-style"><input class="inp-style" type="text" value="{{regDate}}" name="regDate" placeholder="证书注册日期：如2016.5.1" /><text></text></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="course-info">
+        <view class="course-info-outside">
+          <view class="course-info-box">
+            <view class="course-info-box-img"><image src="/image/sfgk.png" /></view>
+            <view class="course-info-box-inp chang-style">
+              <view class="page-section-title">证书是否公开</view>
+              <radio-group class="radio-group-box" name="certificate">
+                <label class="radio-group-box-label radio-group-box-con"><radio checked="{{openShow === 'true'?true:''}}" value="是"/>是</label>
+                <label class="radio-group-box-label radio-group-box-con"><radio checked="{{openShow === 'false'?true:''}}" value="否"/>否</label>
+              </radio-group>
+            </view>
+          </view>
+          <view class="helpful-hints chang-width">温馨提示：“证书是否公开”：选择“是”证书则将会对外展示，“否”证书将不会对外进行展示，证书审核正常情况需1~3个工作日。为保护家长权益，证书审核通过后将不能进行修改或删除操作，如需修改或删除请给悦优留言，平台将会在12小时内与您取的联系，为您带来的不便敬请谅解，谢谢！！！</view>
+        </view>
+      </view>
+      <button catchtap="backClick" class="submit-registered" form-type='submit'>确 定</button>
+    </form>
+  </block>
+</view>
+
+
+

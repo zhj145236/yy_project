@@ -37,7 +37,7 @@
      </view>
      <!-- 教师信息 -->
      <view class="info-abstract-box-info">
-      <block wx:for="{{needData.teacherInfo}}" wx:key="uni-info">
+      <block wx:for="{{needData.teacherInfo}}" wx:key="uniinfo">
         <block wx:if="{{item.title === '性别：'}}">
           <view wx:if="{{item.con === '男'}}" class="info-abstract-box-info-data">
             <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
@@ -65,7 +65,7 @@
 
       <!-- 优惠券 -->
       <!-- <view wx:if="{{needData.couponsInfo.length === 0}}" class="none-class none-class-coupons"><view class="none-class-img"><image src="/image/kl.png" /></view>该课程暂未设置优惠券</view> -->
-      <block wx:for="{{couponsInfo}}" wx:key="uni-coupons">
+      <block wx:for="{{couponsInfo}}" wx:key="unicoupons">
         <view class="coupons" bindtap="receiveCoupons">
           <view class="coupons-box">
             <view class="coupons-left">
@@ -85,7 +85,7 @@
           </view>
         </view>
       </block>
-      <!-- <block wx:for="{{needData.couponsInfo}}" wx:key="uni-coupons">
+      <!-- <block wx:for="{{needData.couponsInfo}}" wx:key="unicoupons">
         <view class="coupons" bindtap="receiveCoupons">
           <view class="coupons-box">
             <view class="coupons-left">
@@ -135,7 +135,7 @@
       <view class="institution-view">
         <view wx:if="{{needData.courseListData.length === 0}}" class="none-class"><view class="none-class-img"><image src="/image/kl.png" /></view>暂无更多课程</view>
         <view class="near-teacher-count-box" wx:else>
-          <block wx:for="{{needData.courseListData}}" wx:key="">
+          <block wx:for="{{needData.courseListData}}" wx:key="uniquer">
             <view bindtap="detailInfo" data-id="{{item.id}}" class="near-teacher-count">
               <view class="near-teacher-count-out">
                 <view class="near-teacher-count-left">
@@ -177,7 +177,7 @@
      <!--资质信息 -->
     <view wx:if="{{needData.approveInfo.length === 0}}" class="none-class new-abstract"><view class="none-class-img"><image src="/image/kl.png" /></view>该教师暂未上传证书</view>
      <view wx:else class="info-abstract-box-info">
-      <block wx:for="{{needData.approveInfo}}" wx:key="">
+      <block wx:for="{{needData.approveInfo}}" wx:key="uniquer">
         <view class="info-abstract-box-info-data">
           <view class="certification"><image src="{{item.approveIcon}}" /></view>
           <view class="info-abstract-box-info-data-totle">{{item.title}}</view>
@@ -237,7 +237,7 @@
     </view>
     <!-- 留言内容 -->
     <block wx:if="{{needData.commentsInfo.length !== 0}}">
-      <block wx:for="{{needData.commentsInfo}}">
+      <block wx:for="{{needData.commentsInfo}}" wx:key="uniquer">
         <view class="leave-word-box pad-btn">
           <view class="leave-word-box-info">
             <view class="leave-word-info-name">{{item.nickName1}}</view>

@@ -1,10 +1,9 @@
-<!--teacherVersion/teacherReleaseDynamic/teacherReleaseDynamic.wxml-->
 <!-- 顶部 -->
 <view class="registered">
-  <view class="registered-txt">悦优祝您生活快乐每一天，分享出内心那一刻的触动。</view>
+  <view class="registered-txt">悦优祝您生活快乐每一天，分享您内心触动的那一刻。</view>
 </view>
 <!-- 内容 -->
-<form bindsubmit="formSubmit">
+<form bindsubmit="bindFormSubmit">
   <view class="product-details">
     <!-- 发布内容 -->
     <view class="course-info">
@@ -12,7 +11,7 @@
         <view class="course-info-box textarea-box">
           <view class="course-info-box-img"><image src="/image/desc.png" /></view>
           <view class="course-info-box-inp textarea-inp">
-            <textarea type="text" name="desc" value="" placeholder="这一刻我想发布..." />
+            <textarea type="text" name="content" value="{{content}}" placeholder="{{placeholder}}" />
           </view>
         </view>
       </view>
@@ -30,7 +29,7 @@
       <view class="product-details-img-upload-title">视频上传</view>
     </view>
 
-    <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+    <view bindtap="uploadVideo" class="product-details-img-upload-list-box">
       <view class="product-details-img-upload-list">
       <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
       <view>上传视频</view>
@@ -38,21 +37,20 @@
       </view>
     </view>
 
-    <view class="product-details-img-upload-box-external">
-      <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
-        <view class="product-details-img-upload-box">
-          <view class="product-details-img-upload-place-img">
-            <image mode="widthFix" src="{{item}}" />
-            <view class="mask-layer">
-              <view class="mask-layer-img">
-                <image src="/image/yl.png" />
-              </view>
-            </view>
-            <view class="deal-img"><image src="/image/deal.png" /></view>
+    <!-- 视频容器 -->
+    <view wx:if="{{isShowVideo}}" class='banner-swiper'>
+      <view class='banner-swiper-video'>
+        <view catchtap="enterVedio" data-src="{{tempFilePathVideo}}" class='banner-video'>
+          <video class="myVideo" play-btn-position="{{btnPosition}}" show-center-play-btn="{{centerPlay}}" controls="{{controls}}" show-fullscreen-btn="{{fullscreen}}"  object-fit="cover" enable-play-gesture="{{playGesture}}" src="{{tempFilePathVideo}}" vslide-gesture-in-fullscreen="{{gestureFullscreen}}" enable-progress-gesture="{{progressGesture}}" autoplay="{{autoplay}}" muted="{{muted}}" show-play-btn="{{playBtn}}" custom-cache="{{false}}"></video>
+          <view class="set-mc">
+            <view class="set-mc-img"><image src="/image/play.png" /></view>
           </view>
+          <view class="duration-txt">{{duration}}</view>
+          <view catchtap="dealVideo" class="deal-img"><image src="/image/deal.png" /></view>
         </view>
-      </block>
+      </view>
     </view>
+
   </view>
 
   <!-- 上传图片 -->
@@ -70,16 +68,16 @@
     </view>
 
     <view class="product-details-img-upload-box-external">
-      <block wx:for="{{tempFilePathsArr}}" wx:key="uni-details">
+      <block wx:for="{{tempFilePathsArr}}" wx:key="unique">
         <view class="product-details-img-upload-box">
           <view class="product-details-img-upload-place-img">
             <image mode="widthFix" src="{{item}}" />
             <view class="mask-layer">
-              <view class="mask-layer-img">
+              <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
                 <image src="/image/yl.png" />
               </view>
             </view>
-            <view class="deal-img"><image src="/image/deal.png" /></view>
+            <view catchtap="dealImg" data-nums="{{index}}" class="deal-img"><image src="/image/deal.png" /></view>
           </view>
         </view>
       </block>

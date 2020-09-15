@@ -732,6 +732,12 @@ const perfectInfoData = [
         type:'xb',
         bom:false,
       },{
+        img:'/image/csny.png',
+        con:'生日',
+        prompt:'',
+        type:'csny',
+        bom:false,
+      },{
         img:'/image/ssq.png',
         con:'省市区',
         prompt:'',
@@ -767,7 +773,7 @@ const teacherFun = [
     centerImg:'/image/zc.png',
     backGroundColor:'#f2b04a',
     centerCon:'安全中心',
-    url:'/teacherRegistered/teacherRegistered',
+    url:'/teacherSafecenter/teacherSafecenter',
   },{
     id:2,
     centerImg:'/image/zc.png',

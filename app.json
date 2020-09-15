@@ -86,8 +86,9 @@
         "teacherRecruitList/teacherRecruitList",
         "teacherDiscounts/teacherDiscounts",
         "teacherReleaseDynamic/teacherReleaseDynamic",
-        "teacherProductDetails/teacherProductDetails"
-
+        "teacherProductDetails/teacherProductDetails",
+        "teaCertificate/teaCertificate",
+        "teaCerUpload/teaCerUpload"
       ]
     },
     {

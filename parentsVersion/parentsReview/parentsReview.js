@@ -1,4 +1,3 @@
-// parentsVersion/parentsReview/parentsReview.js
 const datas = require('../../utils/data.js');
 const app = getApp(), o = app.requirejs('core');
 Page({

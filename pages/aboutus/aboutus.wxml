@@ -34,7 +34,7 @@
       <!-- 顶部 -->
       <view class="yy-abstract-box-text ys-info-top">昱升科技总部信息</view>
       <view class="ys-info-con">
-        <block wx:for="{{ysInfo}}" wx:key="nui-ys">
+        <block wx:for="{{ysInfo}}" wx:key="nuiys">
 
           <view wx:if="{{item.id === '0'}}" class="ys-info-con-box" data-index="{{index}}" bindtap="ysInfoClick">
             <view class="ys-info-con-box-left">

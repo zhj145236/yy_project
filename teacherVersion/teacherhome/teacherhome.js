@@ -1,4 +1,3 @@
-// parentsVersion/parentshome/parentshome.js
 const datas = require('../../utils/data.js');
 const app = getApp(), o = app.requirejs('core');
 Page({
@@ -21,8 +20,8 @@ Page({
 
     // count
     recruitInfo:datas.recruitInfo, // 机构招聘
-    dynamicInfo:datas.dynamicInfo, // 动态信息
-    bottomInfo:datas.bottomInfo, // 动态信息底部
+    dynamicInfo:[], // 动态信息
+    bottomInfo:[], // 动态信息底部
     teacherFun:datas.teacherFun, // 个人中心信息
     chooseCategory:['看家长','看机构'],
     teaHomeAreaIndex:[0,0,0],
@@ -119,22 +118,10 @@ Page({
      * @param {*} e 
      * 发布动态
      */
-    releaseDynamic:function(){
+    sendreleaseDynamic:function(){
       wx.navigateTo({
         url:'/teacherVersion/teacherReleaseDynamic/teacherReleaseDynamic',
       });
-    },
-
-    /**
-     * 评论/点赞等点击事件
-     */
-    smallIcon:function(e){
-      let that = this,needIndex = e.currentTarget.dataset.index;
-      if(needIndex === 1){
-        wx.navigateTo({
-          url:'/teacherVersion/teacherReview/teacherReview',
-        });
-      }
     },
 
   /**
@@ -383,6 +370,7 @@ Page({
       o.funGoodTeacher(that,data,'app/plat/org/goodOrg',0,5,'teaHomeInstitutions','3');
     }else if(that.data.blockid === 1){
       console.log('附近动态');
+      that.releaseDynamic();
     }else if(that.data.blockid === 2){
       let page = 0,size = 10;
       // 机构招聘 薪资接口数据
@@ -424,7 +412,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this,use = app.globalData.userInfo;
+    that.setData({use:use});
+    // 获取设备的信息
+    o.getSystemInfo(callback=>{
+      that.setData({windowHeight:callback.windowHeight - 460 + 'px'});
+    })
   },
 
   /**
@@ -439,6 +432,146 @@ Page({
    */
   onUnload: function () {
 
+  },
+
+  /**
+   * 教师端动态
+   */
+  releaseDynamic:function(){
+    let that = this,
+    page = 0,
+    use = that.data.use,
+    userId = parseInt(use.user.userId),
+    token = use.token;
+    that.setData({userId:userId});
+    app.FunGetSeting(callback=>{
+      if(callback.authSetting['scope.userLocation'] !== undefined){
+        if(callback.authSetting['scope.userLocation']){
+          o.FunChooseLocation(data=>{
+            let lgnLat = data.longitude + ',' + data.latitude;
+            console.log(data,'返回数据1');
+            o.FunDynamic('app/tea/dynamic/list',that,lgnLat,page,token,'dynamicInfo');
+            that.setData({foundData:data.address});
+          });
+        }else{
+          let lgnLat = "";
+          o.FunDynamic('app/tea/dynamic/list',that,lgnLat,page,token,'dynamicInfo');
+          // wx.openSetting({
+          //   success (res) {
+          //     if(res.authSetting['scope.userLocation']){
+          //       o.FunChooseLocation(data=>{
+          //         console.log(data,'返回数据2');
+          //         let lgnLat = data.longitude + ',' + data.latitude;
+          //         o.FunDynamic('app/tea/dynamic/list',that,lgnLat,page,token,'dynamicInfo');
+          //         that.setData({foundData:data.address});
+          //       });
+          //     }
+          //   }
+          // })
+        }
+      }else{
+        let lgnLat = "";
+        o.FunDynamic('app/tea/dynamic/list',that,lgnLat,page,token,'dynamicInfo');
+        // o.FunGetLocation('gcj02',callback=>{
+        //   if(callback.errMsg === "getLocation:ok"){
+        //     o.FunChooseLocation(callback=>{
+        //       let lngLat = callback.longitude + ',' + callback.latitude;
+        //       console.log(callback,'返回数据3');
+        //       that.setData({foundData:callback.address,lngLat:lngLat});
+        //     });
+        //   }
+        // });
+      }
+    });
+  },
+
+  /**
+   * 教师点击关注用户
+   */
+  focusOnClick:function(e){
+    let that = this,
+    use = that.data.use,
+    token = use.token,
+    uid = parseInt(e.currentTarget.dataset.uid),
+    fbrole = e.currentTarget.dataset.fbrole,
+    lgnLat = that.data.lgnLat,
+    page = 0;
+    if(e.currentTarget.dataset.followed){
+      o.funShowToast('您已经关注了该用户，无需重复关注');
+    }else{
+      o.FunFocusOn(uid,fbrole,token,callback=>{
+        if(callback.statusCode === 200){
+          let dynamicInfo = that.data.dynamicInfo;
+          for(let i in dynamicInfo){
+            if(dynamicInfo[i].uid === uid){
+              dynamicInfo[i].followed = true;
+            }
+          }
+          that.setData({dynamicInfo:dynamicInfo});
+          o.funShowToast('关注成功');
+        }
+      });
+    }
+  },
+
+  /**
+   * 
+   * @param {*} e 
+   * 动态中图片预览
+   */
+  previewImg:function(e){
+    let that = this,
+    index = e.currentTarget.dataset.numindex,
+    totalnum = e.currentTarget.dataset.totalnum,
+    arr = [];
+    for(let i in totalnum){
+      arr.push(totalnum[i].specificImg);
+    }
+    wx.previewImage({
+      current: arr[index], //当前显示图片
+      urls: arr //所有图片
+    });
+  },
+
+    /**
+   * 评论/点赞等点击事件
+   */
+  smallIcon:function(e){
+    let that = this,
+    needIndex = e.currentTarget.dataset.index,
+    idx = e.currentTarget.dataset.idx,
+    use = that.data.use,
+    token = use.token,
+    pid = parseInt(e.currentTarget.dataset.id);
+    let dynamicInfo = that.data.dynamicInfo;
+    if(needIndex === 0){
+      if(e.currentTarget.dataset.hasadmire){
+        o.funShowToast('您已为该动态点赞过，无需重复点赞');
+      }else{
+        console.log('动态信息',that.data.dynamicInfo);
+        o.FunClickPraise(pid,e.currentTarget.dataset.fbrole,token,callback=>{
+          if(callback.statusCode === 200){
+            for(let i in dynamicInfo){
+              if(parseInt(dynamicInfo[i].id) === pid){
+                let createBtnData = dynamicInfo[i].createBtnData;
+                dynamicInfo[i].hasAdmire = true;
+                createBtnData[0].con += 1;
+                createBtnData[0].icon = '/image/yz.png';
+                break;
+              }
+            }
+            that.setData({dynamicInfo:dynamicInfo});
+            o.funShowToast('点赞成功');
+          }
+        });
+      }
+    }
+    if(needIndex === 1){
+      let needData = encodeURIComponent(JSON.stringify(dynamicInfo[idx]));
+      wx.navigateTo({
+        url:'/teacherVersion/teacherReview/teacherReview?needData=' + needData,
+      });
+    }
   },
 
   /**

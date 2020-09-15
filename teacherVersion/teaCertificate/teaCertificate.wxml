@@ -1,0 +1,120 @@
+<!--teacherVersion/teaCertificate/teaCertificate.wxml-->
+<!-- 顶部 -->
+<view class="personal-center">
+  <view class="personal-center-box">
+    <view class="personal-center-box-left">
+      <view class="personal-center-box-left-img"><image src="{{headImg}}" /></view>
+      <view class="personal-center-box-left-info">
+        <view class="personal-center-box-left-info-nick">昵称：{{nickName}}</view>
+        <view class="personal-center-box-left-info-id">UID：{{uid}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view catchtap="uploadClick" class="upload-cer">
+  <view bindtap="releaseDynamic" class="recruit">
+    <view class="recruit-box">
+      <view class="recruit-box-img"><image src="/image/xj.png" /></view>
+      <view class="recruit-box-text">上传证书资料</view>
+    </view>
+  </view>
+</view>
+
+<block wx:if="{{!isShowCerData}}">
+  <view class="cer-data">
+    <view class="cer-data-box">
+      <view class="cer-data-box-icon"><image src="/image/kl.png" /></view>
+      <view class="cer-data-box-txt">小优尚未检测到您上传的证件~呦~</view>
+    </view>
+  </view>
+</block>
+
+<block wx:if="{{isShowCerData}}">
+  <!-- 上传图片 -->
+  <view class="product-details">
+    <view class="product-details-img-upload">
+      <view class="product-details-img-upload-top-box">
+        <view class="product-details-img-upload-title">我的证书资料</view>
+      </view>
+    </view>
+    <block wx:for="{{cerDataArr}}" wx:key="nui-cer">
+      <view class="course-info-box-inp">
+        <view class="picker">证书类型：{{item.cerType}}</view>
+      </view>
+
+      <block wx:if="{{item.cerImage !== undefined && item.cerImage !== null}}">
+        <view wx:if="{{item.tempFilePathsArrs.length !== 0}}" class="product-details-img-upload-box-external">
+          <block wx:for="{{item.tempFilePathsArrs}}" wx:key="uni-details">
+            <view class="product-details-img-upload-box">
+              <view class="product-details-img-upload-place-img">
+                <image mode="aspectFill" src="{{item}}" />
+                <view class="mask-layer">
+                  <view catchtap="previewImg" data-index="{{index}}" data-img="{{item}}" class="mask-layer-img">
+                    <image src="/image/yl.png" />
+                  </view>
+                </view>
+                <!-- <view catchtap="dealImg" data-nums="{{index}}" class="deal-img"><image src="/image/deal.png" /></view> -->
+              </view>
+            </view>
+          </block>
+        </view>
+      </block>
+
+      
+      <block wx:if="{{item.cerNo !== undefined && item.cerNo !== null}}">
+        <view class="course-info">
+          <view class="course-info-outside">
+            <view class="course-info-box">
+              <view class="course-info-box-img"><image src="/image/zsbh.png" /></view>
+              <view class="course-info-box-inp chang-style">{{item.cerNo}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{item.regDate !== undefined && item.regDate !== null}}">
+        <view class="course-info">
+          <view class="course-info-outside">
+            <view class="course-info-box">
+              <view class="course-info-box-img"><image src="/image/csny.png" /></view>
+              <view class="course-info-box-inp chang-style">{{item.regDate}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view class="course-info">
+        <view class="course-info-outside">
+          <view class="course-info-box">
+            <view class="course-info-box-img"><image src="/image/sfgk.png" /></view>
+            <view class="course-info-box-inp chang-style">
+              <view class="page-section-title">证书是否公开</view>
+              <radio-group class="radio-group-box" name="certificate">
+                <label class="radio-group-box-label radio-group-box-con"><radio disabled="true" checked="{{item.openShow === true?'true':''}}" value="radio1"/>是</label>
+                <label class="radio-group-box-label radio-group-box-con"><radio disabled="true" checked="{{item.openShow === false?'true':''}}" value="radio2"/>否</label>
+              </radio-group>
+            </view>
+          </view>
+          <!-- <view class="helpful-hints chang-width">提示：选择“是”证书则将会对外展示，“否”证书将不会对外进行展示。</view> -->
+        </view>
+      </view>
+
+      <view wx:if="{{item.auditStatus !== 1}}" class="course-info">
+        <view class="course-info-outside" style="border-bottom:none;">
+          <view class="course-info-box">
+            <!-- <button wx:if="{{item.auditStatus === 1}}" style="width:90%" data-cerno="{{item.cerNo}}" data-id="{{item.id}}" data-regdate="{{item.regDate}}" data-certype="{{item.cerType}}" data-openshow="{{item.openShow}}" data-tempfilepathsarrs="{{item.tempFilePathsArrs}}" data-typenum="{{index}}" catchtap="backClick" class="submit-registered" form-type='submit'>去修改</button> -->
+            <button data-cerno="{{item.cerNo}}" data-id="{{item.id}}" data-regdate="{{item.regDate}}" data-certype="{{item.cerType}}" data-openshow="{{item.openShow}}" data-tempfilepathsarrs="{{item.tempFilePathsArrs}}" data-typenum="{{index}}" catchtap="backClick" class="submit-registered" form-type='submit'>去修改</button>
+            <button data-id="{{item.id}}" data-dealnum="{{index}}" catchtap="dealCerClick" class="submit-registered deal-cer">删除</button>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="prompt-img">
+      <image src="/image/shz.png" />
+    </view>
+  </view>
+</block>
+
+
+

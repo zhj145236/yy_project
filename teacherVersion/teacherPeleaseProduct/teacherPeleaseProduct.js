@@ -146,7 +146,7 @@ Page({
   },
 
   /**
-   * 产品图预览
+   * 单张产品图预览
    * @param {*} e 
    */
   lookImg:function(e){
@@ -556,7 +556,6 @@ Page({
     }
     console.log(data,'提交的数据data');
     o.FunSaveCourse(data);
-
   },
 
 

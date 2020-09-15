@@ -1,35 +1,240 @@
 <!--parentsVersion/parentsRegistered/parentsRegistered.wxml-->
-<view class="registered">
-  <view class="registered-txt">欢迎来到教师版注册中心，祝您使用愉快。</view>
+<!-- 顶部 -->
+<view class="personal-center">
+  <view class="personal-center-box">
+    <view class="personal-center-box-left">
+      <view class="personal-center-box-left-img"><image src="{{useImg}}" /></view>
+      <view class="personal-center-box-left-info">
+        <view class="personal-center-box-left-info-nick">昵称：{{nickName}}</view>
+        <view class="personal-center-box-left-info-id">UID：{{id}}</view>
+      </view>
+    </view>
+  </view>
 </view>
 
-<!-- 注册内容 -->
-<view class="registered-con">
-  <form bindsubmit="formSubmit">
-    <block wx:for="{{registeredInfo}}" wx:key="uni-register">
-      <view class="registered-con-box">
-        <view class="registered-con-box-left">
-          <view class="registered-con-box-img"><image src="{{item.icon}}" /></view>
-          <view class="registered-con-box-inp">
-            <input wx:if="{{item.type === 'sjh'}}" placeholder-style="color:#c7c7c7;" type="number" bindblur="bindblurSjh" name="{{item.name}}" value="{{phoneNum}}" maxlength="11" placeholder="{{item.txt}}" />
-            <input wx:elif="{{item.type === 'mm'}}" placeholder-style="color:#c7c7c7;" class="change-inp" type="{{isShow?'password':'text'}}" bindblur="bindblurMm" name="{{item.name}}" value="{{passwordEx}}" placeholder="{{item.txt}}" />
-            <input wx:else placeholder-style="color:#c7c7c7;" type="text" bindblur="bindblurYzm" name="{{item.name}}" value="{{verificationCode}}" placeholder="{{item.txt}}" />
+<!-- 上传图片 -->
+<view class="product-details">
+  <view class="product-details-img-upload">
+    <view class="product-details-img-upload-title">秀秀我的生活照</view>
+  </view>
+
+  <view bindtap="uploadImg" class="product-details-img-upload-list-box">
+    <view class="product-details-img-upload-list">
+    <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+    <view>上传图片</view>
+    <view class="helpful-hints">友情提示：最多能上传6张图片。</view>
+    </view>
+  </view>
+
+  <view wx:if="{{tempFilePathsArrs.length !== 0}}" class="product-details-img-upload-box-external">
+    <block wx:for="{{tempFilePathsArrs}}" wx:key="uni-details">
+      <view class="product-details-img-upload-box">
+        <view class="product-details-img-upload-place-img">
+          <image mode="aspectFill" src="{{item}}" />
+          <view class="mask-layer">
+            <view catchtap="previewImg" data-index="{{index}}" class="mask-layer-img">
+              <image src="/image/yl.png" />
+            </view>
           </view>
+          <view catchtap="dealImg" data-nums="{{index}}" class="deal-img"><image src="/image/deal.png" /></view>
         </view>
-        <!-- input 后 按钮 -->
-        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if="{{item.type === 'sjh'}}" class="registered-con-phone wx-btn" bindtap="mimaClick" data-index="{{index}}">{{item.show}}</button>
-        <view wx:elif="{{item.type === 'mm'}}" bindtap="mimaClick" data-index="{{index}}" class="closed-img"><image src="{{isShow?item.show:item.hide}}" /></view>
-        <view wx:else class="registered-con-phone" bindtap="mimaClick" data-index="{{index}}">{{isCountdown?times:item.show}}</view>
       </view>
     </block>
-    <!-- 提交按钮 -->
-    <view class="remind-txt">注册前请仔细阅读用户使用协议</view>
-    <button class="submit-registered" form-type='submit'>注册并登录</button>
-    <view class="use-deal">
-      <checkbox-group class="use-deal-box" name="checkbox">
-        <label class="lb"><checkbox checked class="cb" value="agree"/>我已阅读并同意</label><view class="use-deal-con" bindtap="useDealClick">《用户使用协议》</view>
-      </checkbox-group>
-    </view>
-  </form>
-
+  </view>
 </view>
+  
+<view class="product-details">
+  <view class="product-details-img-upload" style="margin-top:20rpx;">
+    <view class="product-details-img-upload-title">上传个人中心顶部图片</view>
+  </view>
+
+  <view bindtap="coverImg" class="product-details-img-upload-list-box">
+    <view class="product-details-img-upload-list">
+    <view class="product-details-img-upload-icon"><image src="/image/tpsc.png" /></view>
+    <view>上传图片</view>
+    <view class="helpful-hints">友情提示：最多能上传1张图片。</view>
+    </view>
+  </view>
+
+  <!-- <view wx:if="{{isHideImg}}" class="product-details-img-upload-box-external"> -->
+  <view wx:if="{{productCoverImg.length !== 0}}" class="product-details-img-upload-box-external">
+    <view class="product-details-img-upload-box">
+      <view class="product-details-img-upload-place-img" style="width:300rpx;height:300rpx">
+        <image mode="aspectFill" src="{{productCoverImg}}" />
+        <view catchtap="lookImg" data-lookindex="{{index}}" class="mask-layer">
+          <view class="mask-layer-img">
+            <image src="/image/yl.png" />
+          </view>
+        </view>
+        <view catchtap="dealClick" class="deal-img"><image src="/image/deal.png" /></view>
+      </view>
+    </view>
+  </view>
+  <!-- </view> -->
+</view>
+
+<form bindsubmit="formSubmit">
+  <block wx:for="{{perfectInfoData}}" wx:key="uni-perfect">
+    <view class="perfect-info">
+      <view class="perfect-info-box-title-box">
+        <view class="perfect-info-box-title">{{item.title}}</view>
+      </view>
+      <block wx:for="{{item.setCon}}" wx:key="uni-con" wx:for-item="itemCon">
+        <view wx:if="{{itemCon.type !== 'gzzy'}}" class="perfect-info-box {{itemCon.bom?'change-bom':''}}">
+          <view class="perfect-info-box-con">
+            <view class="perfect-info-box-con-left">
+              <view class="perfect-info-box-con-left-img"><image src="{{itemCon.img}}" /></view>
+              <!-- 手机号 -->
+              <block wx:if="{{itemCon.type === 'czsjh'}}">
+                <view wx:if="{{callPhone !== ''}}" class="perfect-info-box-con-left-inp">
+                  <input placeholder-style="color:#c7c7c7;" name="callphone" disabled="true" type="number" value="{{callPhone}}" />
+                </view>
+                <view wx:else class="perfect-info-box-con-left-inp helpful-hints">您尚未填写手机号，请前往安全设置中心进行设置。</view>
+              </block>
+
+              <!-- 昵称 -->
+              <view wx:elif="{{itemCon.type === 'nc'}}" class="perfect-info-box-con-left-inp">
+                <input placeholder-style="color:#c7c7c7;"  type="text" bindblur="bindblurNickName" name="nickName" value="{{nickName}}" placeholder="{{itemCon.con}}" />
+              </view>
+
+              <!-- 姓名 -->
+              <view wx:elif="{{itemCon.type === 'xm'}}" class="perfect-info-box-con-left-inp">
+                <input placeholder-style="color:#c7c7c7;"  type="text" bindblur="bindblurName" name="name" value="{{name}}" placeholder="{{itemCon.con}}" />
+              </view>
+
+              <!-- 性别 -->
+              <view wx:elif="{{itemCon.type === 'xb'}}" class="perfect-info-box-con-left-inp chang-width">
+                <radio-group class="radio-group-box" name="sex">
+                  <label class="radio-group-box-label radio-group-box-con"><view class="inp-sex"><image src="/image/sexnan.png" /></view><radio checked="{{checkedSexNan}}" color="#007bd0" value="男"/>男</label>
+                  <label class="radio-group-box-label radio-group-box-con"><view class="inp-sex"><image src="/image/sexnv.png" /></view><radio value="女" checked="{{checkedSexNv}}" color="#cd2a17"/>女</label>
+                  <label class="radio-group-box-label radio-group-box-con radio-group-box-con-bm"><view class="inp-sex"><image src="/image/sexbm.png" /></view><radio checked="{{checkedSexBm}}" value="保密" color="#707070"/>保密</label>
+                </radio-group>
+              </view>
+
+              <!-- 出生年月 -->
+              <view wx:elif="{{itemCon.type === 'csny'}}" class="perfect-info-box-con-left-inp">
+                <view class="start-sign-up-time picker-chang-width">
+                  <picker mode="date" value="{{startCouponsDate}}" start="1980-01-01" end="2025-12-12" bindchange="startCouponsBindDateChange">
+                    <view class="picker">{{startCouponsDate}}</view>
+                  </picker>
+                </view>
+              </view>
+
+              <!-- 省市区 -->
+              <view wx:elif="{{itemCon.type === 'ssq'}}" class="perfect-info-box-con-left-inp">
+                 <picker mode="multiSelector" value="{{parentsInfoIndex}}" custom-item="选择省市区" bindchange="parentsInfoBindchange" bindcolumnchange="parentsInfoColumnChange" range="{{parentsInfoMultiArray}}">{{myLocation}}</picker>
+              </view>
+
+              <!-- 我的个签 -->
+              <view wx:elif="{{itemCon.type === 'qm'}}" class="perfect-info-box-con-left-inp">
+                <view class="course-info-box-inp textarea-inp">
+                  <textarea type="text" name="tag" maxlength="{{max}}" bindblur="bindblurTar" value="{{tag}}" placeholder="{{itemCon.con}}" />
+                </view>
+              </view>
+
+              <!-- 详细地址 -->
+              <view wx:else class="perfect-info-box-con-left-inp map-choole-address">
+                <input placeholder-style="color:#c7c7c7;"  type="text" bindblur="bindblurAddress" name="address" value="{{address}}" placeholder="{{itemCon.con}}" />
+                <view class="address-btn" catchtap="addressClick">地图选址</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+  <view class="perfect-info">
+    <view class="perfect-info-box-title-box">
+      <view class="perfect-info-box-title">教育信息</view>
+    </view>
+    <!-- 教授的课程 -->
+    <view class="perfect-info-box">
+      <view class="perfect-info-box-con">
+        <view class="perfect-info-box-con-left">
+          <view class="perfect-info-box-con-left-img">
+            <image src="/image/jskc.png" />
+          </view>
+          <view class="perfect-info-box-con-left-inp">
+            <input name="teachItem" value="{{teachItem}}" placeholder="在教课程" placeholder-style="color:#c7c7c7" type="text" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 教授的年级 -->
+    <view class="perfect-info-box">
+      <view class="perfect-info-box-con">
+        <view class="perfect-info-box-con-left">
+          <view class="perfect-info-box-con-left-img">
+            <image src="/image/njgl.png" />
+          </view>
+          <view class="perfect-info-box-con-left-inp">
+            <input name="teachObj" value="{{teachObj}}" placeholder="教授年级" placeholder-style="color:#c7c7c7" type="text" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 现就职学校 -->
+    <view class="perfect-info-box">
+      <view class="perfect-info-box-con">
+        <view class="perfect-info-box-con-left">
+          <view class="perfect-info-box-con-left-img">
+            <image src="/image/jzxx.png" />
+          </view>
+          <view class="perfect-info-box-con-left-inp">
+            <input name="workingSchool" value="{{workingSchool}}" placeholder="就职学校" placeholder-style="color:#c7c7c7" type="text" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 毕业院校 -->
+    <view class="perfect-info-box">
+      <view class="perfect-info-box-con">
+        <view class="perfect-info-box-con-left">
+          <view class="perfect-info-box-con-left-img">
+            <image src="/image/byyx.png" />
+          </view>
+          <view class="perfect-info-box-con-left-inp">
+            <input name="graduateSchool" value="{{graduateSchool}}" placeholder="毕业院校" placeholder-style="color:#c7c7c7" type="text" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 课程平均价格 -->
+    <view class="perfect-info-box clear-btn">
+      <view class="perfect-info-box-con">
+        <view class="perfect-info-box-con-left">
+          <view class="perfect-info-box-con-left-img">
+            <image src="/image/pjjg.png" />
+          </view>
+          <view class="perfect-info-box-con-left-inp">
+            <input name="priceRange" value="{{priceRange}}" placeholder="课程平均价格区间" placeholder-style="color:#c7c7c7" type="text" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 录音 -->
+  <!-- <view class="tape" catchtap="tapeClick">录音</view> -->
+  
+  <button wx:if="{{isShowBtns}}" class="submit-registered" data-type="1" form-type='submit'>下一步</button>
+  <view wx:else class="save-info">
+    <view class="save-info-btn">
+      <button class="submit-registered" data-type="2" form-type='submit'>确定修改</button>
+    </view>
+    <view class="save-info-cer">
+      <view catchtap="jumpClick" class="save-info-cer-txt">我要修改证书信息</view>
+      <view class="save-info-cer-btn"><image src="/image/xyb.png" /></view>
+    </view>
+  </view>
+</form>
+
+<!-- 平台信息 -->
+<view class="platform-info">
+  <view>平台总部：东莞市昱升科技有限公司</view>
+  <view>联系电话：13310829325</view>
+</view>
+
+<!-- 底部占位框 -->
+<view class="position-bottom"></view>

@@ -54,7 +54,7 @@
         <view class="perfect-info-box-title">{{item.title}}</view>
       </view>
       <block wx:for="{{item.setCon}}" wx:key="uni-con" wx:for-item="itemCon">
-        <view class="perfect-info-box {{itemCon.bom?'change-bom':''}}">
+        <view wx:if="{{itemCon.type !== 'csny'}}" class="perfect-info-box {{itemCon.bom?'change-bom':''}}">
           <view class="perfect-info-box-con">
             <view class="perfect-info-box-con-left">
               <view class="perfect-info-box-con-left-img"><image src="{{itemCon.img}}" /></view>

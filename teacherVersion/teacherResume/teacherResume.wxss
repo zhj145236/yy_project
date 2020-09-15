@@ -155,7 +155,7 @@ page{
   color: #666666;
 }
 .resume-center-box-tel{
-  width: 200rpx;
+  width: 230rpx;
   border: none;
 }
 .resume-center-box-email{
@@ -177,6 +177,153 @@ page{
   line-height: 80rpx;
   margin:30rpx auto;
   width: 90%;
+}
+
+/* 我的简历样式 */
+.no-resume{
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #707070;
+  text-align: center;
+  padding: 40rpx 0;
+}
+.resume-info{
+  width: 90%;
+  margin: auto;
+  padding: 30rpx;
+}
+.resume-info-top{
+  margin-bottom: 80rpx;
+}
+.resume-info-top-title{
+  display: flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:flex-end;
+  padding: 0 0 30rpx 0;
+  border-bottom: 4rpx dashed #74cdce;
+}
+.resume-title{
+  font-size: 32rpx;
+  color: #74cdce;
+  font-weight: 600;
+  text-align: center;
+  margin: 30rpx 0;
+}
+.resume-name{
+  font-size: 28rpx;
+  color: #707070;
+  font-weight: 600;
+  margin: 0 20rpx;
+}
+.resume-line{
+  width: 100%;
+  height: 1px;
+  background-color: #f4f4f4;
+  margin: 20rpx 0;
+}
+.resume-info-center{
+  margin-bottom: 80rpx;
+}
+.resume-position{
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 20rpx;
+}
+.same-style{
+  font-size: 28rpx;
+  color: #707070;
+  text-align: left;
+  margin-bottom: 20rpx;
+}
+.resume-sex{
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-end;
+  align-items:center;
+}
+.resume-sex-icon{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.resume-sex-icon > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.resume-sex-con{
+  font-size: 26rpx;
+}
+.resume-info-center-title{
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #74cdce;
+  padding: 0 0 20rpx 0;
+  border-bottom: 1px solid #f4f4f4;
+}
+.resume-info-center-con{
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #707070;
+}
+.resume-info-center-con-info{
+  margin-bottom: 20rpx;
+}
+.resume-info-center-hobby{
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+}
+.resume-info-center-hobby-tag{
+  background-color: #f4f4f4;
+  color: #707070;
+  width: auto;
+  padding: 10rpx 20rpx;
+  margin-right: 20rpx;
+}
+.resume-info-center-evaluation{
+  font-size: 28rpx;
+  color: #707070;
+  padding: 20rpx 0;
+}
+/* 我投递的记录 */
+.position-recruit{
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  padding: 0 0 30rpx 0;
+  margin-bottom: 20rpx;
+  border-bottom: 1px solid #f0f0f0;
+}
+.position-recruit-left-title{
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #636363;
+}
+.position-recruit-left-name,.position-recruit-right-adder{
+  font-size: 28rpx;
+  color: #404040;
+  margin: 30rpx 0;
+  text-align: right;
+}
+.position-recruit-left-year,.position-recruit-right-time{
+  font-size: 24rpx;
+  color: #7a7a7a;
+}
+.position-recruit-right-time{
+  text-align: right;
+}
+.position-recruit-right-pirce{
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #ee854e;
+  text-align: right;
 }
 
 /* 底部总部信息 */

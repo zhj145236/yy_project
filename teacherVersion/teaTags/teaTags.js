@@ -20,8 +20,8 @@ Page({
     let that = this;
     if(e.detail.value.addTag !== ""){
       let useTagInfo = that.data.useTagInfo;
-      if(useTagInfo.length === 10){
-        o.funShowToast('添加失败，您已添加了10个标签');
+      if(useTagInfo.length === 7){
+        o.funShowToast('添加失败，您已添加了7个标签');
       }else{
         o.funShowToast('添加成功');
         setTimeout(function(){
@@ -86,7 +86,7 @@ Page({
   },
 
   /**
-   * 计算字数
+   * 评价计算字数
    * @param {*} options 
    */
   evaluateBindinput:function(e){
@@ -97,6 +97,21 @@ Page({
       that.setData({currentWordNumber:len});
     }else{
       that.setData({currentWordNumber:that.data.maxValue});
+    }
+  },
+
+  /**
+   * 经历计算字数
+   * @param {*} options 
+   */
+  experienceBindinput:function(e){
+    let that = this,
+    value = e.detail.value,
+    len = parseInt(value.length);
+    if(len<=that.data.maxValue){
+      that.setData({descNums:len});
+    }else{
+      that.setData({descNums:that.data.maxValue});
     }
   },
 
@@ -145,8 +160,8 @@ Page({
         frontColor: '#ffffff',
         backgroundColor:'#74cdce',
       });
-      if(options.jobExperience !== ""){
-        that.setData({dexcTextarea:options.jobExperience,descNums:options.jobExperience.length});
+      if(options.dexcTextarea !== ""){
+        that.setData({dexcTextarea:options.dexcTextarea,descNums:options.dexcTextarea.length});
       }
     }
   },

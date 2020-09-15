@@ -1,0 +1,391 @@
+/* teacherVersion/teaCertificate/teaCertificate.wxss */
+page{
+  font-size: 30rpx;
+  background-color: #f2f2f2;
+  font-family:  Microsoft YaHei;
+}
+.recruit{
+  width:90%;
+  margin: 30rpx auto;
+  padding: 30rpx 0;
+  background-color: #f1f9ff;
+  border-radius: 10rpx;
+}
+.recruit-box{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+}
+.recruit-box-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.recruit-box-img>image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.recruit-box-text{
+  font-size: 28rpx;
+  color: #666666;
+}
+
+/* 顶部显示 */
+.personal-center{
+  background-color: #74cdce;
+  padding: 50rpx 0;
+  margin-bottom: 30rpx;
+}
+.personal-center-box{
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+}
+.personal-center-box-left{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+.personal-center-box-left-img{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border:2px solid #fff;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.personal-center-box-left-img>image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.personal-center-box-left-info{
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: 600;
+}
+.personal-center-box-left-info-id{
+  margin-top: 20rpx;
+}
+.personal-fun{
+  width: 90%;
+  border-radius: 10rpx;
+  background-color: #fff;
+  padding: 30rpx 0;
+  margin: 30rpx auto 0 auto;
+}
+.personal-fun-box{
+  width: 96%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.personal-fun-box-out{
+  width: 216rpx;
+  display: flex;
+  justify-content:center;
+}
+.personal-fun-box-con{
+  width: 120rpx;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  margin-bottom: 30rpx;
+}
+.personal-fun-box-con-img{
+  width: 100rpx;
+  height: 100rpx;
+  margin: 0 auto;
+}
+.personal-fun-box-con-img>image{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.personal-fun-box-con-msg{
+  font-size: 28rpx;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+}
+
+/* 图片上传 */
+.product-details{
+  width: 90%;
+  margin: 0 auto 30rpx auto;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 20rpx 0;
+  position: relative;
+}
+.prompt-img{
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  top: 50rpx;
+  right: 40rpx;
+  z-index: 1;
+}
+.prompt-img > image{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.product-details-img-upload-title{
+  color: #707070;
+}
+.product-details-img-upload{
+  width: 100%;
+  border-bottom: 2px solid #e7e7e7;
+  padding: 20rpx 0 30rpx 0;
+  font-size: 28rpx;
+}
+.product-details-img-upload-top-box{
+  width: 90%;
+  margin:auto;
+}
+.product-details-img-upload-list{
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 90%;
+  margin: auto;
+  font-size: 26rpx;
+  color: #a4a4a4;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+}
+.product-details-img-upload-box-external{
+  width: 90%;
+  padding: 20rpx 0;
+  margin: auto;
+  display: flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  align-items: center;
+}
+.product-details-img-upload-box{
+ width: 320rpx; 
+ margin-bottom: 16rpx;
+}
+.helpful-hints{
+  font-size: 22rpx;
+  color: #e19e9e;
+  margin-top: 10rpx;
+}
+.product-details-img-upload-place-img{
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  position: relative;
+  margin: auto;
+}
+.product-details-img-upload-place-img > image{
+  display: inline;
+}
+.mask-layer{
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+}
+.mask-layer-img{
+  width: 60rpx;
+  height: 60rpx;
+  margin: auto;
+}
+.mask-layer-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.deal-img{
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  border-radius: 100rpx;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.deal-img > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.product-details-img-upload-icon{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}
+.product-details-img-upload-icon > image{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.course-info-box-inp{
+  width: 90%;
+  margin: auto;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #a4a4a4;
+  font-size: 28rpx;
+}
+.course-info-outside{
+  border-bottom: 1px solid #e7e7e7;
+  padding: 20rpx 0;
+}
+.course-info-box{
+  display: flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  align-items: center;
+  justify-content:flex-start;
+  margin: auto;
+  width: 90%;
+}
+.course-info-box-img{
+  width: 60rpx;
+  height: 60rpx;
+  background-color: rgba(116, 205, 206, 0.3);
+  border-radius: 100rpx;
+  display: flex;
+  align-items: center;
+  margin-right: 10rpx;
+}
+.course-info-box-img > image{
+  display: block;
+  width: 60%;
+  height: 60%;
+  margin: auto;
+}
+.chang-style{
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+}
+.chang-style > input{
+  border: 1px solid #f4f4f4;
+  margin: 0 10rpx 0 0!important;
+  padding: 10rpx 0 10rpx 10rpx;
+  border-radius: 10rpx;
+  width: 100%;
+}
+.chang-style > text{
+  color: #707070;
+}
+.clear-btn{
+  border-bottom: none;
+}
+.radio-group-box-con {
+  margin-right: 30rpx;
+}
+.radio-group-box,.radio-group-box-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.radio-group-box-label > radio {
+  transform: scale(0.7);
+}
+.page-section-title{
+  margin-right: 20rpx;
+}
+.chang-width{
+  width: 90%;
+  margin: auto;
+}
+.perfect-info-box-con-left-inp{
+  font-size: 26rpx;
+  color: #707070;
+}
+.picker-chang-width{
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin: 0;
+  border-radius: 10rpx;
+}
+.product-details-img-upload-list-left{
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  flex-direction:row;
+}
+.cer-data{
+  width: 90%;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10rpx;
+  height: 400rpx;
+  display: flex;
+  align-items: center;
+}
+.cer-data-box{
+  display: flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  width: 100%;
+}
+.cer-data-box-icon{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+.cer-data-box-icon > image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cer-data-box-txt{
+  font-size: 28rpx;
+  color: #707070;
+}
+.submit-registered{
+  border:1px solid #74cdce;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #74cdce;
+  background-color: #fff;
+  border-radius: 10rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin:30rpx auto;
+  width: 40%;
+  position: unset;
+}
+button::after{
+  content: "";
+  width: 0;
+  height: 0;
+  border: none;
+}
+.deal-cer{
+  border: 1px solid #f2b04a;
+  color: #f2b04a;
+}
+  
+  
+  

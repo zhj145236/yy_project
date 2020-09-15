@@ -1,7 +1,7 @@
 <!--pages/map/map.wxml-->
 <view class="map-view">
   <map bindtap="mapLonLat" style="width:100vh;height:100vh;" enable-3D="true" enable-overlooking="true" enable-zoom="true" enable-rotate="true" latitude="{{lat}}" longitude="{{lon}}" scale="8" show-location markers="{{markers}}" rotate="360" show-compass="true" enable-traffic="true" skew="40" bindmarkertap="bjd" bindlabeltap="labe" bindcontroltap="kj" bindcallouttap="qipaoClick">
-    <cover-view bindtap="chooleArea" class="current-postion">
+    <cover-view catchtap="chooleArea" class="current-postion">
       <cover-image class="position-img" src="/image/dw1.png"></cover-image>
       <cover-view class="choole-add">定位</cover-view>
     </cover-view>

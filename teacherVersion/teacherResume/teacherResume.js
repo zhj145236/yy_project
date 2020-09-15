@@ -9,21 +9,9 @@ Page({
   data: {
     nums:0,
     chooseCoupons:['制作简历','我的简历','我的投递','谁查看了我'],
-    resumeTitle:'求职简历书',
-    resumeName:'XXXX',
-    isShowSex:true,
     isTrue:true,
     parentsInfoIndex:[0,0,0],
-    county:11201, // 默认 厚街镇 // 求职地点
     recordIndex:0,
-    myRecord:'本科', // 最高学历
-    resumeTel:'130xxxxxxxx', // 电话
-    resumeJob:'语文', // 求职职位
-    resumeSalary:'80', // 每节价格
-    descNums:0,
-    tagNums:0, // 标签数量
-    estimateNums:0, // 评价字数
-    workYear:3, // 工作年限
   },
 
   /**
@@ -112,7 +100,6 @@ Page({
   recordChagne:function(e){
     let that = this,
     sedRecordData = that.data.sedRecordData[e.detail.value].label;
-    // console.log(sedRecordData,'学历');
     that.setData({myRecord:sedRecordData});
   },
   /**
@@ -130,7 +117,7 @@ Page({
     let that = this,
     useTagInfo = that.data.useTagInfo === undefined?'':that.data.useTagInfo,
     textareaValue = that.data.textareaValue === undefined?'':that.data.textareaValue,
-    jobExperience = that.data.jobExperience === undefined?'':that.data.jobExperience;
+    dexcTextarea = that.data.dexcTextarea === undefined?'':that.data.dexcTextarea;
     
     if(e.currentTarget.dataset.label === '1'){
       wx.navigateTo({
@@ -142,24 +129,244 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '/teacherVersion/teaTags/teaTags?label=' + e.currentTarget.dataset.label + '&jobExperience=' + jobExperience,
+        url: '/teacherVersion/teaTags/teaTags?label=' + e.currentTarget.dataset.label + '&dexcTextarea=' + dexcTextarea,
       })
     }
   },
 
+  /**
+   * 简历标题验证
+   * @param {*} e 
+   */
+  resumeTitleBindblur:function(e){
+    let that = this;
+    o.ridBlankSpace('resumeTitle',that,e.detail.value); // 去除空格
+    if(e.detail.value === ""){
+      o.funShowToast('简历标题不能为空');
+      return;
+    }else{
+      that.setData({resumeTitle:e.detail.value});
+    }
+  },
+
+  /**
+   * 姓名验证
+   * @param {*} e 
+   */
+  resumeNameBindblur:function(e){
+    let that = this;
+    o.ridBlankSpace('resumeName',that,e.detail.value); // 去除空格
+    if(e.detail.value === ""){
+      o.funShowToast('姓名不能为空');
+      return;
+    }else{
+      that.setData({resumeName:e.detail.value});
+    }
+  },
+  
+  /**
+   * 工作年限验证
+   * @param {*} e 
+   */
+  workYearBindblur:function(e){
+    let that = this;
+    o.ridBlankSpace('workYear',that,e.detail.value); // 去除空格
+    if(e.detail.value === ""){
+      o.funShowToast('工作年限不能为空');
+      return;
+    }else{
+      that.setData({workYear:e.detail.value});
+    }
+  },
+  
+  /**
+   * 应聘职位验证
+   * @param {*} e 
+   */
+  resumeJobBindblur:function(e){
+    let that = this;
+    o.ridBlankSpace('resumeJob',that,e.detail.value); // 去除空格
+    if(e.detail.value === ""){
+      o.funShowToast('应聘职位不能为空');
+      return;
+    }else{
+      that.setData({resumeJob:e.detail.value});
+    }
+  },
+  
+  /**
+   * 薪资验证
+   * @param {*} e 
+   */
+  resumeSalaryBindblur:function(e){
+    let that = this;
+    o.ridBlankSpace('resumeSalary',that,e.detail.value); // 去除空格
+    if(e.detail.value === ""){
+      o.funShowToast('期望薪资不能为空');
+      return;
+    }else{
+      that.setData({resumeSalary:e.detail.value});
+    }
+  },
+  
+  /**
+   * 联系方式验证
+   * @param {*} e 
+   */
+  resumeTelBindblur:function(e){
+    let that = this,validationPhone = /^1[3456789]\d{9}$/;
+    o.ridBlankSpace('resumeTel',that,e.detail.value); // 去除空格
+    if(e.detail.value === ""){
+      o.funShowToast('联系方式不能为空');
+      return;
+    }else if(!validationPhone.test(e.detail.value)){
+      o.funShowToast('手机号输入有误，请重新输入');
+      that.setData({resumeTel:''});
+      return;
+    }else{
+      that.setData({resumeTel:e.detail.value});
+    }
+  },
+  
   /**
    * 提交数据
    * @param {*} options 
    */
   formSubmit:function(e){
     let that = this,
-    title = '', // 简历标题
-    name = '', // 真实姓名
-    workYear = '', // 工作年限
-    sex = '', // 性别
-    countyCode = '', // 区代码
-    jobExperience = ''; // 工作经历描述
-    console.log(e,'需要提交的数据');
+    title = e.detail.value.resumeTitle, // 简历标题
+    name = e.detail.value.resumeName, // 真实姓名
+    workYear = e.detail.value.workYear, // 工作年限
+    sex = that.data.sex, // 性别
+    countyCode = that.data.county, // 区代码
+    jobExperience = that.data.dexcTextarea === undefined?'':that.data.dexcTextarea, // 工作经历描述
+    highestEducational = that.data.myRecord, // 最高学历
+    evaluate = that.data.textareaValue === undefined?'':that.data.textareaValue, // 自我评价
+    wantJob = e.detail.value.resumeJob, // 应聘职位
+    salary = e.detail.value.resumeSalary, // 期望薪资
+    tel = e.detail.value.resumeTel, // 电话
+    email = e.detail.value.resumeEmail, // 邮箱
+    tags = '',
+    useTagInfo = that.data.useTagInfo; // 标签
+    if(useTagInfo !== undefined && useTagInfo.length !== 0){
+      if(useTagInfo.length === 1){
+        tags = useTagInfo[0];
+      }else{
+        let len = useTagInfo.length;
+        for(let i=0;i<useTagInfo.length-1;i++){
+          tags += useTagInfo[i] + ';';
+        }
+        tags += useTagInfo[len-1];
+      }
+    }
+    // 验证
+    o.ridBlankSpace('resumeTitle',that,e.detail.value.resumeTitle); // 去除空格
+    o.ridBlankSpace('resumeName',that,e.detail.value.resumeName); // 去除空格
+    o.ridBlankSpace('workYear',that,e.detail.value.workYear); // 去除空格
+    o.ridBlankSpace('resumeJob',that,e.detail.value.resumeJob); // 去除空格
+    o.ridBlankSpace('resumeSalary',that,e.detail.value.resumeSalary); // 去除空格
+    if(that,e.detail.value.resumeTitle === ""){
+      o.funShowToast('简历标题不能为空');
+      return;
+    }else{
+      that.setData({resumeTitle:e.detail.value.resumeTitle});
+    }
+    
+    if(e.detail.value.resumeName === ""){
+      o.funShowToast('姓名不能为空');
+      return;
+    }else{
+      that.setData({resumeName:e.detail.value.resumeName});
+    }
+    
+    if(e.detail.value.workYear === ""){
+      o.funShowToast('工作年限不能为空');
+      return;
+    }else{
+      that.setData({workYear:e.detail.value.workYear});
+    }
+    
+    if(e.detail.value.resumeJob === ""){
+      o.funShowToast('应聘职位不能为空');
+      return;
+    }else{
+      that.setData({resumeJob:e.detail.value.resumeJob});
+    }
+    
+    if(e.detail.value.resumeSalary === ""){
+      o.funShowToast('期望薪资不能为空');
+      return;
+    }else{
+      that.setData({resumeSalary:e.detail.value.resumeSalary});
+    }
+
+    const validationPhone = /^1[3456789]\d{9}$/;
+    o.ridBlankSpace('resumeTel',that,e.detail.value.resumeTel); // 去除空格
+    if(e.detail.value.resumeTel === ""){
+      o.funShowToast('联系方式不能为空');
+      return;
+    }else if(!validationPhone.test(e.detail.value.resumeTel)){
+      o.funShowToast('手机号输入有误，请重新输入');
+      that.setData({resumeTel:''});
+      return;
+    }else{
+      that.setData({resumeTel:e.detail.value.resumeTel});
+    }
+    if(e.detail.value.resumeEmail !== ""){
+      o.ridBlankSpace('resumeEmail',that,e.detail.value.resumeEmail); // 去除空格
+      const emailReg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+      if(!emailReg.test(e.detail.value.resumeEmail)){
+        o.funShowToast('邮箱格式输入有误，请重新输入');
+        that.setData({resumeEmail:''});
+        return;
+      }else{
+        let setEmail = e.detail.value.resumeEmail.replace(/。/g,"."),
+        newEmail = '';
+        for(let i=0;i<setEmail.length;i++){
+          if(setEmail[i] >= 'A' && setEmail[i] <= 'Z'){
+            newEmail += setEmail[i].toLowerCase();
+          }else{
+            newEmail += setEmail[i];
+          }
+        }
+        that.setData({resumeEmail:newEmail});
+      }
+    }else{
+      that.setData({resumeEmail:''});
+    }
+    const setData = {};
+    setData.title =  title;
+    setData.name = name;
+    setData.workYear = workYear;
+    setData.sex = sex;
+    setData.countyCode = countyCode;
+    setData.jobExperience = jobExperience;
+    setData.highestEducational = highestEducational;
+    setData.tags = tags;
+    setData.evaluate = evaluate;
+    setData.wantJob = wantJob;
+    setData.salary = salary;
+    setData.tel = tel;
+    setData.email = that.data.resumeEmail;
+    if(that.data.id !== undefined && that.data.id !== ""){
+      setData.id = that.data.myResumeInfo.id;
+    }
+    if(that.data.tid !== undefined && that.data.tid !== ""){
+      setData.tid = that.data.myResumeInfo.tid;
+    }
+    console.log(setData,'需要提交的简历数据');
+    o.FunSaveResume(that,setData);
+  },
+
+  /**
+   * 
+   * @param {*} options 
+   * 招聘详情页
+   */
+  recruitInfo:function(e){
+    wx.navigateTo({
+      url:'/teacherVersion/teacherRecruit/teacherRecruit?id=' + e.currentTarget.dataset.id,
+    });
   },
 
   /**
@@ -172,11 +379,15 @@ Page({
       that.setData({windowHeight:callback.windowHeight - 310 + 'px'});
     })
     // 查看我的简历
-    o.FunResume(that);
+    o.FunResume(that,'myResumeInfo');
     // 授课教师 区域接口数据
     o.funThreeLevelLinkage(that,'resumeAreaMultiArray');
     // 最高学历接口数据请求
     o.funPriceSort(that,'app/com/dict/educational_limit','recordAreaMultiArray','sedRecordData');
+    // 我的投递记录
+    o.FunDeliverRecord(that,'insRecruitInfo');
+    // 谁查看了我的简历
+    o.FunMyResumeViewList();
   },
 
   /**
@@ -195,15 +406,16 @@ Page({
     currentPage = pages[pages.length - 1]; // 当前页面
     if(currentPage.__data__.useTagInfo !== undefined){
       let useTagInfo = currentPage.__data__.useTagInfo; // 用户添加的标签
+      console.log(currentPage.__data__.useTagInfo,'用户的标签数据');
       if(useTagInfo.length !== 0){
-        console.log(currentPage.__data__.useTagInfo,'用户的标签数据');
-        that.setData({useTagInfo:useTagInfo,tagNums:useTagInfo.length});
+        that.setData({useTagInfo:useTagInfo,useTagInfoArr:useTagInfo,tagNums:useTagInfo.length});
       }else{
         that.setData({tagNums:0});
       }
     }
     if(currentPage.__data__.textareaValue !== undefined){
-      let textareaValue = currentPage.__data__.textareaValue; // 用户添加的标签
+      let textareaValue = currentPage.__data__.textareaValue; // 用户添加的评价
+      console.log(currentPage.__data__.textareaValue,'用户的自我评价');
       if(textareaValue !== ""){
         that.setData({textareaValue:textareaValue,estimateNums:textareaValue.length});
       }else{
@@ -211,9 +423,10 @@ Page({
       }
     }
     if(currentPage.__data__.dexcTextarea !== undefined){
-      let jobExperience = currentPage.__data__.dexcTextarea; // 用户添加的标签
-      if(jobExperience !== ""){
-        that.setData({jobExperience:jobExperience,descNums:jobExperience.length});
+      let dexcTextarea = currentPage.__data__.dexcTextarea; // 用户添加的工作经历描述
+      console.log(currentPage.__data__.dexcTextarea,'用户的工作描述');
+      if(dexcTextarea !== ""){
+        that.setData({dexcTextarea:dexcTextarea,descNums:dexcTextarea.length});
       }else{
         that.setData({descNums:0});
       }

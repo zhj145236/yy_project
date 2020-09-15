@@ -23,7 +23,7 @@
           <view class="resume-center-box-txt">简历标题</view>
         </view>
         <view class="resume-center-box-con resume-center-box-title">
-          <input type="text" maxlength="7" placeholder="标题" value="{{resumeTitle}}" name="resumeTitle" />
+          <input type="text" bindblur="resumeTitleBindblur" maxlength="7" placeholder="标题" value="{{resumeTitle}}" name="resumeTitle" />
         </view>
       </view>
 
@@ -34,7 +34,7 @@
           <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">姓&emsp;&emsp;名</text>
         </view>
         <view class="resume-center-box-con resume-center-box-name">
-          <input type="text" value="{{resumeName}}" name="resumeName" placeholder="姓名" />
+          <input bindblur="resumeNameBindblur" type="text" value="{{resumeName}}" name="resumeName" placeholder="姓名" />
         </view>
       </view>
 
@@ -66,7 +66,7 @@
           <text class="resume-center-box-txt">工作年限</text>
         </view>
         <view class="resume-center-box-con resume-center-box-name">
-          <input type="text" value="{{workYear}}" name="workYear" placeholder="年限" />
+          <input bindblur="workYearBindblur" type="text" value="{{workYear}}" name="workYear" placeholder="年限" />
         </view>
       </view>
 
@@ -74,10 +74,10 @@
       <view class="resume-center-box">
         <view class="resume-center-box-txt-bt">
           <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
-          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">职&emsp;&emsp;位</text>
+          <text class="resume-center-box-txt">应聘职位</text>
         </view>
         <view class="resume-center-box-con resume-center-box-name">
-          <input type="text" value="{{resumeJob}}" name="resumeJob" placeholder="职位" />
+          <input bindblur="resumeJobBindblur" type="text" value="{{resumeJob}}" name="resumeJob" placeholder="职位" />
         </view>
       </view>
 
@@ -85,10 +85,10 @@
       <view class="resume-center-box">
         <view class="resume-center-box-txt-bt">
           <view class="resume-center-box-txt-img"><image src="/image/bt.png" /></view>
-          <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">薪资(/节)</text>
+          <text class="resume-center-box-txt">薪资(/节)</text>
         </view>
         <view class="resume-center-box-con resume-center-box-name">
-          <input type="number" value="{{resumeSalary}}" name="resumeSalary" placeholder="薪资" />
+          <input bindblur="resumeSalaryBindblur" type="number" value="{{resumeSalary}}" name="resumeSalary" placeholder="薪资" />
         </view>
       </view>
 
@@ -99,7 +99,7 @@
           <text class="resume-center-box-txt" decode="{{isTrue}}" space="{{isTrue}}">电&emsp;&emsp;话</text>
         </view>
         <view class="resume-center-box-con resume-center-box-tel">
-          <input type="number" value="{{resumeTel}}" name="resumeTel" placeholder="联系方式" />
+          <input bindblur="resumeTelBindblur" type="number" maxlength="11" value="{{resumeTel}}" name="resumeTel" placeholder="联系方式" />
         </view>
       </view>
 
@@ -178,11 +178,94 @@
 </block>
 <!-- 我的简历 -->
 <block wx:if="{{nums === 1}}">
-  <view class="resume-center" style="min-height:{{windowHeight}}">我的简历</view>
+  <block wx:if="{{!isShowResume}}">
+    <view class="no-resume">您暂未上传任何简历，请在制作简历中完成简历制作</view>
+  </block>
+  <block wx:else>
+    <view class="resume-center" style="min-height:{{windowHeight}}">
+      <view class="resume-info">
+        <view class="resume-info-top">
+          <view class="resume-title">{{resumeTitle}}</view>
+          <view class="resume-info-top-title">
+            <view class="resume-name">{{resumeName}}</view>
+            <view class="resume-sex">
+              <view class="resume-sex-icon"><image src="{{isShowSex?'/image/sexnan.png':'/image/sexnv.png'}}" /></view>
+              <view wx:if="{{isShowSex}}" class="resume-sex-con" style="color:#007bd0;">男</view>
+              <view wx:else class="resume-center-box-sex-con-txt" style="color:#cd2a17;">女</view>
+            </view>
+          </view>
+          <view class="resume-line"></view>
+          <view class="resume-basic-info">
+            <view class="resume-position">应聘：{{resumeJob}}</view>
+            <view class="resume-email same-style">邮箱：{{resumeEmail === ''?'邮箱尚未填写':resumeEmail}}</view>
+            <view class="resume-tel same-style">{{resumeTel}}</view>
+          </view>
+        </view>
+        <view class="resume-info-center">
+          <view class="resume-info-center-title">基本信息</view>
+          <view class="resume-info-center-con">
+            <view class="resume-info-center-con-info">工作年限：{{workYear}}年</view>
+            <view class="resume-info-center-con-info">最高学历：{{myRecord}}</view>
+            <view class="resume-info-center-con-info">应聘职位：{{resumeJob}}</view>
+            <view class="resume-info-center-con-info">薪资(/节)：{{resumeSalary}}</view>
+            <view class="resume-info-center-con-info">求职地点：{{myLocation}}</view>
+          </view>
+        </view>
+        <view class="resume-info-center">
+          <view class="resume-info-center-title">我的标签（兴趣爱好）</view>
+          <block wx:if="{{useTagInfo.length === 0}}">
+            <view class="no-resume">暂未编辑属于自己的标签（兴趣、爱好）</view>
+          </block>
+          <block wx:else>
+            <view class="resume-info-center-con resume-info-center-hobby">
+              <block wx:for="{{useTagInfo}}" wx:key="uni-use">
+                <view class="resume-info-center-hobby-tag">{{item}}</view>
+              </block>
+            </view>
+          </block>
+        </view>
+        <view class="resume-info-center">
+          <view class="resume-info-center-title">自我评价</view>
+          <block wx:if="{{textareaValue === ''}}">
+            <view class="no-resume">暂未编辑自我评价</view>
+          </block>
+          <block wx:else>
+            <view class="resume-info-center-evaluation">{{textareaValue}}</view>
+          </block>
+        </view>
+        <view class="resume-info-center">
+          <view class="resume-info-center-title">过往工作描述</view>
+          <block wx:if="{{dexcTextarea === ''}}">
+            <view class="no-resume">暂未编辑工作描述</view>
+          </block>
+          <block wx:else>
+            <view class="resume-info-center-evaluation">{{dexcTextarea}}</view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
 </block>
 <!-- 我的投递 -->
 <block wx:if="{{nums === 2}}">
-  <view class="resume-center" style="min-height:{{windowHeight}}">我的投递</view>
+  <view class="resume-center" style="min-height:{{windowHeight}}">
+    <view class="resume-info">
+      <block wx:for="{{insRecruitInfo}}" wx:key="uni-recruit">
+        <view class="position-recruit" data-id="{{item.rid}}" catchtap="recruitInfo">
+          <view class="position-recruit-left">
+            <view class="position-recruit-left-title">{{item.jobTitle}}</view>
+            <view class="position-recruit-left-name">名称：{{item.orgName}}</view>
+            <view class="position-recruit-left-year">{{item.interViewDesc}}</view>
+          </view>
+          <view class="position-recruit-right">
+            <view class="position-recruit-right-pirce">{{item.salary}}</view>
+            <view class="position-recruit-right-adder">申请日期：{{item.showSendTime}}</view>
+            <view class="position-recruit-right-time">联系方式：{{item.callPhone}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
 </block>
 <!-- 谁查看了我的简历 -->
 <block wx:if="{{nums === 3}}">

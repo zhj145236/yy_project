@@ -12,7 +12,7 @@
   </view>
   <view class="use-tag-record">
     <view class="use-tag-record-box">
-      <view class="helpful-hints">友情提示：最多能只能添加10个标签。</view>
+      <view class="helpful-hints">友情提示：最多能只能添加7个标签。</view>
       <view class="use-tag-record-box-top">
         <view class="use-tag-record-box-icon"><image src="/image/bq.png" /></view>
         <text class="use-tag-record-box-title">已添加</text>
@@ -64,7 +64,7 @@
       <form bindsubmit="jobExperienceFormSubmit">
         <view class="evaluate-textarea-box">
           <view class="evaluate-textarea-box-out">
-            <textarea maxlength="200" bindinput="evaluateBindinput" value="{{dexcTextarea}}" class="evaluate-textarea" placeholder="工作经历描述，限200字" auto-height name="dexcTextarea"/>
+            <textarea maxlength="200" bindinput="experienceBindinput" value="{{dexcTextarea}}" class="evaluate-textarea" placeholder="工作经历描述，限200字" auto-height name="dexcTextarea"/>
           </view>
           <view class="evaluate-textarea-box-bom">
             <view class="evaluate-textarea-box-bom-pro">{{descNums}}/200</view>

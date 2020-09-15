@@ -30,9 +30,7 @@
     <block wx:for="{{infoAbstract}}" wx:key="uni-info">
       <view class="institution-info-box-name">{{item.name}}</view>
       <view class="institution-info-box-center">
-        <block wx:for="{{item.desc}}" wx:for-item="descItem">
-          <view class="institution-info-box-desc">{{descItem}}</view>
-        </block>
+        <view class="institution-info-box-desc">{{item.desc}}</view>
       </view>
       <view class="institution-info-box-welfare">
         <block wx:for="{{item.welfare}}" wx:key="uni-welfare" wx:for-item="welfareItem">

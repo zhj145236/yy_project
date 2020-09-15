@@ -442,9 +442,9 @@ module.exports = {
         if(t === '1'){
             o.headImg = this.down(this.urlCon(),n[i].headImg);
             o.id = n[i].id;
-            o.name = n[i].name;
-            o.teachItem = n[i].teachItem;
-            o.teachObj = n[i].teachObj;
+            o.name = n[i].name === null?'未设置':n[i].name;
+            o.teachItem = n[i].teachItem === null?'未设置':n[i].teachItem;
+            o.teachObj = n[i].teachObj === null?'未设置':n[i].teachObj;
             if(n[i].sex === '男'){
                 o.icon = '/image/sexnan.png';
             }else{
@@ -466,10 +466,10 @@ module.exports = {
           // console.log(n,'数据');
           o.headImg = this.down(this.urlCon(),n[i].logo);
           o.id = n[i].id;
-          o.name = n[i].name;
-          o.teachItem = n[i].teachItem;
-          o.teachObj = n[i].teachObj;
-          o.locationDesc = n[i].locationDesc;
+          o.name = n[i].name === null?'未设置':n[i].name;
+          o.teachItem = n[i].teachItem === null?'未设置':n[i].teachItem;
+          o.teachObj = n[i].teachObj === null?'未设置':n[i].teachObj;
+          o.locationDesc = n[i].locationDesc === null?'未设置':n[i].locationDesc;
         }else{
           n[i].banner === null?o.banner = '/image/noimg.png':o.banner = this.down(this.urlCon(),n[i].banner);
           o.id = n[i].id;
@@ -631,17 +631,17 @@ module.exports = {
         let basicInfo = d.teacher;
         // 如果是教师则返回教师的名称
         wx.setNavigationBarTitle({
-          title: basicInfo.name + '主页'
+          title: (basicInfo.name === null?basicInfo.nickName:basicInfo.name) + '主页'
         })
         // 信息简介
         obj.teacherInfo = [
           {title:'昵称：',con:basicInfo.nickName},
-          {title:'教师姓名：',con:basicInfo.name},
-          {title:'联系电话：',con:basicInfo.callPhone},
+          {title:'教师姓名：',con:basicInfo.name === null?'未设置':basicInfo.name},
+          {title:'联系电话：',con:basicInfo.callPhone === null?'未设置':basicInfo.callPhone},
           {title:'性别：',con:basicInfo.sex},
-          {title:'毕业院校：',con:basicInfo.graduateSchool},
-          {title:'教授科目：',con:basicInfo.teachItem},
-          {title:'教授级段：',con:basicInfo.teachObj},
+          {title:'毕业院校：',con:basicInfo.graduateSchool === null?'未设置':basicInfo.graduateSchool},
+          {title:'教授科目：',con:basicInfo.teachItem === null?'未设置':basicInfo.teachItem},
+          {title:'教授级段：',con:basicInfo.teachObj === null?'未设置':basicInfo.teachObj},
           {title:'现居地址：',con:basicInfo.locationDesc === null?basicInfo.locationDesc = '暂未上传':basicInfo.locationDesc},
           {title:'通用优惠券',con:commonCoupon.length === 0?'无':'有'},
         ];
@@ -687,7 +687,7 @@ module.exports = {
         // banner图
         obj.banner = [this.down(this.urlCon(),basicInfo.banner)];
         // 座右铭
-        obj.myInfo = basicInfo.motto;
+        obj.myInfo = basicInfo.motto === null?'':basicInfo.motto;
         // 用户留言
         if(commentsInfo.length === 0){
           obj.commentsInfo = [];
@@ -712,12 +712,12 @@ module.exports = {
         })
         obj.institutionsInfo = [
           {title:'机构名称：',con:basicInfo.name},
-          {title:'联系人：',con:basicInfo.linkName},
-          {title:'联系电话：',con:basicInfo.callPhone},
+          {title:'联系人：',con:basicInfo.linkName === null?'未设置':basicInfo.linkName},
+          {title:'联系电话：',con:basicInfo.callPhone === null?'未设置':basicInfo.callPhone},
           {title:'在职教师：',con:basicInfo.teacherCount + '人'},
-          {title:'教授科目：',con:basicInfo.teachItem},
-          {title:'服务范围：',con:basicInfo.teachObj},
-          {title:'机构地址：',con:basicInfo.locationDesc},
+          {title:'教授科目：',con:basicInfo.teachItem === null?'未设置':basicInfo.teachItem},
+          {title:'服务范围：',con:basicInfo.teachObj === null?'未设置':basicInfo.teachObj},
+          {title:'机构地址：',con:basicInfo.locationDesc === null?'未设置':basicInfo.locationDesc},
           {title:'通用优惠券：',con:commonCoupon.length === 0?'无':'有'},
         ];
         // 机构课程
@@ -764,7 +764,7 @@ module.exports = {
         obj.videoUrl = this.down(this.urlCon(),basicInfo.videoUrl);
         obj.name = this.down(this.urlCon(),basicInfo.name);
         // 企业简介
-        obj.myInfo = basicInfo.desc;
+        obj.myInfo = basicInfo.desc === null?'':basicInfo.desc;
 
         // 用户留言
         if(commentsInfo.length === 0){
@@ -799,7 +799,7 @@ module.exports = {
     wx.getStorage({
       key: 'userInfo',
       success:(res)=>{
-        console.log(JSON.parse(decodeURIComponent(res.data)),'微信缓存用户数据');
+        console.log(JSON.parse(decodeURIComponent(res.data)),'微信缓存用户数据111');
         getApp().globalData.userInfo = JSON.parse(decodeURIComponent(res.data));
         switch(parseInt(t)){
           case 0:
@@ -955,7 +955,7 @@ module.exports = {
             data = {code:codes,encryptedData:e,iv:i},
             header = {"content-type":"application/x-www-form-urlencoded"};
             this.post(url,data,header,callback=>{
-              console.log(callback,'用户数据');
+              console.log(callback,'微信登录用户数据');
               if(callback.statusCode === 200){
                 let s = callback.data;
                 getApp().globalData.userInfo = s;
@@ -1156,8 +1156,8 @@ module.exports = {
    * @param {*} t 用户token
    * @param {*} d 返回页面展示的属性
    */
-  FunDynamic:function(f,l,p,t,d){
-    let url = this.urlCon() + 'app/par/dynamic?lngLat=' + l + '&page=' + p,
+  FunDynamic:function(u,f,l,p,t,d){
+    let url = this.urlCon() + u + '?lngLat=' + l + '&page=' + p,
     data = {},
     header = {"content-type":"application/json","Authorization":t};
     this.get(url,data,header,callback=>{
@@ -1167,7 +1167,7 @@ module.exports = {
         if(res !== ""){
           for(let i in res){
             let o = {},Sarr = [];
-            if(res[i].picture !== ''){
+            if(res[i].picture){
               if(res[i].picture.indexOf(',') === -1){
                 let y = {};
                 y.specificImg = this.down(this.urlCon(),res[i].picture);
@@ -1181,18 +1181,24 @@ module.exports = {
                 }
               }
             }
-
-            if(res[i].headImg.indexOf('https') !== -1){
-              o.membersImg = res[i].headImg;
-            }else if(res[i].headImg.indexOf('http') !== -1){
-              o.membersImg = res[i].headImg;
-            }else{
-              o.membersImg = this.down(this.urlCon(),res[i].headImg);
+            
+            if(res[i].headImg){
+              if(res[i].headImg.indexOf('https') !== -1){
+                o.membersImg = res[i].headImg;
+              }else if(res[i].headImg.indexOf('http') !== -1){
+                o.membersImg = res[i].headImg;
+              }else{
+                o.membersImg = this.down(this.urlCon(),res[i].headImg);
+              }
             }
-            if(res[i].sex === '男'){
-              o.sexImg = '/image/sexnan.png';
-            }else if(res[i].sex === '女'){
-              o.sexImg = '/image/sexnv.png';
+            if(res[i].sex){
+              if(res[i].sex === '男'){
+                o.sexImg = '/image/sexnan.png';
+              }else if(res[i].sex === '女'){
+                o.sexImg = '/image/sexnv.png';
+              }else{
+                o.sexImg = '/image/sexbm.png';
+              }
             }else{
               o.sexImg = '/image/sexbm.png';
             }
@@ -1200,12 +1206,13 @@ module.exports = {
             o.uid = res[i].uid;
             o.distanceDesc = res[i].distanceDesc === ''?'保密':res[i].distanceDesc;
             o.id = res[i].id;
-            o.membersName = res[i].nickName;
+            o.membersName = res[i].nickName?res[i].nickName:'';
             o.releaseText = res[i].content;
             o.createBtnData = [
               {icon:res[i].hasAdmire?'/image/yz.png':'/image/z.png',con:res[i].like},
               {icon:'/image/xx.png',con:res[i].commentCount},
-              {icon:'/image/sj.png',con:res[i].publishDesc}
+              {icon:'/image/sj.png',con:res[i].publishDesc},
+              {icon:res[i].distanceDesc?'/image/jl.png':'',con:res[i].distanceDesc?res[i].distanceDesc:''}
             ];
             o.picture = res[i].picture;
             o.fbrole = res[i].role;
@@ -1233,9 +1240,7 @@ module.exports = {
     data = {},
     header = {"content-type":"application/json","Authorization":t};
     this.post(url,data,header,callback=>{
-      // console.log(callback,'点赞返回的数据');
       return typeof e == "function" && e(callback);
-      // FunDynamic:function(f,l,p,t,d)
     });
   },
 
@@ -1268,7 +1273,6 @@ module.exports = {
             o.replyId = needData[a].replyId;
             Tarr.push(o);
           }
-          console.log(Tarr,'留言数据查看');
           f.setData({[l]:Tarr});
         }else{
           f.setData({[l]:needData});
@@ -1293,7 +1297,6 @@ module.exports = {
     header = {"content-type":"application/x-www-form-urlencoded","Authorization":t};
     this.post(url,data,header,callback=>{
       if(callback.statusCode === 200){
-        console.log(callback,'返回数据');
         this.funShowToast('恭喜，评论成功');
         this.FunLeaveMessageList(f,p,r,t,l);
       }
@@ -1557,7 +1560,6 @@ module.exports = {
     let use = getApp().globalData.userInfo,
     token = use.token;
     this.alert('友情提示','为了更友好的体验，请上传60秒内的短视频',callback=>{
-      console.log(callback,'返回函数');
       if(callback.confirm){
         wx.chooseVideo({
           sourceType: t,
@@ -1919,7 +1921,7 @@ module.exports = {
   },
 
   /**
-   * 完善信息提交
+   * 家长完善信息提交
    */
   FunPerfectInfo:function(e){
     let use = getApp().globalData.userInfo,
@@ -2199,15 +2201,17 @@ module.exports = {
     data = {"educational":e,"workYear":w,"salary":s,"countyCode":c},
     header = {"content-type":"application/json","Authorization":token};
     this.post(url,data,header,res=>{
-      let needData = res.data.content;
-      console.log(needData,'招聘列表数据');
-      for(let i in needData){
-        needData[i].createTime = this.FunGetTime(needData[i].createTime,'2');
-        needData[i].address = needData[i].city + '-' + needData[i].county;
-        needData[i].workYear === null?needData[i].workYear = '不限':needData[i].workYear = needData[i].workYear;
+      if(res.statusCode === 200){
+        let needData = res.data.content;
+        console.log(needData,'招聘列表数据');
+        for(let i in needData){
+          needData[i].createTime = this.FunGetTime(needData[i].createTime,'2');
+          needData[i].address = needData[i].city + '-' + needData[i].county;
+          needData[i].workYear === null?needData[i].workYear = '不限':needData[i].workYear = needData[i].workYear;
+        }
+        console.log(needData,'招聘列表信息');
+        f.setData({[d]:needData});
       }
-      console.log(needData,'招聘列表信息');
-      f.setData({[d]:needData});
     });
   },
 
@@ -2229,20 +2233,26 @@ module.exports = {
         let o = {},d = res.data;
         o.title = d.title;
         o.createTime = this.FunGetTime(d.createTime,'2');
-        o.salary = d.salary + '/月';
-        o.wantCount = '招' + d.wantCount + '人';
-        o.workYear = d.workYear;
-        o.educational = d.educational;
+        o.salary = d.salary === null?'面议':d.salary + '（元/节）';
+        o.wantCount = d.wantCount === null?'未填写':'招' + d.wantCount + '人';
+        o.workYear = d.workYear === null?'不限':d.workYear;
+        o.educational = d.educational === null?'不限':d.educational;
+        const province = d.province === ''?'':d.province,
+        city = d.city === ''?'':d.city + '-',
+        county = d.county === ''?'':d.county,
+        location = d.location === null?'':'-' + d.location,
+        isShowLocation = d.province === '' && d.city === '' && d.county === '' && d.location === null? false : true;
+        console.log(isShowLocation);
         o.infoAbstract = [
           {
             "name":d.orgName,
-            "address":[{"icon":'/image/jl.png',"name":d.province + '-' + d.city + '-' + d.county + '-' + d.location === null?'':d.location}],
+            "address":[{"icon":'/image/jl.png',"name":isShowLocation?province + city + county + location:'该机构尚未公开企业位置'}],
             "contact":[
               {"icon":'/image/lxr.png',"name":d.linkPeople},
               {"icon":'/image/lxdh.png',"name":d.callPhone}
             ],
-            desc:['规模：5-10人','机构性质：艺术类培训机构'],
-            welfare:d.perk === null?['节日礼品','教学奖金','下午茶']:d.perk
+            "desc":d.staff === null?'该机构尚未公开企业规模':'机构规模' + d.staff + '人',
+            "welfare":d.perk === null?['该机构暂未填写福利待遇']:d.perk.split(',')
           }
         ];
 
@@ -2258,7 +2268,7 @@ module.exports = {
    * @param {*} f this
    * @param {*} i id
    */
-  FunCenterPostResume:function(f,i){
+  FunCenterPostResume:function(i){
     let use = getApp().globalData.userInfo,
     token = use.token,
     url = this.urlCon() + 'app/tea/center/postResume?id=' + i,
@@ -2266,6 +2276,15 @@ module.exports = {
     header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
     this.post(url,data,header,res=>{
       console.log(res,'申请职位');
+      if(res.statusCode === 200){
+        this.alert('提示','您已投递成功，如需查看请点 “确定” 前往简历中心',res=>{
+          if(res.confirm){
+            wx.reLaunch({
+              url:'/teacherVersion/teacherResume/teacherResume'
+            });
+          }
+        });
+      }
     });
   },
 
@@ -2331,8 +2350,9 @@ module.exports = {
   /**
    * 获取简历信息
    * @param {*} f this 指向
+   * @param {*} e 需要渲染的简历数据
    */
-  FunResume:function(f){
+  FunResume:function(f,e){
     let use = getApp().globalData.userInfo,
     token = use.token,
     url = this.urlCon() + 'app/tea/center/resume',
@@ -2343,16 +2363,397 @@ module.exports = {
       if(res.statusCode === 200){
         let d = res.data;
         if(d.id !== null){
-          console.log('显示出简历信息，同时隐藏制作简历的表单');
+          console.log('有简历');
+          let o = {};
+          this.FunConversion('','',d.countyCode,res=>{
+            if(res.statusCode === 200){
+              let needData = res.data;
+              f.setData({myLocation:needData[2]});
+            }
+          })
+          o.id = d.id;
+          o.tid = d.tid;
+          o.county = d.countyCode; // 求职地点
+          o.resumeTitle = d.title; // 标题(不)
+          o.resumeName = d.name; // 名称（不）
+          o.workYear = d.workYear; // 年限（不）
+          o.sex = d.sex;
+          if(d.sex === '男'){
+            o.isShowSex = true; // 页面展示数据男
+          }else{
+            o.isShowSex = false; // 页面展示数据女
+          }
+          o.dexcTextarea = d.jobExperience; // 工作描述（处）
+          if(d.jobExperience !== ""){
+            o.descNums = d.jobExperience.length;
+          }else{
+            o.descNums = 0;
+          }
+          o.myRecord = d.highestEducational; // 最高学历（不）
+          o.textareaValue = d.evaluate; // 自我评价（处）
+          if(d.evaluate !== ""){
+            o.estimateNums = d.evaluate.length;
+          }else{
+            o.estimateNums = 0;
+          }
+          o.resumeJob = d.wantJob; // 应聘职位（不）
+          o.resumeSalary = d.salary; // 期望薪资（不）
+          o.resumeTel = d.tel; // 电话（不）
+          o.resumeEmail = d.email; // Email（不）
+          o.isShowResume = true; // 是否显示我的简历页
+          if(d.tags !== ""){
+            if(d.tags.indexOf(';') === -1){
+              o.useTagInfo = [d.tags];
+              o.tagNums = 1;
+            }else{
+              o.tagNums = d.tags.split(';').length;
+              o.useTagInfo = d.tags.split(';');
+            }
+          }else{
+            o.tagNums = 0;
+          }
+          console.log(o,'简历情况');
+          f.setData({[e]:o});
+          f.setData(o);
         }else{
           let a = {};
           a.myLocation = '厚街镇';
+          a.resumeTitle = '求职简历书';
+          a.resumeName = 'XXXX';
+          a.isShowSex = true;
+          a.myRecord = '本科'; // 最高学历
+          a.resumeTel = '130xxxxxxxx'; // 电话
+          a.resumeJob = '语文'; // 求职职位
+          a.resumeSalary = '80-100'; // 每节价格
+          a.descNums = 0;
+          a.tagNums = 0; // 标签数量
+          a.estimateNums = 0; // 评价字数
+          a.workYear = 3; // 工作年限
+          a.county = 11201; // 默认 厚街镇 // 求职地点
+          a.isShowResume = false; // 是否显示我的简历页
           f.setData(a);
           console.log('显示出制作简历的表单');
         }
       }
     });
+  },
 
+  /**
+   * 简历制作
+   * @param {*} f this 指向
+   * @param {*} d data 传给接口的数据
+   */
+  FunSaveResume:function(f,d){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/saveResume',
+    data = d,
+    header = {"content-type":"application/json","Authorization":token};
+    this.post(url,data,header,res=>{
+      if(res.statusCode === 200){
+        this.funShowToast('操作成功');
+      }
+    });
+  },
+
+  /**
+   * 投递记录
+   * @param {*} f this 指向
+   * @param {*} d data 传给接口的数据
+   */
+  FunDeliverRecord:function(f,d){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/deliverRecord',
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,res=>{
+      console.log(res,'我的投递记录');
+      if(res.statusCode === 200){
+        let needData = res.data,
+        dateYear = new Date(),
+        Y = dateYear.getFullYear();
+        for(let i in needData){
+          needData[i].sendTime = this.FunGetTime(needData[i].sendTime,'2');
+        }
+        console.log(needData,'返回的数据');
+        for(let z=0,len=needData.length;z<len;z++){
+          if(parseInt(needData[z].sendTime.split('-')[0]) === parseInt(Y)){
+            needData[z].showSendTime = needData[z].sendTime.split('-')[1] + '-' + needData[z].sendTime.split('-')[2];
+          }else{
+            needData[z].showSendTime = needData[z].sendTime;
+          }
+
+          if(needData[z].salary !== null && needData[z].salary !== ''){
+            needData[z].salary = needData[z].salary + '（元/节）';
+          }else{
+            needData[z].salary = '面议';
+          }
+        }
+        f.setData({[d]:needData});
+      }
+    });
+  },
+
+  /**
+   * 谁查看了我的简历
+   */
+  FunMyResumeViewList:function(){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/center/myResumeViewList',
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,res=>{
+      console.log(res,'谁查看了我的简历');
+    });
+  },
+
+  /**
+   * 返回教师的基本信息
+   * @param {*} f this 指向
+   * @param {*} u data 传给接口的数据
+   */
+  FunDomainInfo:function(f,u){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/domain/info',
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,callback=>{
+      console.log(callback,'返回教师的基本信息');
+      if(callback.statusCode === 200){
+        let d = callback.data;
+        console.log(d.headImg,'图像');
+        if(d.headImg.indexOf('https') !== -1){
+          u.useImg = d.headImg;
+        }else if(d.headImg.indexOf('http') !== -1){
+          u.useImg = d.headImg;
+        }else{
+          u.useImg = this.down(this.urlCon(),d.headImg);
+        }
+        // 生活照片
+        if(d.lifePicture !== '' && d.lifePicture !== null){
+          let needArr = [],setA = [];
+          if(d.lifePicture.indexOf(',') === -1){
+            needArr.push(this.down(this.urlCon(),d.lifePicture));
+            u.tempFilePathsArrs = needArr;
+            setA.push(d.lifePicture);
+            u.needUrl = setA;
+          }else{
+            let needImg = d.lifePicture.split(',');
+            for(let i in needImg){
+              needArr.push(this.down(this.urlCon(),needImg[i]));
+              setA.push(needImg[i]);
+            }
+            u.tempFilePathsArrs = needArr;
+            u.needUrl = setA;
+          }
+        }else{
+          u.tempFilePathsArrs = [];
+        }
+        // banner图
+        if(d.banner !== "" && d.banner !== null){
+          u.productCoverImg = this.down(this.urlCon(),d.banner);
+        }else{
+          u.productCoverImg = [];
+        }
+        // 手机号
+        if(d.callPhone !== '' && d.callPhone !== null){
+          u.callPhone = d.callPhone;
+        }else{
+          u.callPhone = '';
+        }
+        // 姓名
+        if(d.name !== '' && d.name !== null){
+          u.name = d.name;
+        }else{
+          u.name = '';
+        }
+        // 性别
+        if(d.sex !== '' && d.sex !== null){
+          if(d.sex === '男'){
+            u.checkedSexNan = true;
+            u.checkedSexNv = false;
+            u.checkedSexBm = false;
+          }else if(d.sex === '女'){
+            u.checkedSexNan = false;
+            u.checkedSexNv = true;
+            u.checkedSexBm = false;
+          }else{
+            u.checkedSexNan = false;
+            u.checkedSexNv = false;
+            u.checkedSexBm = true;
+          }
+        }
+        // 详细地址
+        if(d.locationDesc !== '' && d.locationDesc !== null){
+          if(d.locationDesc.replace(/\s/g,'') !== 'Albania'){
+            u.address = d.locationDesc;
+          }else{
+            u.address = '莞太路厚街段281号';
+          }
+        }else{
+          u.address = '莞太路厚街段281号';
+        }
+        // 个性签名
+        if(d.motto !== '' && d.motto !== null){
+          u.tag = d.motto;
+        }else{
+          u.tag = '';
+        }
+        // 省市区code返回
+        if(d.provinceCode !== '' && d.provinceCode !== null){ // 省
+          if(d.cityCode !== '' && d.cityCode !== null){ // 市
+            if(d.countyCode !== '' && d.countyCode !== null){ // 区
+              this.FunConversion(d.provinceCode,d.cityCode,d.countyCode,res=>{
+                if(res.statusCode === 200){
+                  myLocation = res.data[0] + ' ' + res.data[1] + ' ' + res.data[2];
+                  f.setData({myLocation:myLocation,isShowBtn:false});
+                }
+              });
+            }
+          }
+        }else{
+          f.setData({myLocation:'广东省 东莞市 厚街镇',isShowBtn:true});
+        }
+        // 教授科目
+        if(d.teachItem !== '' && d.teachItem !== null){
+          u.teachItem = d.teachItem;
+        }else{
+          u.teachItem = '语文';
+        }
+        // 教授年级
+        if(d.teachObj !== '' && d.teachObj !== null){
+          u.teachObj = d.teachObj;
+        }else{
+          u.teachObj = '语文';
+        }
+        // 现就职学校
+        if(d.workingSchool !== '' && d.workingSchool !== null){
+          u.workingSchool = d.workingSchool;
+        }else{
+          u.workingSchool = 'XXX学校就职';
+        }
+        // 毕业院校
+        if(d.graduateSchool !== '' && d.graduateSchool !== null){
+          u.graduateSchool = d.graduateSchool;
+        }else{
+          u.graduateSchool = '毕业于XXX院校';
+        }
+        // 平均价格
+        console.log(d.priceRange,'价格');
+        if(d.priceRange !== '' && d.priceRange !== null){
+          u.priceRange = d.priceRange;
+        }else{
+          u.priceRange = '100-200元/节';
+        }
+        u.id = d.id;
+        u.nickName = d.nickName;
+        f.setData(u);
+        // return typeof c == "function" && c(callback);
+      }
+    });
+  },
+
+  /**
+   * 教师证书列表
+   */
+  FunCertificate:function(e){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/domain/certificate',
+    data = '',
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    this.get(url,data,header,res=>{
+      if(res.statusCode === 200){
+        return typeof e == "function" && e(res);
+      }
+    });
+  },
+
+  /**
+   * 新增或修改自己的证书
+   * @param {*} f this 指向
+   * @param {*} d data 需要传入的数据
+   * @param {*} c 需要展示返回的数据
+   */
+  FunSupplyCertificate:function(f,d,c){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    url = this.urlCon() + 'app/tea/domain/supplyCertificate',
+    data = d,
+    header = {"content-type":"application/json","Authorization":token};
+    this.put(url,data,header,res=>{
+      console.log(res,'返回数据');
+      if(res.statusCode === 200){
+        let a = {},n = res.data;
+        a.auditDesc = n.auditDesc;
+        a.auditStatus = n.auditStatus;
+        a.id = n.id;
+        f.setData({[c]:a});
+        this.funShowToast('保存成功');
+        setTimeout(function(){
+          wx.navigateBack({
+            delta: 1
+          })
+        },1500);
+      }
+    });
+  },
+
+  /**
+   * 教师完善信息提交
+   */
+  FunTeaDomain:function(e,u,d,m){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    data = e,
+    url = this.urlCon() + 'app/tea/domain/supplyInfo',
+    header = {"content-type":"application/json","Authorization":token};
+    console.log(d,'跳转的数据');
+    this.put(url,data,header,callback=>{
+      console.log(callback,'返回数据');
+      if(callback.statusCode === 200){
+        if(m === '2'){
+          wx.navigateTo({
+            url: u + '?headImg=' + d.useImg + '&nickName=' + d.nickName + '&uid=' + d.uid + '&cerData=' + d.cerData,
+          }) 
+        }else{
+          this.funShowToast('信息保存成功');
+        }
+      }
+    });
+  },
+
+  /**
+   * 删除单个证书
+   * @param {*} f this 指向
+   * @param {*} i id 删除的证书id
+   * @param {*} c 证书数组
+   * @param {*} n 数组下标
+   * @param {*} d 删除后需要展示的数据
+   */
+  FunDealCer:function(f,i,c,n,d,a){
+    let use = getApp().globalData.userInfo,
+    token = use.token,
+    data = '',
+    url = this.urlCon() + 'app/tea/domain/delCertificate?id=' + i,
+    header = {"content-type":"application/x-www-form-urlencoded","Authorization":token};
+    console.log(c,i,'教师证书与证书id');
+    this.delete(url,data,header,res=>{
+      console.log(res,'删除的数据');
+      if(res.statusCode === 200){
+        this.funShowToast('删除成功');
+        setTimeout(function(){
+          c.splice(n,1);
+          if(c.length === 0){
+            f.setData({[a]:false});
+          }
+          f.setData({[d]:c});
+        },1500);
+      }
+    });
   },
   
   
